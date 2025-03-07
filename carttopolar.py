@@ -91,6 +91,7 @@ class TextNTex(Mobject):
 class Test(MovingCameraScene, VoiceoverScene):
     def construct(self):
 
+        self.create_subcaption = False
         self.set_speech_service(
             OpenAIService(
                 voice="alloy",
@@ -117,7 +118,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         with self.voiceover(text="This video shows how to write a complex number in polar form") as tracker:
-            self.play(Create(title), run_time=tracker.duration)
+            self.play(swWrite(title), run_time=tracker.duration)
         # self.play(Create(title))
 
         self.wait()
@@ -125,14 +126,13 @@ class Test(MovingCameraScene, VoiceoverScene):
         ####################
 
         ### ADDING LOGO ###
-        logo = ImageMobject('./logo.jpg')
-        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.2*RIGHT)
-        logo.scale(0.03)
+        logo = ImageMobject('./Sowiso-logo-primary.png')
+        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.35*RIGHT)
+        logo.scale(0.009)
         self.add(logo)
         ####################
 
 
-        
         ### THEORY SECTION ###
 
         theory = Text('Theory', font="Quicksand", color=PINK, weight="SEMIBOLD")
@@ -141,7 +141,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         # self.play(Create(theory))
 
         text_rect = swRoundedRectangle(width=2.7, height=2)
-        self.play(Create(theory), Create(text_rect))
+        self.play(swWrite(theory), Create(text_rect))
         # self.wait(1)
         
         polar_form = Text('Polar form', font="Quicksand", color=PINK, weight="SEMIBOLD")
@@ -152,7 +152,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         # disregard this line
         longlineoftext = TextNTex().add_text('the position vector of').add_tex('z').add_text('makes with the positive x axis').create()
         ul = Underline(longlineoftext, color=BLACK, stroke_width=0.07).shift(UP * 0.95)
-        self.play(Create(polar_form), Create(ul))
+        self.play(swWrite(polar_form), Create(ul))
         # self.play(Create(ul))
 
         text = Text('Cartesian form ', font="Quicksand", color=BLACK, weight="NORMAL")
@@ -166,7 +166,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         group_text_cart.shift(DOWN * 0.1)
 
         with self.voiceover(text="We have seen the cartesian form, which is 'a' + b times i.") as tracker:
-            self.play(Create(group_text_cart), run_time=tracker.duration) 
+            self.play(swWrite(group_text_cart), run_time=tracker.duration) 
             self.wait(1)
             # self.play(Create(cart), run_time=tracker.duration)
 
@@ -200,8 +200,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         z.scale(0.2)
         z.move_to(line[0].get_center() + RIGHT * 0.215)
 
+
+        line_good = TNT().add_text('We can also write ').add_tex('z', BLACK).add_text(' by using ').add_tex('r', GOLDY).add_text(' and ').add_tex('\\theta', PORPLE).create()
+        line_good.move_to(line.get_center())
+        line_good[0].shift(UP*0.005)
+
+
         with self.voiceover(text="We can also write this complex number, using r and theta.") as tracker:
-            self.play(Create(line), Create(z), run_time=tracker.duration)
+            self.play(swWrite(line_good), run_time=tracker.duration)
         # self.play(Create(line), Create(z))
 
         with self.voiceover(text="r is the norm of z and is always greater than zero. Theta is the angle that the position vector of z makes with the positive real axis") as tracker:
@@ -241,8 +247,8 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="To switch from cartesian form to polar form, we can use the following formulas") as tracker:
 
-            self.play(Create(to_switch), run_time = tracker.duration / 3)
-            self.play(Create(formulas), run_time=tracker.duration / 3)
+            self.play(swWrite(to_switch), run_time = tracker.duration / 3)
+            self.play(swWrite(formulas), run_time=tracker.duration / 3)
             self.wait(tracker.duration / 3)
 
 
@@ -255,12 +261,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         using_the_formulas.move_to(text_rect.get_center() + DOWN * 0.12)
 
         with self.voiceover(text="Using the formulas gives us the polar form.") as tracker:
-            self.play(Create(using_the_formulas), run_time=tracker.duration * 0.9)
+            self.play(swWrite(using_the_formulas), run_time=tracker.duration * 0.9)
 
         cartesian = MathTex('z = a + b\\cdot \\mathrm{i}', color=BLACK, substrings_to_isolate=['a ', 'b']).set_color_by_tex_to_color_map({'a ': BLUE, 'b': GREEN})
         cartesian.scale(0.2).move_to(text_rect.get_center() + DOWN * 0.3)
 
-        self.play(Create(cartesian))
+        self.play(swWrite(cartesian))
 
         polar1 = TextNTex().add_tex('z = r \\cdot \\cos(\\theta ) + r \\cdot \\sin(\\theta )\\cdot \\mathrm{i}').create()
         polar1.move_to(cartesian.get_center())
@@ -289,11 +295,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         norm.shift(DOWN * 0.75)
 
         with self.voiceover(text="The formulas imply that 'r', which is the norm of z, is equal to the square root of 'a' squared plus 'b' squared, which is always greater than zero") as tracker:
-            self.play(Create(the_formulas_imply), run_time=tracker.duration * 0.3)
-            self.play(Create(norm), run_time=tracker.duration * 0.7)
+            self.play(swWrite(the_formulas_imply), run_time=tracker.duration * 0.3)
+            self.play(swWrite(norm), run_time=tracker.duration * 0.3)
+            self.wait(tracker.duration * 0.4)
     
         polar_form_group = VGroup(
-            text_rect, text, cart, z, text2, var1, text2_next, var2, to_switch, formulas, polar_form, ul, the_formulas_imply, norm, ul_theory1, polar2, using_the_formulas,
+            text_rect, text, cart, z, to_switch, formulas, polar_form, ul, the_formulas_imply, norm, ul_theory1, polar2, using_the_formulas, line_good
         )
 
         self.play(polar_form_group.animate.shift(LEFT * 1.1).scale(0.75))
@@ -314,7 +321,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         line_segment.shift(DOWN * 0.07)
 
         with self.voiceover(text="For theta, there are different formulas based on the values of 'a' and 'b'.") as tracker:
-            self.play(Create(calculating_variables), Create(line_segment), run_time=tracker.duration * 0.5)
+            self.play(swWrite(calculating_variables), Create(line_segment), run_time=tracker.duration * 0.5)
             self.wait(tracker.duration * 0.5)
 
 
@@ -331,8 +338,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         exception_0.move_to(theory2_rect.get_center() + UP * 0.87 + LEFT * 0.6)
         exception_0_rule.move_to(theory2_rect.get_center() + UP * 0.7)
         with self.voiceover(text="If a is greater than zero, theta is equal to the arctangent of b over a + 2 times 'k' times pi. Here, 'k' can be any integer.") as tracker:
-            self.play(Create(exception_0), run_time = tracker.duration * 0.3)
-            self.play(Create(exception_0_rule), run_time = tracker.duration * 0.3)
+            self.play(swWrite(exception_0), run_time = tracker.duration * 0.3)
+            self.play(swWrite(exception_0_rule), run_time = tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
         self.wait(0.5)
@@ -349,8 +356,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         exception_1_rule.move_to(exception_0_rule.get_center() + DOWN * 1.05 * spacing + RIGHT * 0.1)
 
         with self.voiceover(text="However, If a is less than zero and b is greater than or equal to zero, we have to add pi to the arctangent of b over a") as tracker:
-            self.play(Create(exception_1), run_time=tracker.duration * 0.3)
-            self.play(Create(exception_1_rule), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_1), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_1_rule), run_time=tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
         # 2
@@ -364,8 +371,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         exception_2_rule.move_to(exception_1_rule.get_center() + DOWN * spacing)
 
         with self.voiceover(text="If a is less than zero and b is less than zero, we have to subtract pi from the arctangent of b over a") as tracker:
-            self.play(Create(exception_2), run_time=tracker.duration * 0.3)
-            self.play(Create(exception_2_rule), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_2), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_2_rule), run_time=tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
         self.wait(0.5)
@@ -379,8 +386,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         exception_3_rule.move_to(exception_2_rule.get_center() + DOWN * spacing)
 
         with self.voiceover(text="If a is equal to zero and b is greater than zero, theta is equal to pi over 2 plus 2 times 'k' times pi") as tracker:
-            self.play(Create(exception_3), run_time = tracker.duration * 0.3)
-            self.play(Create(exception_3_rule), run_time = tracker.duration * 0.3)
+            self.play(swWrite(exception_3), run_time = tracker.duration * 0.3)
+            self.play(swWrite(exception_3_rule), run_time = tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
         self.wait(0.5)
@@ -394,8 +401,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         exception_4_rule.move_to(exception_3_rule.get_center() + DOWN * spacing)
 
         with self.voiceover(text="And finally, if a is equal to zero and b is less than zero, theta is equal to negative pi over 2 plus 2 times 'k' times pi") as tracker:
-            self.play(Create(exception_4), run_time=tracker.duration * 0.3)
-            self.play(Create(exception_4_rule), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_4), run_time=tracker.duration * 0.3)
+            self.play(swWrite(exception_4_rule), run_time=tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
 
@@ -436,7 +443,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         example.scale(0.15).move_to(self.camera.frame.get_corner(UL) + RIGHT * 0.4 + DOWN * 0.15)
 
         with self.voiceover(text="Let's look at an example") as tracker:    
-            self.play(Create(example), run_time=tracker.duration)
+            self.play(swWrite(example), run_time=tracker.duration)
         #######################
     
         ### PLANE CONFIG ###
@@ -507,7 +514,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ul = Underline(text_line, color=BLACK, stroke_width=0.05).scale(1.1).shift(UP * 0.09)
 
         with self.voiceover(text="We want to write 2 times the square root of 3 plus 2 times i in polar form") as tracker:
-            self.play(Create(text_line), Create(ul), run_time = tracker.duration * 0.9)
+            self.play(swWrite(text_line), Create(ul), run_time = tracker.duration * 0.9)
             self.wait(tracker.duration * 0.1)
 
         self.wait(1)
@@ -533,9 +540,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         label_point.scale(0.8).shift(LEFT * 0.05)
 
         with self.voiceover(text="We can represent this complex number as a point in the complex plane") as tracker:
-            self.play(Create(line), FadeIn(point), Create(label_point))
+            self.play(Create(line), FadeIn(point), swWrite(label_point))
         
-        self.play(Create(hdash), Create(vdash), Create(y_axis_dot), Create(x_axis_dot), Create(label), Create(label2))
+        self.play(Create(hdash), Create(vdash), Create(y_axis_dot), Create(x_axis_dot), swWrite(label), swWrite(label2))
         self.wait(2)
 
 
@@ -546,7 +553,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         calculating.shift(UP * 0.66 + LEFT * 1.5)
         
         with self.voiceover(text="First, we calculate the norm of 'z'.") as tracker: 
-            self.play(Create(calculating), run_time=tracker.duration)
+            self.play(swWrite(calculating), run_time=tracker.duration)
 
         ###### no cam yet ###
         self.camera.frame.save_state()
@@ -559,7 +566,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(Create(dot1))
         
         with self.voiceover(text="The norm 'r' is the length of the position vector of 'z'") as tracker:
-            self.play(Transform(dot1, dot2), Create(rg), run_time=tracker.duration)
+            self.play(swWrite(rg, GOLDY), run_time=tracker.duration * 0.2)
+            self.play(Transform(dot1, dot2), run_time=tracker.duration * 0.8)
 
         self.play(Restore(self.camera.frame), FadeOut(dot1))
         ####################
@@ -582,15 +590,16 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         with self.voiceover(text="Using the pythagorean theorem, we can see that r is equal to the square root of 'a' squared plus b squared. After substituting our values for 'a' and 'b', we can see that this expression simplifies to the square root of 16, which is 4") as tracker:
-            self.play(Create(tex_r), Create(r))
+            self.play(swWrite(r, GOLDY))
+            self.play(swWrite(tex_r))
             self.wait(1)  
-            self.play(Create(tex_step1))
+            self.play(swWrite(tex_step1))
             self.wait(1)  
-            self.play(Create(tex_step2))
+            self.play(swWrite(tex_step2))
             self.wait(1)
-            self.play(Create(tex_step3))
+            self.play(swWrite(tex_step3))
             self.wait(1)
-            self.play(Create(tex_step4))
+            self.play(swWrite(tex_step4))
 
         # play fadeout on tex_r and tex_step1 and animate tex_step4 moving up
         self.play(FadeOut(tex_r), FadeOut(tex_step1), FadeOut(tex_step2), FadeOut(tex_step3))
@@ -613,7 +622,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         calculating_angle.move_to(calculating.get_center() + DOWN * 0.4)
 
         with self.voiceover(text="Next, we calculate the angle theta.") as tracker:
-            self.play(Create(calculating_angle), run_time=tracker.duration*0.3)
+            self.play(swWrite(calculating_angle), run_time=tracker.duration*0.3)
             self.wait(tracker.duration*0.7)
 
         ## SETUP CAM THETA
@@ -628,8 +637,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         theta_camzoom = MathTex(r'\theta', color=PORPLE).scale(0.2).move_to(circ_plot.get_center() + RIGHT * 0.07 + UP * 0.03)
 
         with self.voiceover(text="We can represent the angle theta as the angle that the position vector of z makes with the positive real axis. We draw that angle here.") as tracker:
-            self.play(Create(circ_plot), Create(theta_camzoom), run_time = tracker.duration * 0.3)
-            self.wait(tracker.duration * 0.7)
+            self.play(Create(circ_plot), run_time = tracker.duration * 0.3)
+            self.play(swWrite(theta_camzoom, PORPLE), run_time = tracker.duration * 0.2)
+            self.wait(tracker.duration * 0.5)
 
         self.play(Restore(self.camera.frame))
         ####################
@@ -638,8 +648,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         thetal1[0][10].set_color(BLUE)
         thetal1[0][8].set_color(GREEN)
 
-        thetal2 = MathTex('&= \\arctan\\left(\\frac{1}{\\sqrt{3}}\\right)', color=BLACK).next_to(thetal1, DOWN, aligned_edge=LEFT)
-        thetal2[0][10:13].set_color(BLUE)
+        thetal2 = MathTex('&= \\arctan\\left(\\frac{2}{2\\cdot\\sqrt{3}}\\right)', color=BLACK).next_to(thetal1, DOWN, aligned_edge=LEFT)
+        thetal2[0][10:15].set_color(BLUE)
         thetal2[0][8].set_color(GREEN)
 
         thetal3 = MathTex('&= \\dfrac{\\pi}{6}', color=BLACK).next_to(thetal2, DOWN, aligned_edge=LEFT)
@@ -652,11 +662,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         group.move_to(ex_rect.get_center() + DOWN * 0.2)
 
         with self.voiceover(text="Since 'a' is greater than zero, we can calculate theta by taking the arctangent of b over a. This simplifies to pi over 6") as tracker:
-            self.play(Create(thetal1), Create(theta))
+            self.play(swWrite(theta, PORPLE))
+            self.play(swWrite(thetal1))
             self.wait(2)
-            self.play(Create(thetal2))
+            self.play(swWrite(thetal2))
             self.wait(2)
-            self.play(Create(thetal3))
+            self.play(swWrite(thetal3))
             self.wait(1)
 
 
@@ -682,8 +693,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar.shift(LEFT * 1.3)
 
         with self.voiceover(text="We can now write down the polar form, by substituting our values for 'r' and 'theta'") as tracker:
-            self.play(Create(text), run_time=tracker.duration * 0.3)
-            self.play(Create(polar), run_time=tracker.duration * 0.3)
+            self.play(swWrite(text), run_time=tracker.duration * 0.3)
+            self.play(swWrite(polar), run_time=tracker.duration * 0.3)
             self.wait(tracker.duration * 0.4)
 
 
@@ -711,7 +722,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ) 
 
         with self.voiceover(text="Now let's take a look at another example") as tracker:
-            self.play(FadeOut(to_fadeout), Uncreate(example))
+            self.play(FadeOut(to_fadeout), FadeOut(example))
 
 
 
@@ -745,7 +756,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         label_X.shift(UP * 0.55 + RIGHT * 0.05)
         label_Y.shift(RIGHT * 0.5)
-        self.play(Create(ex2_plane_to_draw), Create(label_X), Create(label_Y))
+        self.play(Create(ex2_plane_to_draw), swWrite(label_X), swWrite(label_Y))
 
 
 
@@ -769,7 +780,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ul = Underline(text_line, color=BLACK, stroke_width=0.05).scale(1.1).shift(UP * 0.08)
 
         with self.voiceover(text="We want to write -5 over 2 minus 5 times the square root of 3 over 2 multiplied by 'i' in polar form") as tracker:
-            self.play(Create(text_line), Create(ul), run_time = tracker.duration * 0.5)
+            self.play(swWrite(text_line), Create(ul), run_time = tracker.duration * 0.5)
             self.wait(tracker.duration * 0.5)
 
 
@@ -797,9 +808,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         with self.voiceover(text="We can once again represent this complex number as a point in the complex plane") as tracker:
-            self.play(Create(line), FadeIn(point), Create(label_point))
+            self.play(Create(line), FadeIn(point), swWrite(label_point))
             
-            self.play(Create(hdash), Create(vdash), Create(y_axis_dot), Create(x_axis_dot), Create(label), Create(label2))
+            self.play(Create(hdash), Create(vdash), Create(y_axis_dot), Create(x_axis_dot), swWrite(label), swWrite(label2))
             self.wait(2)
 
     
@@ -809,7 +820,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         calculating.shift(UP * 0.6 + LEFT * 1.6)
 
         with self.voiceover(text="First, we calculate the norm of 'z'.") as tracker:
-            self.play(Create(calculating), run_time=tracker.duration * 0.3)
+            self.play(swWrite(calculating), run_time=tracker.duration * 0.3)
             self.wait(tracker.duration * 0.7)
 
         ###### no cam yet ###
@@ -823,7 +834,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(Create(dot1))
 
         with self.voiceover(text="The norm 'r' is the length of the position vector of 'z'") as tracker:
-            self.play(Transform(dot1, dot2), Create(rg), run_time=tracker.duration * 0.5)
+            self.play(swWrite(rg, GOLDY), run_time=tracker.duration * 0.2)
+            self.play(Transform(dot1, dot2), run_time=tracker.duration * 0.5)
             self.wait(tracker.duration * 0.5)
 
         self.play(Restore(self.camera.frame), FadeOut(dot1))
@@ -847,15 +859,16 @@ class Test(MovingCameraScene, VoiceoverScene):
         group.move_to(ex_rect.get_center())
 
         with self.voiceover(text="r is equal to the square root of 'a' squared plus 'b' squared. If we substitute our values for 'a' and 'b', we can calculate that this equation simplifies to 5.") as tracker:
-            self.play(Create(tex_r), Create(r))
+            self.play(swWrite(r, GOLDY))
+            self.play(swWrite(tex_r))
             self.wait(1)  
-            self.play(Create(tex_step1))
+            self.play(swWrite(tex_step1))
             self.wait(1)  
-            self.play(Create(tex_step2))
+            self.play(swWrite(tex_step2))
             self.wait(1)
-            self.play(Create(tex_step3))
+            self.play(swWrite(tex_step3))
             self.wait(1)
-            self.play(Create(tex_step4))
+            self.play(swWrite(tex_step4))
 
 
         # play fadeout on tex_r and tex_step1 and animate tex_step4 moving up
@@ -878,7 +891,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         calculating_angle.move_to(calculating.get_center() + DOWN * 0.4 + RIGHT * 0.4)
 
         with self.voiceover(text="Next, we calculate the angle theta, where a and b are less than zero") as tracker:
-            self.play(Create(calculating_angle), run_time = tracker.duration * 0.3)
+            self.play(swWrite(calculating_angle), run_time = tracker.duration * 0.3)
             self.wait(tracker.duration * 0.7)
 
 
@@ -894,7 +907,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         theta_camzoom = MathTex(r'\theta', color=PORPLE).scale(0.2).move_to(circ_plot.get_center() + RIGHT * 0.07 + DOWN * 0.1)
 
         with self.voiceover(text="We can represent the angle theta as the angle that the position vector of z makes with the positive real axis. Since both a and b are less than zero, we draw the angle clockwise. ") as tracker:
-            self.play(Create(circ_plot), Create(theta_camzoom), run_time = tracker.duration * 0.3)
+            self.play(Create(circ_plot), run_time = tracker.duration * 0.3)
+            self.play(swWrite(theta_camzoom, PORPLE))
             self.wait(tracker.duration * 0.7)
 
         self.wait(2)
@@ -922,13 +936,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         group.move_to(ex_rect.get_center() + DOWN * 0.4)
 
         with self.voiceover(text="Since both a and b are less than zero, we can calculate theta by taking the arctangent of b over a and subtracting pi") as tracker:
-            self.play(Create(thetal1), Create(theta), run_time = tracker.duration * 0.3)
+            self.play(swWrite(theta, PORPLE))
+            self.play(swWrite(thetal1), run_time = tracker.duration * 0.3)
             self.wait(tracker.duration * 0.7)
 
         self.wait(1)
 
         with self.voiceover(text="We can fill in our values for 'a' and 'b'.") as tracker:
-            self.play(Create(thetal2))
+            self.play(swWrite(thetal2))
             self.wait(1)
 
 
@@ -942,7 +957,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         thetal3.shift(UP * 0.05)
 
-        self.play(Create(thetal3))
+        self.play(swWrite(thetal3))
         self.wait(1)
 
         altthetal3 = MathTex('&= \\dfrac{\\pi}{3} -\\pi', color=BLACK).move_to(thetal3.get_center() + LEFT * 0.2).scale(0.2)
@@ -978,7 +993,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         text.shift(LEFT * 1.6 + DOWN * 0.4)
 
         with self.voiceover(text="We can now write down the polar form, by substituting our values for 'r' and 'theta'") as tracker:
-            self.play(Create(text))
+            self.play(swWrite(text))
 
 
         polar = MathTex('z = r \\cdot (\\cos(\\theta) + \\sin(\\theta) \\cdot \\mathrm{i})', color=BLACK, substrings_to_isolate=['r ', '\\theta']).set_color_by_tex_to_color_map({'r ': GOLD, '\\theta': PORPLE})
@@ -986,7 +1001,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar.shift(DOWN * 0.6)
         polar.shift(LEFT * 1.3)
 
-        self.play(Create(polar))
+        self.play(swWrite(polar))
 
 
         polar2 = MathTex('z = 5 \\cdot (\\cos(-\\dfrac{2\\cdot\\pi}{3}) + \\sin(-\\dfrac{2\\cdot\\pi}{3}) \\cdot \\mathrm{i})', color=BLACK)

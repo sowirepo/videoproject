@@ -189,11 +189,11 @@ class swComplexPlane(NumberPlane):
 
 class swWrite(Write):
 
-    def __init__(self, mobject, **kwargs):
+    def __init__(self, mobject, color=BLACK, **kwargs):
         super().__init__(mobject, **kwargs)
 
         self.lag_ratio = 9999999
-        self.stroke_color = BLACK
+        self.stroke_color = color
         self.stroke_width = 1
 
 
