@@ -42,7 +42,7 @@ class Test(MovingCameraScene, VoiceoverScene):
     def construct(self):
         self.camera.background_color = BLUEISHGREY
 
-        formula = TNT().t("Calculate").tx("\\dfrac{\\sqrt{a+b\\mathrm{i}}}{\\arctan(\\pi)}").t("please, such that ").tx('\\pi = \\dfrac{1}{2}').create()
+        formula = TNT().t("Calculate").tx("-\\dfrac{3 \\cdot \\sqrt{3}}{2} - \\dfrac{3}{2}\\cdot i").t("please, such that ").tx('\\pi = \\dfrac{1}{2}').create()
         self.add(formula)
 
         print(formula[1][0])

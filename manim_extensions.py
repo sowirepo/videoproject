@@ -103,8 +103,9 @@ def PlaneTriangleLines(p2, plane, color=RED, stroke_width=1):
 # Text and MathTex on the same line, aligned :)
 class TNT(Mobject):
 
-    def __init__(self):
+    def __init__(self, auto_color=False):
         self.text = VGroup()
+        self.auto_color = auto_color
 
     def add_text(self, text, weight="NORMAL", color=BLACK):
         text_object = Text(text, font="Quicksand", weight=weight, color=color)
@@ -124,11 +125,12 @@ class TNT(Mobject):
     def create(self):
         objs = self.text.arrange(RIGHT, aligned_edge=UP, buff=0.06)
     
-        for mob in objs:
-            if type(mob) == MathTex:
+        if self.auto_color:
+            for mob in objs:
+                if type(mob) == MathTex:
 
-                if 'dfrac' not in mob.get_tex_string() and 'sqrt' not in mob.get_tex_string():
-                    mob.set_color_by_tex_to_color_map({'a ': BLUE, 'b ': GREEN, 'r ': GOLDY, '\\theta ': PORPLE})
+                    if 'dfrac' not in mob.get_tex_string() and 'sqrt' not in mob.get_tex_string():
+                        mob.set_color_by_tex_to_color_map({'a ': BLUE, 'b ': GREEN, 'r ': GOLDY, '\\theta ': PORPLE})
 
         prevObj_y = None
         for mob in objs:
@@ -137,8 +139,18 @@ class TNT(Mobject):
                 prevObj_y = mob.get_center_of_mass()
 
             else:
-                mob.shift(UP * (prevObj_y[1] - mob.get_center_of_mass()[1]))
+                factor = (prevObj_y[1] - mob.get_center_of_mass()[1])
+                
+                if factor > 0.05 and factor < 0.065:
+                    factor += 0.02
 
+                mob.shift(UP * factor)
+
+            # dot1 = Dot(mob.get_center_of_mass(), radius=0.05, color=BLUE)
+            # dot2 = Dot(mob.get_center(), radius=0.05, color=RED)
+
+            # self.text.add(dot1, dot2)
+            
         return objs
     
     def txt(self, text, weight="NORMAL", color=BLACK):
@@ -189,7 +201,7 @@ class swComplexPlane(NumberPlane):
 
 class swWrite(Write):
 
-    def __init__(self, mobject, color=BLACK, **kwargs):
+    def __init__(self, mobject: Mobject, color=BLACK, **kwargs):
         super().__init__(mobject, **kwargs)
 
         self.lag_ratio = 9999999
