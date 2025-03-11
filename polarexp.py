@@ -41,6 +41,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         problem.move_to(ex1_rect.get_center() + UP * 0.85)
         problem_underline = Line(problem[1][0].get_corner(DL) + LEFT * 0.4, problem[1][0].get_corner(DR) + RIGHT * 1.35, color=GREY, stroke_width=0.2).shift(DOWN*0.03)
 
+        problem[1][0][:12].set_color(BLUE)
 
         ## Remembering the polar form rules rectangle
         polar_rules_rect = swRoundedRectangle(height=1.1, width=1.6)
@@ -50,8 +51,19 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar_form_txt.move_to(polar_rules_rect.get_center() + UP * 0.44)
 
         z_comp_num = TNT().tx('z = a + b \\cdot \\mathrm{i}').create()
+        z_comp_num[0][0][0].set_color(BLUE)
+        z_comp_num[0][0][2].set_color(BLUE)
+        z_comp_num[0][0][4].set_color(BLUE)
+        
         r_formula = TNT().tx('r = \\sqrt{a^2 + b^2}').create()
+        r_formula[0][0][0].set_color(GREEN)
+        r_formula[0][0][4].set_color(BLUE)
+        r_formula[0][0][7].set_color(BLUE)
+
         theta_formula = TNT().tx('\\theta = \\arctan\\left(\\dfrac{b}{a}\\right)').create()
+        theta_formula[0][0][0].set_color(GOLDY)
+        theta_formula[0][0][9].set_color(BLUE)
+        theta_formula[0][0][11].set_color(BLUE)
 
         z_comp_num.move_to(polar_rules_rect.get_center() + UP * 0.2)
         r_formula.move_to(polar_rules_rect.get_center()+ DOWN * 0.02)
@@ -64,6 +76,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         r_def = r_formula.copy()
 
         line_r_1 = TNT().tx('r').tx('= \\sqrt{\\left(-\\dfrac{3 \\cdot \\sqrt{3}}{2}\\right)^2 + \\left(-\\dfrac{3}{2}\\right)^2}').create()
+        line_r_1[0][0][0].set_color(GREEN)
+
         line_r_2 = TNT().tx('= \\sqrt{\\dfrac{27}{4}+\\dfrac{9}{4}}').create()
         line_r_3 = TNT().tx('= \\sqrt{\\dfrac{36}{4}}').create()
         line_r_4 = TNT().tx('= \\sqrt{9}').create()
@@ -82,6 +96,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         theta_def = theta_formula.copy()
 
         line_theta_1 = TNT().tx('\\theta').tx('= \\arctan\\left(\\dfrac{-\\dfrac{3}{2}}{-\\dfrac{3}{2}\\cdot \\sqrt{3}}\\right)').create()
+        line_theta_1[0][0][0].set_color(GOLDY)
 
         where_a_and_b = TNT().txt(', where ', "NORMAL").tx('a<0').txt(' and ', "NORMAL").tx('b<0').create()
         where_a_and_b.move_to(calculating_theta.get_center() + RIGHT * 1.07 + UP * 0.01)
@@ -96,10 +111,10 @@ class Test(MovingCameraScene, VoiceoverScene):
         line_theta_1.move_to(theta_def.get_center() + LEFT * 2.45 + DOWN * 0.2)
         line_theta_1[0].shift(UP*0.01)
 
-        line_theta_simplified = TNT().tx('= -\\dfrac{5\\pi}{6}').create()
+        line_theta_simplified = TNT().tx('= -\\dfrac{5\\cdot\\pi}{6}').create()
         line_theta_simplified.move_to(theta_def.get_center() + LEFT * 2.71 + DOWN * 0.2)
 
-        group_of_solution_calc_theta = VGroup(line_theta_2, line_theta_3, line_theta_3).arrange(DOWN, aligned_edge=LEFT, buff=0.07).shift(DOWN*0.6 + LEFT*1.12)
+        group_of_solution_calc_theta = VGroup(line_theta_2, line_theta_3).arrange(DOWN, aligned_edge=LEFT, buff=0.07).shift(DOWN*0.6 + LEFT*1.12)
         group_of_fadeout_calc_theta = VGroup(line_theta_1[1], line_theta_2, minus_pi)
         theta_equals_pi_6 = VGroup(line_theta_1[0], line_theta_simplified)
 
@@ -108,7 +123,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         this_defines_the_polar_form = TNT().txt('This defines the polar form', 'NORMAL').create()
         this_defines_the_polar_form.shift(LEFT*1.38 + DOWN*0.1)
 
-        polar_form = TNT().tx('3 \\cdot \\left(\\cos(-\\frac{5\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\frac{5\\pi}{6})\\right)').create()
+        polar_form = TNT().tx('3 \\cdot \\left(\\cos(-\\frac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\frac{5\\cdot\\pi}{6})\\right)').create()
+        polar_form[0][0][0].set_color(GREEN)
+        polar_form[0][0][7:13].set_color(GOLDY)
+        polar_form[0][0][21:27].set_color(GOLDY)
+
         polar_form.move_to(this_defines_the_polar_form.get_center() + DOWN*0.2 +RIGHT *0.5)
 
         ## eulers formula rect
@@ -120,6 +139,10 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         actually_eulers_formula = TNT().tx('e^{\\theta\\cdot \\mathrm{i}} = \\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)').create()
         actually_eulers_formula.move_to(euler_rect.get_center())
+        actually_eulers_formula[0][0][1].set_color(GOLDY)
+        actually_eulers_formula[0][0][9].set_color(GOLDY)
+        actually_eulers_formula[0][0][-2].set_color(GOLDY)
+        
 
         this_defines_the_polar_exp_form = TNT().txt('This defines the polar-exponential form', 'NORMAL').create()
         this_defines_the_polar_exp_form.move_to(this_defines_the_polar_form.get_center() + DOWN*0.45 + RIGHT * 0.3)
@@ -127,17 +150,31 @@ class Test(MovingCameraScene, VoiceoverScene):
         LHS_euler_formula = actually_eulers_formula.copy().move_to(actually_eulers_formula.get_center())
         LHS_euler_formula_2 = TNT().tx('\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta) = e^{\\theta\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_2.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
+        LHS_euler_formula_2[0][0][4].set_color(GOLDY)
+        LHS_euler_formula_2[0][0][13].set_color(GOLDY)
+        LHS_euler_formula_2[0][0][-3].set_color(GOLDY)
+        
 
-        LHS_euler_formula_3 = TNT().tx('\\cos(-\\dfrac{5\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\pi}{6}) = e^{-\\frac{5\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_3 = TNT().tx('\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6}) = e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_3.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
-        LHS_euler_formula_4 = TNT().tx('3 \\cdot \\left(\\cos(-\\dfrac{5\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\pi}{6})\\right) = 3 \\cdot e^{-\\frac{5\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_3[0][0][4:10].set_color(GOLDY)
+        LHS_euler_formula_3[0][0][18:24].set_color(GOLDY)
+        LHS_euler_formula_3[0][0][-8:-2].set_color(GOLDY)
+
+        LHS_euler_formula_4 = TNT().tx('3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_4.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
+        LHS_euler_formula_4[0][0][6:12].set_color(GOLDY)
+        LHS_euler_formula_4[0][0][20:26].set_color(GOLDY)
+        LHS_euler_formula_4[1][0][-8:-2].set_color(GOLDY)      
+
 
         ##################
         ### ANIMATIONS ###
         ##################
 
-        self.play(swWrite(title))   
+        with self.voiceover(text='This video shows how to write a complex number in polar exponential form.') as tracker:
+            self.play(swWrite(title), run_time=tracker.duration * 0.3)  
+            self.wait(tracker.duration * 0.7)
         self.play(FadeOut(title))
         self.wait(1)
 
@@ -145,28 +182,34 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         # setup title, example rectangle and problem statement
         self.play(swWrite(polar_exp_form_title, PINK), Create(ex1_rect))
-        self.play(swWrite(problem))
-        self.play(Create(problem_underline))
-        self.wait(1)
+        with self.voiceover(text='We have to find the polar exponential form of minus three times the square root of 3 divided by 2 minus 3 over 2 times "i".') as tracker:
+            self.play(swWrite(problem), run_time=tracker.duration * 0.3)
+            self.play(Create(problem_underline))
+            self.wait(tracker.duration * 0.7)
 
         # polar form rules
-        self.play(Create(polar_rules_rect))
-        self.play(swWrite(polar_form_txt))
+        with self.voiceover(text='First, we need to remember the rules for the polar form.') as tracker:
+            self.play(Create(polar_rules_rect))
+            self.play(swWrite(polar_form_txt))
+            self.play(swWrite(z_comp_num))
 
-        self.play(swWrite(z_comp_num))
-        self.play(swWrite(r_formula))
-        self.play(swWrite(theta_formula))
+        with self.voiceover(text='To write a complex number in polar form, we need to calculate the norm "r" and the angle "theta".') as tracker:
+            self.play(swWrite(r_formula))
+            self.play(swWrite(theta_formula))
 
 
         # calculating r
-        self.play(swWrite(calculating_r))
+        with self.voiceover(text='First, we calculate the norm "r".') as tracker:
+            self.play(swWrite(calculating_r))
 
 
         self.play(r_def.animate.shift(LEFT*2.8))
         self.wait(1)
         
-        self.play(TransformMatchingShapes(r_def, line_r_1))
+        with self.voiceover(text='"r" is equal to the square root of minus three times the square root of 3 divided by 2 squared plus minus 3 over 2 squared.') as tracker:
+            self.play(TransformMatchingShapes(r_def, line_r_1))
 
+        
         self.play(swWrite(line_r_2))
         self.play(swWrite(line_r_3))
         self.play(swWrite(line_r_4))
@@ -226,9 +269,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(LHS_euler_formula.animate.shift(LEFT*2.8), TransformMatchingShapes(LHS_euler_formula, LHS_euler_formula_2))
         self.wait(1)
 
+
         self.play(TransformMatchingShapes(LHS_euler_formula_2, LHS_euler_formula_3))
         self.wait(1)
 
         self.play(TransformMatchingShapes(LHS_euler_formula_3, LHS_euler_formula_4))
         self.wait(1)
 
+        self.play(FadeOut(LHS_euler_formula_4[0]))
+        self.play(LHS_euler_formula_4[1].animate.shift(LEFT*0.8))

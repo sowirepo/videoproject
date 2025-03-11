@@ -116,8 +116,10 @@ class TNT(Mobject):
     def add_tex(self, tex, color=BLACK):
         if 'dfrac' in tex or 'sqrt' in tex or 'arctan' in tex:
             tex_object = MathTex(tex, color=color)
-        else:
+        elif self.auto_color:
             tex_object = MathTex(tex, color=color, substrings_to_isolate=['a ', 'b ', 'r ', '\\theta '])
+        else:
+            tex_object = MathTex(tex, color=color)
         self.text.add(tex_object.scale(0.2))
 
         return self
