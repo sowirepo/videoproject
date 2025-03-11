@@ -163,10 +163,16 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         LHS_euler_formula_4 = TNT().tx('3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_4.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
-        LHS_euler_formula_4[0][0][6:12].set_color(GOLDY)
-        LHS_euler_formula_4[0][0][20:26].set_color(GOLDY)
+        LHS_euler_formula_4[0][0][0].set_color(GREEN)
+        LHS_euler_formula_4[0][0][7:13].set_color(GOLDY)
+        LHS_euler_formula_4[0][0][21:27].set_color(GOLDY)
+        LHS_euler_formula_4[1][0][0].set_color(GREEN)
         LHS_euler_formula_4[1][0][-8:-2].set_color(GOLDY)      
 
+
+        ##################
+        ### ANIMATIONS ###
+        ##################
 
         ##################
         ### ANIMATIONS ###
@@ -192,28 +198,30 @@ class Test(MovingCameraScene, VoiceoverScene):
             self.play(Create(polar_rules_rect))
             self.play(swWrite(polar_form_txt))
             self.play(swWrite(z_comp_num))
-
+        
         with self.voiceover(text='To write a complex number in polar form, we need to calculate the norm "r" and the angle "theta".') as tracker:
             self.play(swWrite(r_formula))
             self.play(swWrite(theta_formula))
-
 
         # calculating r
         with self.voiceover(text='First, we calculate the norm "r".') as tracker:
             self.play(swWrite(calculating_r))
 
-
         self.play(r_def.animate.shift(LEFT*2.8))
         self.wait(1)
-        
+
         with self.voiceover(text='"r" is equal to the square root of minus three times the square root of 3 divided by 2 squared plus minus 3 over 2 squared.') as tracker:
             self.play(TransformMatchingShapes(r_def, line_r_1))
 
-        
-        self.play(swWrite(line_r_2))
+        with self.voiceover(text='This simplifies to the square root of 27 over 4 plus 9 over 4.') as tracker:
+            self.play(swWrite(line_r_2))
+
         self.play(swWrite(line_r_3))
+        self.wait(1)
         self.play(swWrite(line_r_4))
-        self.play(swWrite(line_r_5))
+
+        with self.voiceover(text='This simplifies to "r" equals 3.') as tracker:
+            self.play(swWrite(line_r_5))
 
         self.wait(1)
 
@@ -224,57 +232,73 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         # calculating theta
-        self.play(swWrite(calculating_theta))
+        with self.voiceover(text='Now, we calculate the angle "theta".') as tracker:
+            self.play(swWrite(calculating_theta))
 
         self.play(theta_def.animate.shift(LEFT*2.8 + DOWN * 0.1))
         self.wait(1)
 
-        self.play(TransformMatchingShapes(theta_def, line_theta_1))
-
-        self.play(swWrite(where_a_and_b))
-        
-        self.play(swWrite(minus_pi))
-
-        self.play(swWrite(line_theta_2))
-        self.play(swWrite(line_theta_3))
+        with self.voiceover(text='"Theta" is equal to the arctangent of minus 3 over 2 divided by minus 3 over 2 times the square root of 3') as tracker:
+            self.play(TransformMatchingShapes(theta_def, line_theta_1))
+            self.play(swWrite(where_a_and_b))
 
         self.wait(1)
+        with self.voiceover(text='"a" and "b" are both less than zero. We have seen that this requires us to add minus pi at the end of the formula.') as tracker:
+            self.wait(tracker.duration * 0.7)
+            self.play(swWrite(minus_pi), run_time=tracker.duration * 0.1)
 
-        self.play(FadeOut(group_of_fadeout_calc_theta))
-        self.play(line_theta_3.animate.shift(UP*0.67))
+        self.play(swWrite(line_theta_2))
+        self.wait(1)
 
-        self.play(TransformMatchingShapes(line_theta_3, line_theta_simplified))
+        with self.voiceover(text='This simplifies to pi over six minus pi.') as tracker:
+            self.play(swWrite(line_theta_3))
+            self.wait(1)
+            self.play(FadeOut(group_of_fadeout_calc_theta))
 
+        with self.voiceover(text='And this is equal to minus five times pi over six.') as tracker:
+            self.play(line_theta_3.animate.shift(UP*0.67))
+            self.play(TransformMatchingShapes(line_theta_3, line_theta_simplified))
 
         self.play(theta_equals_pi_6.animate.shift(UP*0.15 + LEFT * 0.17))
 
         self.wait(1)
-        
-        # show polar form
-        self.play(swWrite(this_defines_the_polar_form))
 
-        self.play(swWrite(polar_form))
+        # show polar form
+        with self.voiceover(text='"r" and theta give us the polar form as shown.') as tracker:
+            self.play(swWrite(this_defines_the_polar_form))
+            self.play(swWrite(polar_form))
+            self.wait(tracker.duration)
 
         self.wait(1)
 
         # euler's formula
-        self.play(Create(euler_rect))
-        self.play(swWrite(eulers_formula))
-        self.play(swWrite(actually_eulers_formula))
+        with self.voiceover(text='Using Euler\'s famous formula, we can convert this polar form into polar-exponential form.') as tracker:
+            self.play(Create(euler_rect))
+            self.wait(tracker.duration * 0.5)
 
-        # self.play(FadeOut(polar_form), FadeOut(this_defines_the_polar_form))
-        # self.play(TransformMatchingShapes(this_defines_the_polar_form, this_defines_the_polar_exp_form))
-        self.play(swWrite(this_defines_the_polar_exp_form))
+        with self.voiceover(text='Euler\'s formula states that "e" to the power of "theta" times "i" is equal to the cosine of "theta" plus "i" times the sine of "theta".') as tracker:
+            self.play(swWrite(eulers_formula))
+            self.play(swWrite(actually_eulers_formula))
+
+        with self.voiceover(text='We can use this formula to calculate the polar-exponential form.') as tracker:
+            self.play(swWrite(this_defines_the_polar_exp_form))
 
         self.play(LHS_euler_formula.animate.shift(LEFT*2.8), TransformMatchingShapes(LHS_euler_formula, LHS_euler_formula_2))
-        self.wait(1)
 
+        with self.voiceover(text='We subsitute our value for theta into Euler\'s formula.') as tracker:
+            self.wait(tracker.duration * 0.3)
+            self.play(TransformMatchingShapes(LHS_euler_formula_2, LHS_euler_formula_3))
 
-        self.play(TransformMatchingShapes(LHS_euler_formula_2, LHS_euler_formula_3))
-        self.wait(1)
+        with self.voiceover(text='And now we can multiply both sides of the equation by "r" which is 3.') as tracker:
+            self.play(TransformMatchingShapes(LHS_euler_formula_3, LHS_euler_formula_4))
 
-        self.play(TransformMatchingShapes(LHS_euler_formula_3, LHS_euler_formula_4))
-        self.wait(1)
+        with self.voiceover(text='Now, we have written the polar form as 3 times "e" to the power of minus 5 times pi over 6 times "i".') as tracker:
+            self.play(FadeOut(LHS_euler_formula_4[0]))
+            self.play(LHS_euler_formula_4[1].animate.shift(LEFT*0.8))
+            self.wait(tracker.duration * 0.3)
 
-        self.play(FadeOut(LHS_euler_formula_4[0]))
-        self.play(LHS_euler_formula_4[1].animate.shift(LEFT*0.8))
+        all_fadeout = Group(*self.mobjects)
+        with self.voiceover(text="This is the polar-exponential form of the complex number. Thanks for watching.") as tracker:
+            self.wait(tracker.duration * 0.7)
+            self.play(FadeOut(all_fadeout), run_time=tracker.duration * 0.5)
+            self.wait(tracker.duration * 0.3)

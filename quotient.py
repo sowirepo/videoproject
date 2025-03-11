@@ -276,7 +276,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         self.wait(1)
 
-        all = Group(*self.mobjects)
+        all_fadeout = Group(*self.mobjects)
         with self.voiceover(text="This concludes the examples. Thanks for watching.") as tracker:
-            self.play(FadeOut(all), run_time=tracker.duration * 0.5)
+            self.play(FadeOut(all_fadeout), run_time=tracker.duration * 0.5)
             self.wait(tracker.duration)

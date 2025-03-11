@@ -38,7 +38,7 @@ class TestDifferentWritingStyles(MovingCameraScene):
         self.wait(1)
 
 
-class Test(MovingCameraScene, VoiceoverScene):
+class Test2(MovingCameraScene, VoiceoverScene):
     def construct(self):
         self.camera.background_color = BLUEISHGREY
 
@@ -46,3 +46,20 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.add(formula)
 
         print(formula[1][0])
+
+
+class Test(VoiceoverScene):
+    def construct(self):
+        self.camera.background_color = BLUEISHGREY
+
+        self.set_speech_service(
+            OpenAIService(
+                voice="alloy",
+                model="tts-1-hd",
+            )
+        )
+
+        self.wait(3)
+        with self.voiceover(text="") as tracker:
+            self.play(Create(VGroup()))
+        self.wait(3)

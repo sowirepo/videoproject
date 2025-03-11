@@ -166,6 +166,9 @@ class TNT(Mobject):
     def tx(self, tex, color=BLACK):
         self.add_tex(tex, color)
         return self
+    
+TextNTex = TNT
+
 
 # normal complex plane has 'i' in the vertical axis, this one removes that by
 # implementing ComplexPlane only functions on the NumberPlane Object
