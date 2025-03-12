@@ -1,7 +1,4 @@
 from manim import *
-from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.openai import OpenAIService
-
 
 ### Colors stuff ####
 
@@ -166,8 +163,6 @@ class TNT(Mobject):
     def tx(self, tex, color=BLACK):
         self.add_tex(tex, color)
         return self
-    
-TextNTex = TNT
 
 
 # normal complex plane has 'i' in the vertical axis, this one removes that by

@@ -109,6 +109,19 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.camera.background_color = BLUEISHGREY
 
 
+
+
+        ### ADDING LOGO ###
+        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
+        self.add(logo)
+
+        self.wait(1)
+        
+        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
+        ####################
+
+
+
         ### TITLE SCREEN ###
         title = Text("""Writing a complex number \n          in polar form""", font='Quicksand', color=PURPLE, weight="SEMIBOLD",
                         t2c={'cartesian coordinates':PINK, 'polar form':PINK},
@@ -116,21 +129,14 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         title.scale(0.25).move_to(ORIGIN)
 
-
         with self.voiceover(text="This video shows how to write a complex number in polar form") as tracker:
-            self.play(swWrite(title), run_time=tracker.duration)
-        # self.play(Create(title))
+            self.play(swWrite(title), run_time=tracker.duration * 0.3)
+            self.wait(tracker.duration * 0.7)
 
-        self.wait()
+        self.wait(1)
         self.play(FadeOut(title))
         ####################
 
-        ### ADDING LOGO ###
-        logo = ImageMobject('./Sowiso-logo-primary.png')
-        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.35*RIGHT)
-        logo.scale(0.009)
-        self.add(logo)
-        ####################
 
 
         ### THEORY SECTION ###
@@ -1026,13 +1032,14 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
 
-            self.wait(2)
+            self.wait(tracker.duration)
     
         # fade out everything still on the screen
+        self.wait(2)
 
-
-        all = Group(*self.mobjects)
-        self.play(FadeOut(all))
+        fadeout_all = Group(*self.mobjects)
+        self.play(FadeOut(fadeout_all))
+        self.wait(1)
 
 
 class Test1(Scene):

@@ -25,9 +25,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         title.move_to(ORIGIN)
 
         ## Logo
-        logo = ImageMobject('./Sowiso-logo-primary.png')
-        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.35*RIGHT)
-        logo.scale(0.009)
+        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
 
         ## text top left
         polar_exp_form_title = Text('Polar-exponential form', font="Quicksand", color=PINK, weight="SEMIBOLD")
@@ -44,8 +42,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         problem[1][0][:12].set_color(BLUE)
 
         ## Remembering the polar form rules rectangle
-        polar_rules_rect = swRoundedRectangle(height=1.1, width=1.6)
-        polar_rules_rect.shift(RIGHT*1.3 + UP*0.43)
+        polar_rules_rect = swRoundedRectangle(height=1.2, width=1.6)
+        polar_rules_rect.shift(RIGHT*1.3 + UP*0.39)
 
         polar_form_txt = TNT().txt('Polar form', 'SEMIBOLD', PINK).create()
         polar_form_txt.move_to(polar_rules_rect.get_center() + UP * 0.44)
@@ -65,10 +63,18 @@ class Test(MovingCameraScene, VoiceoverScene):
         theta_formula[0][0][9].set_color(BLUE)
         theta_formula[0][0][11].set_color(BLUE)
 
-        z_comp_num.move_to(polar_rules_rect.get_center() + UP * 0.2)
-        r_formula.move_to(polar_rules_rect.get_center()+ DOWN * 0.02)
-        theta_formula.move_to(polar_rules_rect.get_center() + DOWN * 0.3)
+        cis_polar_form = TNT().tx('z = r \\cdot \\left(\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)\\right)').create()
+        cis_polar_form[0][0][0].set_color(BLUE)
+        cis_polar_form[0][0][2].set_color(GREEN)
+        cis_polar_form[0][0][9].set_color(GOLDY)
+        cis_polar_form[0][0][18].set_color(GOLDY)
 
+        z_comp_num.move_to(polar_rules_rect.get_center() + UP * 0.2).shift(UP * 0.05)
+        r_formula.move_to(polar_rules_rect.get_center()+ DOWN * 0.02).shift(UP * 0.05)
+        theta_formula.move_to(polar_rules_rect.get_center() + DOWN * 0.3).shift(UP * 0.05)
+        cis_polar_form.move_to(polar_rules_rect.get_center() + DOWN * 0.5)
+
+        VGroup(polar_form_txt, z_comp_num, r_formula, theta_formula, cis_polar_form).shift(UP * 0.05)
 
         ## calculating r 
         calculating_r = TNT().txt('Calculating r', 'NORMAL').create()
@@ -83,7 +89,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         line_r_4 = TNT().tx('= \\sqrt{9}').create()
         line_r_5 = TNT().tx('= 3').create()
 
-        line_r_1.move_to(r_def.get_center() + LEFT * 2.45 + DOWN * 0.15)
+        line_r_1.move_to(r_def.get_center() + LEFT * 2.45 + DOWN * 0.15).shift(DOWN * 0.07)
         line_r_1[0].shift(DOWN*0.03)
 
         group_of_solution_calc_r = VGroup(line_r_2, line_r_3, line_r_4, line_r_5).arrange(DOWN, aligned_edge=LEFT, buff=0.07).shift(DOWN*0.4 + LEFT*1.47)
@@ -108,11 +114,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         line_theta_2 = TNT().tx('= \\arctan\\left(\\dfrac{1}{\\sqrt{3}}\\right)-\\pi').create()
         line_theta_3 = TNT().tx('= \\dfrac{\\pi}{6}-\\pi').create()
 
-        line_theta_1.move_to(theta_def.get_center() + LEFT * 2.45 + DOWN * 0.2)
+        line_theta_1.move_to(theta_def.get_center() + LEFT * 2.45 + DOWN * 0.2).shift(DOWN * 0.05)
         line_theta_1[0].shift(UP*0.01)
 
         line_theta_simplified = TNT().tx('= -\\dfrac{5\\cdot\\pi}{6}').create()
-        line_theta_simplified.move_to(theta_def.get_center() + LEFT * 2.71 + DOWN * 0.2)
+        line_theta_simplified.move_to(theta_def.get_center() + LEFT * 2.71 + DOWN * 0.2).shift(DOWN * 0.05)
 
         group_of_solution_calc_theta = VGroup(line_theta_2, line_theta_3).arrange(DOWN, aligned_edge=LEFT, buff=0.07).shift(DOWN*0.6 + LEFT*1.12)
         group_of_fadeout_calc_theta = VGroup(line_theta_1[1], line_theta_2, minus_pi)
@@ -131,11 +137,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar_form.move_to(this_defines_the_polar_form.get_center() + DOWN*0.2 +RIGHT *0.5)
 
         ## eulers formula rect
-        euler_rect = swRoundedRectangle(height=0.8, width=1.6)
-        euler_rect.shift(RIGHT*1.3 + DOWN*0.6)
+        euler_rect = swRoundedRectangle(height=0.7, width=1.6)
+        euler_rect.shift(RIGHT*1.3 + DOWN*0.65)
 
         eulers_formula = TNT().txt('Euler\'s formula', 'SEMIBOLD', PINK).create()
-        eulers_formula.move_to(euler_rect.get_center() + UP * 0.28)
+        eulers_formula.move_to(euler_rect.get_center() + UP * 0.23)
 
         actually_eulers_formula = TNT().tx('e^{\\theta\\cdot \\mathrm{i}} = \\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)').create()
         actually_eulers_formula.move_to(euler_rect.get_center())
@@ -173,18 +179,19 @@ class Test(MovingCameraScene, VoiceoverScene):
         ##################
         ### ANIMATIONS ###
         ##################
+        self.add(logo)
 
-        ##################
-        ### ANIMATIONS ###
-        ##################
+        self.wait(1)
+        
+        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
+
 
         with self.voiceover(text='This video shows how to write a complex number in polar exponential form.') as tracker:
             self.play(swWrite(title), run_time=tracker.duration * 0.3)  
             self.wait(tracker.duration * 0.7)
+      
         self.play(FadeOut(title))
         self.wait(1)
-
-        self.add(logo)
 
         # setup title, example rectangle and problem statement
         self.play(swWrite(polar_exp_form_title, PINK), Create(ex1_rect))
@@ -203,11 +210,14 @@ class Test(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(r_formula))
             self.play(swWrite(theta_formula))
 
+        with self.voiceover(text='Then "z" is equal to "r" times the cosine of "theta" plus "i" times the sine of "theta".') as tracker:
+            self.play(swWrite(cis_polar_form))
+
         # calculating r
         with self.voiceover(text='First, we calculate the norm "r".') as tracker:
             self.play(swWrite(calculating_r))
 
-        self.play(r_def.animate.shift(LEFT*2.8))
+        self.play(r_def.animate.shift(LEFT*2.8).shift(DOWN * 0.07))
         self.wait(1)
 
         with self.voiceover(text='"r" is equal to the square root of minus three times the square root of 3 divided by 2 squared plus minus 3 over 2 squared.') as tracker:
@@ -235,7 +245,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text='Now, we calculate the angle "theta".') as tracker:
             self.play(swWrite(calculating_theta))
 
-        self.play(theta_def.animate.shift(LEFT*2.8 + DOWN * 0.1))
+        self.play(theta_def.animate.shift(LEFT*2.8 + DOWN * 0.1).shift(DOWN * 0.05))
         self.wait(1)
 
         with self.voiceover(text='"Theta" is equal to the arctangent of minus 3 over 2 divided by minus 3 over 2 times the square root of 3') as tracker:
@@ -297,8 +307,12 @@ class Test(MovingCameraScene, VoiceoverScene):
             self.play(LHS_euler_formula_4[1].animate.shift(LEFT*0.8))
             self.wait(tracker.duration * 0.3)
 
-        all_fadeout = Group(*self.mobjects)
         with self.voiceover(text="This is the polar-exponential form of the complex number. Thanks for watching.") as tracker:
-            self.wait(tracker.duration * 0.7)
-            self.play(FadeOut(all_fadeout), run_time=tracker.duration * 0.5)
-            self.wait(tracker.duration * 0.3)
+            self.wait(tracker.duration)
+    
+        # fade out everything still on the screen
+        self.wait(2)
+
+        all_fadeout = Group(*self.mobjects)
+        self.play(FadeOut(all_fadeout))
+        self.wait(1)

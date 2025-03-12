@@ -25,9 +25,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         title.move_to(ORIGIN)
 
 
-        logo = ImageMobject('./Sowiso-logo-primary.png')
-        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.35*RIGHT)
-        logo.scale(0.009)
+        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
+
 
         ## setup example rectangle
         example = Text('Quotient of complex numbers', font="Quicksand", color=PINK, weight="SEMIBOLD")
@@ -132,6 +131,11 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         ### Animation ###
+        self.add(logo)
+
+        self.wait(1)
+        
+        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
 
         with self.voiceover(text="In this video, we will show how to calculate the quotient of two complex numbers.") as tracker:
             self.play(swWrite(title), run_time=tracker.duration * 0.3)
@@ -140,7 +144,6 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(title))
         self.wait(1)
 
-        self.add(logo)
         self.play(swWrite(example), Create(ex1_rect))
 
         with self.voiceover(text="We will calculate 3 + 4 times 'i' divided by 1 minus 2 times 'i'.") as tracker:
@@ -276,7 +279,12 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         self.wait(1)
 
-        all_fadeout = Group(*self.mobjects)
         with self.voiceover(text="This concludes the examples. Thanks for watching.") as tracker:
-            self.play(FadeOut(all_fadeout), run_time=tracker.duration * 0.5)
             self.wait(tracker.duration)
+    
+        # fade out everything still on the screen
+        self.wait(2)
+
+        all_fadeout = Group(*self.mobjects)
+        self.play(FadeOut(all_fadeout))
+        self.wait(1)
