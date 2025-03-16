@@ -1,4 +1,5 @@
 from manim import *
+import re
 
 ### Colors stuff ####
 
@@ -97,8 +98,7 @@ def PlaneTriangleLines(p2, plane, color=RED, stroke_width=1):
         Line(plane.n2p(0), plane.n2p(p2.real), color=color, stroke_width=stroke_width),
     )
 
-# Text and MathTex on the same line, aligned :)
-class TNT(Mobject):
+class TNT_Deprecated(Mobject):
 
     def __init__(self, auto_color=False):
         self.text = VGroup()
@@ -145,11 +145,23 @@ class TNT(Mobject):
 
                 mob.shift(UP * factor)
 
-            # dot1 = Dot(mob.get_center_of_mass(), radius=0.05, color=BLUE)
-            # dot2 = Dot(mob.get_center(), radius=0.05, color=RED)
+            # dot1 = Dot(mob.get_center_of_mass(), radius=0.01, color=BLUE)
+            # dot2 = Dot(mob.get_center(), radius=0.01, color=RED)
 
             # self.text.add(dot1, dot2)
-            
+
+            if type(mob) == MathTex:
+                # char_tex_string = parse_latex_characters(mob.get_tex_string())
+
+                # print(len(char_tex_string), len(mob[0]))
+                # mob[0][0].set_color(RED)
+                # mob[0][-1].set_color(RED)
+                # assert len(char_tex_string) <= len(mob[0])
+                pass
+                # index_of_equals = char_tex_string.find('=')
+                # if index_of_equals != -1:
+                #     mob[0][index_of_equals].set_color(GREEN)
+
         return objs
     
     def txt(self, text, weight="NORMAL", color=BLACK):
@@ -163,6 +175,98 @@ class TNT(Mobject):
     def tx(self, tex, color=BLACK):
         self.add_tex(tex, color)
         return self
+
+
+class TNT(VMobject):
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.objs = VGroup()
+        self.aligned_chars = []
+        self.add(self.objs)
+
+    def txt(self, text, weight="NORMAL", color=BLACK):
+        text_object = Text(text, font="Quicksand", weight=weight, color=color)
+        self.objs.add(text_object.scale(0.15))
+        self.aligned_chars.append(None)
+
+        return self.create()
+
+    def tx(self, tex, color=BLACK, aligned_char='='):
+        tex_object = MathTex(tex, color=color)
+        self.objs.add(tex_object.scale(0.2))
+        self.aligned_chars.append(aligned_char)
+
+        return self.create()
+
+    def create(self):
+        objs = self.objs.arrange(RIGHT, aligned_edge=UP, buff=0.06)
+
+        FirstObject = self.objs[0]
+        
+        if type(FirstObject) == Text:
+            center = FirstObject.get_center_of_mass()
+            proposed_height = center[1]
+
+        if type(FirstObject) == MathTex:
+            pass
+
+        for i, mob in enumerate(objs[1:]):
+
+            if type(mob) == MathTex:
+                char_tex_string = self.parse_latex_characters(mob.get_tex_string())
+
+                if len(char_tex_string) > len(mob[0]):
+                    print(f"Warning: parsed tex string is longer than the actual tex string")
+
+                char_to_find = self.aligned_chars[i+1]
+                assert char_to_find is not None
+
+                index_of_equals = char_tex_string.find(char_to_find)
+                center_mob = mob[0][index_of_equals].get_center()
+                
+                mob.shift(UP * (proposed_height - center_mob[1]))
+
+            if type(mob) == Text:
+                center_mob = mob.get_center_of_mass()
+                mob.shift(UP * (proposed_height - center_mob[1]))
+
+        return self
+    
+    def parse_latex_characters(self, tex_string):
+        # remove ^ and _
+        tex_string = re.sub(r'\^', '', tex_string)
+        tex_string = re.sub(r'\_', '', tex_string)
+
+        # remove curly braces
+        tex_string = re.sub(r'{', '', tex_string)
+        tex_string = re.sub(r'}', '', tex_string)
+
+        # remove \\ and \, and \; and \! and \quad and \qquad
+        tex_string = re.sub(r'\\,', '', tex_string)
+        tex_string = re.sub(r'\\;', '', tex_string)
+        tex_string = re.sub(r'\\!', '', tex_string)
+        tex_string = re.sub(r'\\quad', '', tex_string)
+        tex_string = re.sub(r'\\qquad', '', tex_string)
+
+        # remove \left and \right
+        tex_string = re.sub(r'\\left', '', tex_string)
+        tex_string = re.sub(r'\\right', '', tex_string)
+
+        one_length_symbols = ['dfrac', 'frac', 'theta', 'overline', 'underline', 'bar', 'hat', 'tilde', 'vec', 'dot', 'cdot', 'vdash', 'dashv', 'overset', 'underset', 'to', 'rightarrow', 'leftarrow', 'leftrightarrow', 'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leq', 'geq']
+        two_length_symbols = ['sqrt']
+
+        # replace each one length symbol with a single character
+        for symbol in one_length_symbols:
+            tex_string = re.sub(r'\\' + symbol, f'{symbol[0]}', tex_string)
+        
+        # replace each two length symbol with a single character
+        for symbol in two_length_symbols:
+            tex_string = re.sub(r'\\' + symbol, f'{symbol[0]}{symbol[0]}', tex_string)
+
+        # remove all other backslashes
+        tex_string = re.sub(r'\\', '', tex_string)
+
+        return tex_string
 
 
 # normal complex plane has 'i' in the vertical axis, this one removes that by
@@ -207,5 +311,4 @@ class swWrite(Write):
         self.lag_ratio = 9999999
         self.stroke_color = color
         self.stroke_width = 1
-
 

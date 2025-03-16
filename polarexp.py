@@ -35,7 +35,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ex1_rect = swRoundedRectangle(height=2, width=2.5)
         ex1_rect.shift(LEFT*0.9)
 
-        problem = TNT().txt('Write', 'SEMIBOLD').tx('-\\dfrac{3 \\cdot \\sqrt{3}}{2} - \\dfrac{3}{2}\\cdot \\mathrm{i}').txt('in polar-exponential form', 'SEMIBOLD').create()
+        problem = TNT_Deprecated().txt('Write', 'SEMIBOLD').tx('-\\dfrac{3 \\cdot \\sqrt{3}}{2} - \\dfrac{3}{2}\\cdot \\mathrm{i}').txt('in polar-exponential form', 'SEMIBOLD').create()
         problem.move_to(ex1_rect.get_center() + UP * 0.85)
         problem_underline = Line(problem[1][0].get_corner(DL) + LEFT * 0.4, problem[1][0].get_corner(DR) + RIGHT * 1.35, color=GREY, stroke_width=0.2).shift(DOWN*0.03)
 
@@ -45,25 +45,25 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar_rules_rect = swRoundedRectangle(height=1.2, width=1.6)
         polar_rules_rect.shift(RIGHT*1.3 + UP*0.39)
 
-        polar_form_txt = TNT().txt('Polar form', 'SEMIBOLD', PINK).create()
+        polar_form_txt = TNT_Deprecated().txt('Polar form', 'SEMIBOLD', PINK).create()
         polar_form_txt.move_to(polar_rules_rect.get_center() + UP * 0.44)
 
-        z_comp_num = TNT().tx('z = a + b \\cdot \\mathrm{i}').create()
+        z_comp_num = TNT_Deprecated().tx('z = a + b \\cdot \\mathrm{i}').create()
         z_comp_num[0][0][0].set_color(BLUE)
         z_comp_num[0][0][2].set_color(BLUE)
         z_comp_num[0][0][4].set_color(BLUE)
         
-        r_formula = TNT().tx('r = \\sqrt{a^2 + b^2}').create()
+        r_formula = TNT_Deprecated().tx('r = \\sqrt{a^2 + b^2}').create()
         r_formula[0][0][0].set_color(GREEN)
         r_formula[0][0][4].set_color(BLUE)
         r_formula[0][0][7].set_color(BLUE)
 
-        theta_formula = TNT().tx('\\theta = \\arctan\\left(\\dfrac{b}{a}\\right)').create()
+        theta_formula = TNT_Deprecated().tx('\\theta = \\arctan\\left(\\dfrac{b}{a}\\right)').create()
         theta_formula[0][0][0].set_color(GOLDY)
         theta_formula[0][0][9].set_color(BLUE)
         theta_formula[0][0][11].set_color(BLUE)
 
-        cis_polar_form = TNT().tx('z = r \\cdot \\left(\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)\\right)').create()
+        cis_polar_form = TNT_Deprecated().tx('z = r \\cdot \\left(\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)\\right)').create()
         cis_polar_form[0][0][0].set_color(BLUE)
         cis_polar_form[0][0][2].set_color(GREEN)
         cis_polar_form[0][0][9].set_color(GOLDY)
@@ -77,17 +77,17 @@ class Test(MovingCameraScene, VoiceoverScene):
         VGroup(polar_form_txt, z_comp_num, r_formula, theta_formula, cis_polar_form).shift(UP * 0.05)
 
         ## calculating r 
-        calculating_r = TNT().txt('Calculating r', 'NORMAL').create()
+        calculating_r = TNT_Deprecated().txt('Calculating r', 'NORMAL').create()
         calculating_r.shift(LEFT*1.7 + UP*0.58)
         r_def = r_formula.copy()
 
-        line_r_1 = TNT().tx('r').tx('= \\sqrt{\\left(-\\dfrac{3 \\cdot \\sqrt{3}}{2}\\right)^2 + \\left(-\\dfrac{3}{2}\\right)^2}').create()
+        line_r_1 = TNT_Deprecated().tx('r').tx('= \\sqrt{\\left(-\\dfrac{3 \\cdot \\sqrt{3}}{2}\\right)^2 + \\left(-\\dfrac{3}{2}\\right)^2}').create()
         line_r_1[0][0][0].set_color(GREEN)
 
-        line_r_2 = TNT().tx('= \\sqrt{\\dfrac{27}{4}+\\dfrac{9}{4}}').create()
-        line_r_3 = TNT().tx('= \\sqrt{\\dfrac{36}{4}}').create()
-        line_r_4 = TNT().tx('= \\sqrt{9}').create()
-        line_r_5 = TNT().tx('= 3').create()
+        line_r_2 = TNT_Deprecated().tx('= \\sqrt{\\dfrac{27}{4}+\\dfrac{9}{4}}').create()
+        line_r_3 = TNT_Deprecated().tx('= \\sqrt{\\dfrac{36}{4}}').create()
+        line_r_4 = TNT_Deprecated().tx('= \\sqrt{9}').create()
+        line_r_5 = TNT_Deprecated().tx('= 3').create()
 
         line_r_1.move_to(r_def.get_center() + LEFT * 2.45 + DOWN * 0.15).shift(DOWN * 0.07)
         line_r_1[0].shift(DOWN*0.03)
@@ -97,27 +97,27 @@ class Test(MovingCameraScene, VoiceoverScene):
         r_equals_3 = VGroup(line_r_1[0], line_r_5)
 
         ## calculating theta
-        calculating_theta = TNT().txt('Calculating the angle', 'NORMAL').create()
+        calculating_theta = TNT_Deprecated().txt('Calculating the angle', 'NORMAL').create()
         calculating_theta.shift(LEFT*1.5 + UP*0.26)
         theta_def = theta_formula.copy()
 
-        line_theta_1 = TNT().tx('\\theta').tx('= \\arctan\\left(\\dfrac{-\\dfrac{3}{2}}{-\\dfrac{3}{2}\\cdot \\sqrt{3}}\\right)').create()
+        line_theta_1 = TNT_Deprecated().tx('\\theta').tx('= \\arctan\\left(\\dfrac{-\\dfrac{3}{2}}{-\\dfrac{3}{2}\\cdot \\sqrt{3}}\\right)').create()
         line_theta_1[0][0][0].set_color(GOLDY)
 
-        where_a_and_b = TNT().txt(', where ', "NORMAL").tx('a<0').txt(' and ', "NORMAL").tx('b<0').create()
+        where_a_and_b = TNT_Deprecated().txt(', where ', "NORMAL").tx('a<0').txt(' and ', "NORMAL").tx('b<0').create()
         where_a_and_b.move_to(calculating_theta.get_center() + RIGHT * 1.07 + UP * 0.01)
         where_a_and_b[3].shift(UP*0.01)
 
-        minus_pi = TNT().tx('-\\;\\pi').create()
+        minus_pi = TNT_Deprecated().tx('-\\;\\pi').create()
         minus_pi.move_to(line_theta_1.get_center() + LEFT*0.5 + DOWN * 0.28)
 
-        line_theta_2 = TNT().tx('= \\arctan\\left(\\dfrac{1}{\\sqrt{3}}\\right)-\\pi').create()
-        line_theta_3 = TNT().tx('= \\dfrac{\\pi}{6}-\\pi').create()
+        line_theta_2 = TNT_Deprecated().tx('= \\arctan\\left(\\dfrac{1}{\\sqrt{3}}\\right)-\\pi').create()
+        line_theta_3 = TNT_Deprecated().tx('= \\dfrac{\\pi}{6}-\\pi').create()
 
         line_theta_1.move_to(theta_def.get_center() + LEFT * 2.45 + DOWN * 0.2).shift(DOWN * 0.05)
         line_theta_1[0].shift(UP*0.01)
 
-        line_theta_simplified = TNT().tx('= -\\dfrac{5\\cdot\\pi}{6}').create()
+        line_theta_simplified = TNT_Deprecated().tx('= -\\dfrac{5\\cdot\\pi}{6}').create()
         line_theta_simplified.move_to(theta_def.get_center() + LEFT * 2.71 + DOWN * 0.2).shift(DOWN * 0.05)
 
         group_of_solution_calc_theta = VGroup(line_theta_2, line_theta_3).arrange(DOWN, aligned_edge=LEFT, buff=0.07).shift(DOWN*0.6 + LEFT*1.12)
@@ -126,10 +126,10 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         
         ## polar exp form
-        this_defines_the_polar_form = TNT().txt('This defines the polar form', 'NORMAL').create()
+        this_defines_the_polar_form = TNT_Deprecated().txt('This defines the polar form', 'NORMAL').create()
         this_defines_the_polar_form.shift(LEFT*1.38 + DOWN*0.1)
 
-        polar_form = TNT().tx('3 \\cdot \\left(\\cos(-\\frac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\frac{5\\cdot\\pi}{6})\\right)').create()
+        polar_form = TNT_Deprecated().tx('3 \\cdot \\left(\\cos(-\\frac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\frac{5\\cdot\\pi}{6})\\right)').create()
         polar_form[0][0][0].set_color(GREEN)
         polar_form[0][0][7:13].set_color(GOLDY)
         polar_form[0][0][21:27].set_color(GOLDY)
@@ -140,34 +140,34 @@ class Test(MovingCameraScene, VoiceoverScene):
         euler_rect = swRoundedRectangle(height=0.7, width=1.6)
         euler_rect.shift(RIGHT*1.3 + DOWN*0.65)
 
-        eulers_formula = TNT().txt('Euler\'s formula', 'SEMIBOLD', PINK).create()
+        eulers_formula = TNT_Deprecated().txt('Euler\'s formula', 'SEMIBOLD', PINK).create()
         eulers_formula.move_to(euler_rect.get_center() + UP * 0.23)
 
-        actually_eulers_formula = TNT().tx('e^{\\theta\\cdot \\mathrm{i}} = \\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)').create()
+        actually_eulers_formula = TNT_Deprecated().tx('e^{\\theta\\cdot \\mathrm{i}} = \\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta)').create()
         actually_eulers_formula.move_to(euler_rect.get_center())
         actually_eulers_formula[0][0][1].set_color(GOLDY)
         actually_eulers_formula[0][0][9].set_color(GOLDY)
         actually_eulers_formula[0][0][-2].set_color(GOLDY)
         
 
-        this_defines_the_polar_exp_form = TNT().txt('This defines the polar-exponential form', 'NORMAL').create()
+        this_defines_the_polar_exp_form = TNT_Deprecated().txt('This defines the polar-exponential form', 'NORMAL').create()
         this_defines_the_polar_exp_form.move_to(this_defines_the_polar_form.get_center() + DOWN*0.45 + RIGHT * 0.3)
 
         LHS_euler_formula = actually_eulers_formula.copy().move_to(actually_eulers_formula.get_center())
-        LHS_euler_formula_2 = TNT().tx('\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta) = e^{\\theta\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_2 = TNT_Deprecated().tx('\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta) = e^{\\theta\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_2.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
         LHS_euler_formula_2[0][0][4].set_color(GOLDY)
         LHS_euler_formula_2[0][0][13].set_color(GOLDY)
         LHS_euler_formula_2[0][0][-3].set_color(GOLDY)
         
 
-        LHS_euler_formula_3 = TNT().tx('\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6}) = e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_3 = TNT_Deprecated().tx('\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6}) = e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_3.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
         LHS_euler_formula_3[0][0][4:10].set_color(GOLDY)
         LHS_euler_formula_3[0][0][18:24].set_color(GOLDY)
         LHS_euler_formula_3[0][0][-8:-2].set_color(GOLDY)
 
-        LHS_euler_formula_4 = TNT().tx('3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_4 = TNT_Deprecated().tx('3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_4.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
         LHS_euler_formula_4[0][0][0].set_color(GREEN)
         LHS_euler_formula_4[0][0][7:13].set_color(GOLDY)

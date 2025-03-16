@@ -35,7 +35,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ex1_rect.shift(LEFT*0.9)
 
         ## state problem
-        problem = TNT().txt('Calculate ').tx('\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}}').create().shift(UP * 0.75 + LEFT * 0.9)
+        problem = TNT_Deprecated().txt('Calculate ').tx('\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}}').create().shift(UP * 0.75 + LEFT * 0.9)
 
         problem[1][0][0:5].set_color(BLUE)
         problem[1][0][6:].set_color(GREEN)
@@ -46,17 +46,17 @@ class Test(MovingCameraScene, VoiceoverScene):
         ## setup conjugate theory
         conj_rect = swRoundedRectangle(height=0.8, width=1.5)
         conj_rect.shift(UP*0.6+RIGHT*1.3)
-        comp_conj = TNT().add_text('Complex conjugate', weight="SEMIBOLD", color=PINK).create().shift(UP*0.85+RIGHT*1.3)
-        z_normal = TNT().tx('z=a+b\\cdot\\mathrm{i}').create().shift(UP*0.65+RIGHT*1.25)
-        z_conj = TNT().tx('\\overline{z}=a-b\\cdot\\mathrm{i}').create().move_to(z_normal.get_center() + DOWN*0.2)
+        comp_conj = TNT_Deprecated().add_text('Complex conjugate', weight="SEMIBOLD", color=PINK).create().shift(UP*0.85+RIGHT*1.3)
+        z_normal = TNT_Deprecated().tx('z=a+b\\cdot\\mathrm{i}').create().shift(UP*0.65+RIGHT*1.25)
+        z_conj = TNT_Deprecated().tx('\\overline{z}=a-b\\cdot\\mathrm{i}').create().move_to(z_normal.get_center() + DOWN*0.2)
 
-        z_denom = TNT().tx('z=1-2\\cdot\\mathrm{i}').create().move_to(z_normal.get_center())
-        z_denom_conj = TNT().tx('\\overline{z}=1+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
+        z_denom = TNT_Deprecated().tx('z=1-2\\cdot\\mathrm{i}').create().move_to(z_normal.get_center())
+        z_denom_conj = TNT_Deprecated().tx('\\overline{z}=1+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
         z_denom[0][0][2:].set_color(GREEN)
         z_denom_conj[0][0][3:].set_color(GOLDY)
 
         ## start solving problem
-        equation = TNT().tx('\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}}=\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}} \\cdot \\dfrac{1 + 2\\cdot\\mathrm{i}}{1 + 2\\cdot\\mathrm{i}}').create().shift(LEFT *1.4 + UP * 0.5)
+        equation = TNT_Deprecated().tx('\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}}=\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}} \\cdot \\dfrac{1 + 2\\cdot\\mathrm{i}}{1 + 2\\cdot\\mathrm{i}}').create().shift(LEFT *1.4 + UP * 0.5)
 
         equation[0][0][0:5].set_color(BLUE)
         equation[0][0][6:11].set_color(GREEN)
@@ -68,15 +68,15 @@ class Test(MovingCameraScene, VoiceoverScene):
         equation[0][0][30:35].set_color(GOLDY)
 
 
-        line1 = TNT().tx('=\\dfrac{(3+4\\cdot\\mathrm{i})\\cdot(1 + 2 \\cdot\\mathrm{i})}{||1-2\\cdot\\mathrm{i}||^2}').create()
+        line1 = TNT_Deprecated().tx('=\\dfrac{(3+4\\cdot\\mathrm{i})\\cdot(1 + 2 \\cdot\\mathrm{i})}{||1-2\\cdot\\mathrm{i}||^2}').create()
 
         line1[0][0][2:7].set_color(BLUE)
         line1[0][0][10:15].set_color(GOLDY)
         line1[0][0][19:24].set_color(GREEN)
 
-        line2 = TNT().tx('=\\dfrac{3+6\\cdot\\mathrm{i}+4\\cdot\\mathrm{i}+8\\cdot\\mathrm{i}^2}{1^2+(-2)^2}').create()
-        line3 = TNT().tx('=\\dfrac{3+10\\cdot\\mathrm{i}-8}{1+4}').create()
-        line4 = TNT().tx('=\\dfrac{-5+10\\cdot\\mathrm{i}}{5}=-1+2\\cdot\\mathrm{i}').create()
+        line2 = TNT_Deprecated().tx('=\\dfrac{3+6\\cdot\\mathrm{i}+4\\cdot\\mathrm{i}+8\\cdot\\mathrm{i}^2}{1^2+(-2)^2}').create()
+        line3 = TNT_Deprecated().tx('=\\dfrac{3+10\\cdot\\mathrm{i}-8}{1+4}').create()
+        line4 = TNT_Deprecated().tx('=\\dfrac{-5+10\\cdot\\mathrm{i}}{5}=-1+2\\cdot\\mathrm{i}').create()
 
         group_of_solution = VGroup(line1, line2, line3, line4).arrange(DOWN, aligned_edge=LEFT, buff=0.1).shift(DOWN*0.3 + LEFT*1.09)
 
@@ -84,14 +84,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         ## setup norm theory
         norm_rect = swRoundedRectangle(height=0.8, width=1.5)
         norm_rect.shift(UP*0.6+RIGHT*1.3)
-        norm = TNT().add_text('Norm of complex number', weight="SEMIBOLD", color=PINK).create().shift(UP*0.85+RIGHT*1.3)
-        z = TNT().tx('z=a+b\\cdot\\mathrm{i}').create().shift(UP*0.65+RIGHT*1.25)
-        norm_z = TNT().tx('z\\cdot \\overline{z} =||z||^2=a^2+b^2').create().move_to(z.get_center() + DOWN*0.2)
+        norm = TNT_Deprecated().add_text('Norm of complex number', weight="SEMIBOLD", color=PINK).create().shift(UP*0.85+RIGHT*1.3)
+        z = TNT_Deprecated().tx('z=a+b\\cdot\\mathrm{i}').create().shift(UP*0.65+RIGHT*1.25)
+        norm_z = TNT_Deprecated().tx('z\\cdot \\overline{z} =||z||^2=a^2+b^2').create().move_to(z.get_center() + DOWN*0.2)
 
         norm_group = VGroup(norm_rect, norm, z, norm_z).shift(DOWN)
 
-        z_denom_norm = TNT().tx('z=1-2\\cdot\\mathrm{i}').create().move_to(z.get_center())
-        norm_z_denom_norm = TNT().tx('z\\cdot\\overline{z} =||1-2\\cdot\\mathrm{i}||^2=1^2+(-2)^2').create().move_to(norm_z.get_center()).shift(RIGHT * 0.02)
+        z_denom_norm = TNT_Deprecated().tx('z=1-2\\cdot\\mathrm{i}').create().move_to(z.get_center())
+        norm_z_denom_norm = TNT_Deprecated().tx('z\\cdot\\overline{z} =||1-2\\cdot\\mathrm{i}||^2=1^2+(-2)^2').create().move_to(norm_z.get_center()).shift(RIGHT * 0.02)
 
         z_denom_norm[0][0][2:].set_color(GREEN)
         norm_z_denom_norm[0][0][7:12].set_color(GREEN)
@@ -103,12 +103,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         reciprocal = Text('Reciprocal of complex number', font="Quicksand", color=PINK, weight="SEMIBOLD")
         reciprocal.scale(0.15).move_to(self.camera.frame.get_corner(UL) + RIGHT * 0.8 + DOWN * 0.15)
 
-        problem_2 = TNT().txt('Calculate ').tx('\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}}').create().move_to(problem.get_center() + UP *0.04)
+        problem_2 = TNT_Deprecated().txt('Calculate ').tx('\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}}').create().move_to(problem.get_center() + UP *0.04)
 
         problem_2[1][0][2:].set_color(GREEN)
 
         ## start solving problem
-        equation_2 = TNT().tx('\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}}=\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}} \\cdot \\dfrac{-3+2\\cdot\\mathrm{i}}{-3+2\\cdot\\mathrm{i}}').create().move_to(equation.get_center() + RIGHT * 0.07)
+        equation_2 = TNT_Deprecated().tx('\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}}=\\dfrac{1}{-3 - 2\\cdot\\mathrm{i}} \\cdot \\dfrac{-3+2\\cdot\\mathrm{i}}{-3+2\\cdot\\mathrm{i}}').create().move_to(equation.get_center() + RIGHT * 0.07)
         
         equation_2[0][0][2:8].set_color(GREEN)
         equation_2[0][0][11:17].set_color(GREEN)
@@ -116,14 +116,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         equation_2[0][0][25:].set_color(GOLDY)
 
 
-        line1_2 = TNT().tx('=\\dfrac{1\\cdot(-3+2\\cdot\\mathrm{i})}{||-3-2\\cdot\\mathrm{i}||^2}').create().move_to(line1.get_center())
+        line1_2 = TNT_Deprecated().tx('=\\dfrac{1\\cdot(-3+2\\cdot\\mathrm{i})}{||-3-2\\cdot\\mathrm{i}||^2}').create().move_to(line1.get_center())
 
         line1_2[0][0][4:9].set_color(GOLDY)
         line1_2[0][0][14:20].set_color(GREEN)
 
-        line2_2 = TNT().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{(-3)^2+(-2)^2}').create().move_to(line2.get_center())
-        line3_2 = TNT().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{9+4}').create().move_to(line3.get_center())
-        line4_2 = TNT().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{13}=-\\dfrac{3}{13}+\\dfrac{2}{13}\\cdot\\mathrm{i}').create().move_to(line4.get_center())
+        line2_2 = TNT_Deprecated().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{(-3)^2+(-2)^2}').create().move_to(line2.get_center())
+        line3_2 = TNT_Deprecated().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{9+4}').create().move_to(line3.get_center())
+        line4_2 = TNT_Deprecated().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{13}=-\\dfrac{3}{13}+\\dfrac{2}{13}\\cdot\\mathrm{i}').create().move_to(line4.get_center())
         
         group_of_solution_2 = VGroup(line1_2, line2_2, line3_2, line4_2).arrange(DOWN, aligned_edge=LEFT, buff=0.1).shift(DOWN*0.3 + LEFT)
 
@@ -232,8 +232,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
 
-        reciprocal_z = TNT().tx('z=-3-2\\cdot\\mathrm{i}').create().move_to(z_normal.get_center())
-        reciprocal_z_conj = TNT().tx('\\overline{z}=-3+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
+        reciprocal_z = TNT_Deprecated().tx('z=-3-2\\cdot\\mathrm{i}').create().move_to(z_normal.get_center())
+        reciprocal_z_conj = TNT_Deprecated().tx('\\overline{z}=-3+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
 
         reciprocal_z[0][0][2:].set_color(GREEN)
         reciprocal_z_conj[0][0][3:].set_color(GOLDY)
@@ -245,7 +245,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         reciprocal_z2 = reciprocal_z.copy().move_to(z.get_center())
-        reciprocal_z_norm = TNT().tx('z\\cdot\\overline{z}=||-3-2\\cdot\\mathrm{i}||^2=(-3)^2+(-2)^2').create().move_to(norm_z.get_center()).scale(0.8).shift(RIGHT * 0.02)
+        reciprocal_z_norm = TNT_Deprecated().tx('z\\cdot\\overline{z}=||-3-2\\cdot\\mathrm{i}||^2=(-3)^2+(-2)^2').create().move_to(norm_z.get_center()).scale(0.8).shift(RIGHT * 0.02)
 
         reciprocal_z2[0][0][2:].set_color(GREEN)
         reciprocal_z_norm[0][0][7:13].set_color(GOLDY)

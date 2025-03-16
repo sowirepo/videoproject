@@ -16,6 +16,9 @@ class Test(MovingCameraScene, VoiceoverScene):
                 model="tts-1-hd",
             )
         )
+        
+        ## Logo
+        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
 
         ## Title
         title = Text(""" TITLE HERE """, font='Quicksand', color=PURPLE, weight="SEMIBOLD",
@@ -24,15 +27,14 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         title.move_to(ORIGIN)
 
-        ## Logo
-        logo = ImageMobject('./Sowiso-logo-primary.png')
-        logo.move_to(self.camera.frame.get_corner(DL)).shift(0.15*UP + 0.35*RIGHT)
-        logo.scale(0.009)
 
         ### ANIMATIONS ###
+        self.add(logo)
+
+        self.wait(1)
+        
+        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
         self.play(swWrite(title))
 
         self.play(FadeOut(title))
         self.wait(1)
-
-        self.add(logo)
