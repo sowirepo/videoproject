@@ -202,13 +202,14 @@ class TNT(VMobject):
         objs = self.objs.arrange(RIGHT, aligned_edge=UP, buff=0.06)
 
         FirstObject = self.objs[0]
-        
+
         if type(FirstObject) == Text:
             center = FirstObject.get_center_of_mass()
             proposed_height = center[1]
 
         if type(FirstObject) == MathTex:
-            pass
+            # this probably doesnt work
+            proposed_height = FirstObject[0].get_center()[1]
 
         for i, mob in enumerate(objs[1:]):
 
@@ -216,12 +217,13 @@ class TNT(VMobject):
                 char_tex_string = self.parse_latex_characters(mob.get_tex_string())
 
                 if len(char_tex_string) > len(mob[0]):
-                    print(f"Warning: parsed tex string is longer than the actual tex string")
+                    print(f"Warning: parsed tex string is longer than the actual tex string, {char_tex_string}")
 
                 char_to_find = self.aligned_chars[i+1]
                 assert char_to_find is not None
 
                 index_of_equals = char_tex_string.find(char_to_find)
+                # todo, check behaviour if char_to_find is -1 so the last index, -1 is returned at .find if no match is found
                 center_mob = mob[0][index_of_equals].get_center()
                 
                 mob.shift(UP * (proposed_height - center_mob[1]))
@@ -247,12 +249,13 @@ class TNT(VMobject):
         tex_string = re.sub(r'\\!', '', tex_string)
         tex_string = re.sub(r'\\quad', '', tex_string)
         tex_string = re.sub(r'\\qquad', '', tex_string)
+        tex_string = re.sub(r' ', '', tex_string)
 
         # remove \left and \right
         tex_string = re.sub(r'\\left', '', tex_string)
         tex_string = re.sub(r'\\right', '', tex_string)
 
-        one_length_symbols = ['dfrac', 'frac', 'theta', 'overline', 'underline', 'bar', 'hat', 'tilde', 'vec', 'dot', 'cdot', 'vdash', 'dashv', 'overset', 'underset', 'to', 'rightarrow', 'leftarrow', 'leftrightarrow', 'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leq', 'geq']
+        one_length_symbols = ['dfrac', 'frac', 'theta', 'overline', 'underline', 'bar', 'hat', 'tilde', 'vec', 'dot', 'cdot', 'vdash', 'dashv', 'overset', 'underset', 'to', 'rightarrow', 'leftarrow', 'leftrightarrow', 'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leq', 'geq', 'varphi', 'pi', 'wedge']
         two_length_symbols = ['sqrt']
 
         # replace each one length symbol with a single character
@@ -265,6 +268,9 @@ class TNT(VMobject):
 
         # remove all other backslashes
         tex_string = re.sub(r'\\', '', tex_string)
+
+        # remove mathrm
+        tex_string = re.sub(r'mathrm', '', tex_string)
 
         return tex_string
 
