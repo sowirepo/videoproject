@@ -3,13 +3,26 @@ import os
 import tkinter as tk
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from parse_manim_script import parse_manim
 
-filename = 'complog'
+filename = 'unityroots'
 
-img_path = f'/home/chris/manim/videoproject/media/images/{filename}/Test_ManimCE_v0.19.0.png'
+img_path = f'/home/chris/manim/videoproject/media/images/parsed_{filename}/Test_ManimCE_v0.19.0.png'
 file_to_check = f'/home/chris/manim/videoproject/{filename}.py'
 
-assert os.path.exists(img_path)
+
+try:
+    assert os.path.exists(file_to_check)
+except AssertionError:
+    parse_manim(f'{filename}.py')
+    assert os.path.exists(file_to_check)
+
+try:
+    assert os.path.exists(img_path)
+except AssertionError:
+    cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py Test"
+    os.system(cmd)
+    time.sleep(0.2)
 
 class FileChangeHandler(FileSystemEventHandler):
     """Handler to handle changes in files."""
@@ -20,6 +33,7 @@ class FileChangeHandler(FileSystemEventHandler):
         self.file_to_check = file_to_check
 
     def on_modified(self, event):
+        parse_manim(f'{filename}.py')
         # Reload image if image file is modified
         if event.src_path == self.img_path:
             self.reload_image()
@@ -36,7 +50,7 @@ class FileChangeHandler(FileSystemEventHandler):
         self.label.image = img  # Keep a reference to avoid garbage collection
 
     def render_image(self):
-        cmd = f"python3 -m manim -sql {file_to_check} Test"
+        cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py Test"
         os.system(cmd)
         time.sleep(0.2)
         self.reload_image()

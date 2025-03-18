@@ -318,3 +318,7 @@ class swWrite(Write):
         self.stroke_color = color
         self.stroke_width = 1
 
+
+class NOTHING:
+    def __init__(self, voice, model):
+        pass

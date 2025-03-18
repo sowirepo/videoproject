@@ -35,6 +35,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ex1_rect = swRoundedRectangle(height=2, width=2.5)
         ex1_rect.shift(LEFT*0.9)
 
+
         problem = TNT_Deprecated().txt('Write', 'SEMIBOLD').tx('-\\dfrac{3 \\cdot \\sqrt{3}}{2} - \\dfrac{3}{2}\\cdot \\mathrm{i}').txt('in polar-exponential form', 'SEMIBOLD').create()
         problem.move_to(ex1_rect.get_center() + UP * 0.85)
         problem_underline = Line(problem[1][0].get_corner(DL) + LEFT * 0.4, problem[1][0].get_corner(DR) + RIGHT * 1.35, color=GREY, stroke_width=0.2).shift(DOWN*0.03)
