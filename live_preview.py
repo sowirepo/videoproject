@@ -4,8 +4,10 @@ import tkinter as tk
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-img_path = '/home/chris/manim/videoproject/media/images/unityroots/Test_ManimCE_v0.19.0.png'
-file_to_check = '/home/chris/manim/videoproject/unityroots.py'
+filename = 'complog'
+
+img_path = f'/home/chris/manim/videoproject/media/images/{filename}/Test_ManimCE_v0.19.0.png'
+file_to_check = f'/home/chris/manim/videoproject/{filename}.py'
 
 assert os.path.exists(img_path)
 
