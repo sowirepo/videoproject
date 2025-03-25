@@ -13,7 +13,7 @@ PINK = '#BD567C'
 
 PORPLE = '#835ED8'
 
-GOLDY = '#f2a221' 
+# GOLDY = '#f2a221' 
 # GOLDY = '#e2a221' 
 GOLDY = '#cb8d29'
 
@@ -74,7 +74,8 @@ class swRoundedRectangle(RoundedRectangle):
     def __init__(self, **kwargs):
         # Merge the default config with any overrides provided in kwargs
         final_config = {**self.config, **kwargs}
-        
+        self.title_underline = None
+
         super().__init__(
             corner_radius=final_config["corner_radius"],
             color=final_config["color"],
@@ -84,7 +85,40 @@ class swRoundedRectangle(RoundedRectangle):
             width=final_config["width"],
             stroke_width=0.2
         )
-  
+
+    def set_title(self, title, offset=0.05, remove_line=False):
+
+        coords_upper_edge = self.get_edge_center(UP)
+
+        title.move_to(coords_upper_edge).shift(DOWN * (SMALL_BUFF + offset))
+
+        lower_edge_title = title.get_edge_center(DOWN)
+
+        left_line = self.get_corner(UL) + RIGHT * SMALL_BUFF
+        right_line = self.get_corner(UR) + LEFT * SMALL_BUFF
+
+        title_underline = Line(left_line, right_line, color=GREY, stroke_width=0.2).shift(DOWN*( coords_upper_edge[1] - lower_edge_title[1] + offset ))
+        
+
+
+        self.add(title)
+        if not remove_line:
+            self.add(title_underline)
+            self.title_underline = title_underline
+
+        return self
+    
+    def create_content(self, group: VGroup, offset=0):
+
+        if self.title_underline is None:
+            raise Exception("Title underline not set. Please set the title first using .set_title()")
+        
+        middle_line = self.title_underline.get_center()
+
+        for idx, mob in enumerate(group):
+            mob.move_to(middle_line).shift(DOWN * (idx + 1) * (SMALL_BUFF + offset))
+
+        return group
     
 # adds a line in a complex plane from 0 to p2, p2 is a complex number
 def PlaneLine(p2, plane, color=RED):
@@ -224,6 +258,10 @@ class TNT(VMobject):
 
                 index_of_equals = char_tex_string.find(char_to_find)
                 # todo, check behaviour if char_to_find is -1 so the last index, -1 is returned at .find if no match is found
+
+                if index_of_equals == -1:
+                    index_of_equals = 0
+
                 center_mob = mob[0][index_of_equals].get_center()
                 
                 mob.shift(UP * (proposed_height - center_mob[1]))

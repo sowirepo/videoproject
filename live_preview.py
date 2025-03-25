@@ -5,21 +5,24 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from parse_manim_script import parse_manim
 
-filename = 'unityroots'
+filename = 'compexp'
 
 img_path = f'/home/chris/manim/videoproject/media/images/parsed_{filename}/Test_ManimCE_v0.19.0.png'
 file_to_check = f'/home/chris/manim/videoproject/{filename}.py'
+parsed_file_to_check = f'/home/chris/manim/videoproject/parsed_scripts/parsed_{filename}.py'
 
+assert os.path.exists(file_to_check)
 
 try:
-    assert os.path.exists(file_to_check)
+    assert os.path.exists(parsed_file_to_check)
 except AssertionError:
     parse_manim(f'{filename}.py')
-    assert os.path.exists(file_to_check)
+    assert os.path.exists(parsed_file_to_check)
 
 try:
     assert os.path.exists(img_path)
 except AssertionError:
+    print('Image file does not exist. Rendering image...')
     cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py Test"
     os.system(cmd)
     time.sleep(0.2)

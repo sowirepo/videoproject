@@ -1,21 +1,21 @@
 from manim import *
 from manim_extensions import *
-# from manim_voiceover import VoiceoverScene
-# from manim_voiceover.services.openai import OpenAIService
+from manim_voiceover import VoiceoverScene
+from manim_voiceover.services.openai import OpenAIService
 
-class Test(MovingCameraScene): #, VoiceoverScene):
+class Test(MovingCameraScene, VoiceoverScene):
 
     def construct(self):
         self.create_subcaption = False
 
         self.camera.background_color = BLUEISHGREY
 
-        # self.set_speech_service(
-        #     OpenAIService(
-        #         voice="alloy",
-        #         model="tts-1-hd",
-        #     )
-        # )
+        self.set_speech_service(
+            OpenAIService(
+                voice="alloy",
+                model="tts-1-hd",
+            )
+        )
         
         ## Logo
         logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
