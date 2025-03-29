@@ -59,7 +59,13 @@ class Test(VoiceoverScene):
             )
         )
 
+
+        tex = MathTex("=5", color=BLACK)
+        tex[0][1].set_color(GOLD)
+
+        self.add(tex)
+
         self.wait(3)
-        with self.voiceover(text="") as tracker:
-            self.play(Create(VGroup()))
+        # with self.voiceover(text="") as tracker:
+        #     self.play(Create(VGroup()))
         self.wait(3)

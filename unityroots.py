@@ -13,12 +13,13 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.set_speech_service(
             OpenAIService(
                 voice="alloy",
-                model="tts-1-hd",
+                # model="tts-1-hd",
+                model="gpt-4o-mini-tts",
             )
         )
 
         ## Title
-        title = Text("""Roots of Unity  """, font='Quicksand', color=PURPLE, weight="SEMIBOLD",
+        title = Text("""Roots of unity  """, font='Quicksand', color=PURPLE, weight="SEMIBOLD",
                         t2c={'quotient':PINK},
                         line_spacing=0.2).scale(0.25)
 
@@ -29,7 +30,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         ## text top left
-        roots_of_unity_title = Text('Roots of Unity', font="Quicksand", color=PINK, weight="SEMIBOLD")
+        roots_of_unity_title = Text('Roots of unity', font="Quicksand", color=PINK, weight="SEMIBOLD")
         roots_of_unity_title.scale(0.15).move_to(self.camera.frame.get_corner(UL) + RIGHT * 0.4 + DOWN * 0.1)
 
         ## setup example rectangle
@@ -46,22 +47,23 @@ class Test(MovingCameraScene, VoiceoverScene):
         z_is_minus_1 = TNT().tx('z=-1').txt(' is a solution when ').tx('n').txt(' is even').shift(UP * 0.4)
 
         by_rewriting = TNT().txt("By rewriting the equation using").shift(UP * 0.3)
-        the_polar_exp = TNT().txt("the ").txt("polar exponential form,", weight="SEMIBOLD").txt('we get').shift(UP * 0.2)
+        the_polar_exp = TNT().txt("the ").txt("polar-exponential form,", weight="SEMIBOLD").txt('we get').shift(UP * 0.2)
 
         polar_exp1 = problem[0][1].copy()
-        polar_exp2 = TNT().tx('(\\|z\\|e^{\\mathrm{i}\\cdot \\varphi})^n = \\|1\\|e^{\\mathrm{i}\\cdot 2 \\cdot k \\cdot pi}').shift(DOWN * 0.1)
-        polar_exp2_5 = TNT().tx('\\|z\\|^ne^{\\mathrm{i}\\cdot \\varphi \\cdot n} = \\|1\\|e^{\\mathrm{i}\\cdot 2 \\cdot k \\cdot \\pi}').shift(DOWN * 0.1)
+        polar_exp2 = TNT().tx('(\\|z\\|e^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|e^{2 \\cdot k \\cdot pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
+        polar_exp2_5 = TNT().tx('\\|z\\|^n\\cdot e^{\\varphi \\cdot n \\cdot \\mathrm{i}} = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
 
-        polar_exp3 = TNT().tx('z=e^{\\mathrm{i} \\cdot \\varphi} = e^{\\mathrm{i} \\cdot 2 \\cdot k \\cdot \\pi / n}').shift(DOWN * 0.3)
+        polar_exp3 = TNT().txt('The norm').tx('\\|z\\|^n=\\|1\\|').shift(DOWN * 0.3)
+        polar_exp3_1 = TNT().txt('The norm').tx('\\|z\\|=1').shift(DOWN * 0.3)
 
-        polar_exp4 = TNT().txt('We have ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{n}').shift(DOWN * 0.6)
+        polar_exp4 = TNT().txt('The argument ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{n}').shift(DOWN * 0.6)
 
         polar_exp5 = TNT().txt('There are ').tx('n', aligned_char='n', color=GOLDY).txt(' solutions for ').tx('-\\pi < \\varphi \\leq \\pi', aligned_char='<').shift(DOWN * 0.8)
 
         everything_above = VGroup(problem, this_equation_has_n_roots).shift(UP * 0.1)
-        everything_below = VGroup(by_rewriting, the_polar_exp, polar_exp2, polar_exp2_5, polar_exp3, polar_exp4, polar_exp5).shift(DOWN * 0.1)
+        everything_below = VGroup(by_rewriting, the_polar_exp, polar_exp2, polar_exp2_5, polar_exp3, polar_exp3_1, polar_exp4, polar_exp5).shift(DOWN * 0.1)
 
-        fadeout_group = VGroup(problem, this_equation_has_n_roots, z_is_1, z_is_minus_1, by_rewriting, the_polar_exp, polar_exp1, polar_exp2_5, polar_exp3, polar_exp4, polar_exp5)
+        fadeout_group = VGroup(problem, this_equation_has_n_roots, z_is_1, z_is_minus_1, by_rewriting, the_polar_exp, polar_exp1, polar_exp2_5, polar_exp3_1, polar_exp4, polar_exp5)
 
         ## setup the plane
 
@@ -105,20 +107,22 @@ class Test(MovingCameraScene, VoiceoverScene):
         # title_underline = Line(solve_n3_is_1.get_corner(DL) + LEFT * 0.65 + DOWN * 0.1, solve_n3_is_1.get_corner(DR) + RIGHT * 0.65 + DOWN * 0.1, color=GREY, stroke_width=0.2)
         title_underline = Line(solve_n3_is_1.get_corner(DL) + LEFT*0.65 , solve_n3_is_1.get_corner(DR) + RIGHT * 0.65, color=GREY, stroke_width=0.2).shift(DOWN*0.07)
 
-        since_n_is_odd = TNT().txt('Since ').tx('n', aligned_char='n').txt(' is odd, ').tx('z=1').txt(' is a solution').move_to(example_n3_rect.get_center()).shift(UP * 0.7)
+        since_n_is_odd = TNT()#.txt('Since ').tx('n', aligned_char='n').txt(' is odd, ').tx('z=1').txt(' is a solution').move_to(example_n3_rect.get_center()).shift(UP * 0.7)
 
-        the_other_solutions = TNT().txt('The other solutions are of form ').tx('z=e^{\\mathrm{i} \\cdot \\varphi}').move_to(example_n3_rect).shift(UP * 0.5)
-        where_phi = TNT().txt(' where ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(UP * 0.3)
+        the_other_solutions = TNT().txt('We have ').tx('\\|z\\|=1').move_to(example_n3_rect).shift(UP * 0.5)
+        where_phi = TNT().txt('and ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(UP * 0.3)
 
         phi_inequalities_must_hold = TNT().tx('-\\pi < \\varphi \\leq \\pi').txt(' must hold').move_to(example_n3_rect.get_center()).shift(UP * 0.1)
 
-        picking_k_is_1 = TNT().txt('Picking ').tx('k=1').txt(' gives ').tx('\\varphi=\\dfrac{2\\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
-        and_solution_2 = TNT().txt('and ').tx('z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.22)
+        # picking_k_is_1 = TNT().txt('Picking ').tx('k=1').txt(' gives ').tx('\\varphi=\\dfrac{2\\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
+        picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
+
+        and_solution_2 = TNT()#.txt('and ').tx('z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.22)
 
         picking_k_is_minus_1 = TNT().txt('Picking ').tx('k=-1').txt(' gives ').tx('\\varphi=-\\dfrac{2\\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
         and_solution_3 = TNT().txt('and ').tx('z=e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.52)
 
-        solutions = TNT().txt('Solutions:').tx('z=1\\wedge z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\wedge z=e^{\\frac{4\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.75)
+        solutions = TNT().txt('Solutions:').tx('z=1\\vee z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=e^{\\frac{4\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.75)
 
 
         # dot1 = Dot(p1:=polarplane_pi.polar_to_point(0,0), color=BLUE, radius=0.01)
@@ -239,7 +243,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(swWrite(by_rewriting))    
         self.play(swWrite(the_polar_exp))
 
-        self.play(polar_exp1.animate.move_to(ex1_rect.get_center() + DOWN * 0.05))
+        self.play(polar_exp1.animate.move_to(ex1_rect.get_center() + DOWN * 0.05 + LEFT * 0.03))
 
         # remember k is an int
         self.play(swWrite(polar_exp2))
@@ -249,11 +253,12 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         self.play(swWrite(polar_exp3))
 
+        self.play(TransformMatchingShapes(polar_exp3, polar_exp3_1))
+
         self.play(swWrite(polar_exp4))
 
         # notice phi =0 for z=1 solution and phi = pi for z=-1 solution
         self.play(swWrite(polar_exp5))
-
 
 
 
@@ -301,9 +306,12 @@ class Test(MovingCameraScene, VoiceoverScene):
         # notice how the complex roots are complex conjugates of each other
 
 
-        self.play(FadeOut(ex_n3_group))
+        return
+    
 
         ## START n=4 example
+        self.play(FadeOut(ex_n3_group))
+
         self.play(TransformMatchingShapes(solve_n3_is_1, solve_n4_is_1))
 
         self.play(swWrite(since_n_is_even))

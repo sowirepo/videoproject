@@ -13,7 +13,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.set_speech_service(
             OpenAIService(
                 voice="alloy",
-                model="tts-1-hd",
+                # model="tts-1-hd",
+                model="gpt-4o-mini-tts",
             )
         )
 
@@ -248,7 +249,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         reciprocal_z_norm = TNT_Deprecated().tx('z\\cdot\\overline{z}=||-3-2\\cdot\\mathrm{i}||^2=(-3)^2+(-2)^2').create().move_to(norm_z.get_center()).scale(0.8).shift(RIGHT * 0.02)
 
         reciprocal_z2[0][0][2:].set_color(GREEN)
-        reciprocal_z_norm[0][0][7:13].set_color(GOLDY)
+        reciprocal_z_norm[0][0][7:13].set_color(GREEN)
 
         with self.voiceover(text="Next, we can see that the norm squared of z is equal to minus 3 squared plus minus 2 squared") as tracker:
             self.play(TransformMatchingTex(z, reciprocal_z2), run_time=tracker.duration * 0.3)

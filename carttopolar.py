@@ -87,6 +87,8 @@ class TextNTex(Mobject):
 
         return obj    
 
+TNT = TextNTex
+
 # class CartesianToPolar(MovingCameraScene):
 class Test(MovingCameraScene, VoiceoverScene):
     def construct(self):
@@ -95,7 +97,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.set_speech_service(
             OpenAIService(
                 voice="alloy",
-                model="tts-1-hd",
+                # model="tts-1-hd",
+                model="gpt-4o-mini-tts",
             )
         )
 
@@ -587,7 +590,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         tex_step2 = MathTex(r"&= \sqrt{12+4}", color=BLACK).next_to(tex_step1, DOWN, aligned_edge=LEFT)
         tex_step3 = MathTex(r"&= \sqrt{16}", color=BLACK).next_to(tex_step2, DOWN, aligned_edge=LEFT)
         tex_step4 = MathTex(r"&= 4", color=BLACK).next_to(tex_step3, DOWN, aligned_edge=LEFT)
-        
+        tex_step4[0][1].set_color(GOLD)
+
         r = MathTex('r', color=GOLD).next_to(tex_r, LEFT, buff=0.2).shift(DOWN * 0.05)
 
         group = VGroup(tex_r, tex_step1, tex_step2, tex_step3, tex_step4, r)
@@ -659,6 +663,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         thetal2[0][8].set_color(GREEN)
 
         thetal3 = MathTex('&= \\dfrac{\\pi}{6}', color=BLACK).next_to(thetal2, DOWN, aligned_edge=LEFT)
+        thetal3[0][1:].set_color(PORPLE)
 
         theta = MathTex('\\theta', color=PORPLE).next_to(thetal1, LEFT, buff=0.2).shift(DOWN * 0.05)
 
@@ -857,7 +862,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         tex_step2 = MathTex(r"&= \sqrt{\dfrac{25}{4}+\dfrac{75}{4}}", color=BLACK).next_to(tex_step1, DOWN, aligned_edge=LEFT)
         tex_step3 = MathTex(r"&= \sqrt{25}", color=BLACK).next_to(tex_step2, DOWN, aligned_edge=LEFT)
         tex_step4 = MathTex(r"&= 5", color=BLACK).next_to(tex_step3, DOWN, aligned_edge=LEFT)
-        
+        tex_step4[0][1].set_color(GOLD)
+
         r = MathTex('r', color=GOLD).next_to(tex_r, LEFT, buff=0.2).shift(DOWN * 0.05)
 
         group = VGroup(tex_r, tex_step1, tex_step2, tex_step3, tex_step4, r)
@@ -973,7 +979,7 @@ class Test(MovingCameraScene, VoiceoverScene):
             self.wait(tracker.duration * 0.5)
 
         altthetal4 = MathTex('&= -\\dfrac{2\\cdot\\pi}{3}', color=BLACK).move_to(altthetal3.get_center()).scale(0.2)
-
+        altthetal4[0][1:].set_color(PORPLE)
 
         with self.voiceover(text="And this is equal to minus 2 pi over 3") as tracker:
             self.play(TransformMatchingShapes(altthetal3, altthetal4), run_time = tracker.duration * 0.5)

@@ -34,9 +34,14 @@ def parse_manim(script_filename):
                 f.write(line.replace('with self.voiceover', 'if True:#'))
                 continue
 
-            if line.find('tracker.duration') != -1:
-                f.write(line.replace('tracker.duration', 'trackerdurationvar'))
+            if line.find('self.wait') != -1:
+                f.write(line.replace('self.wait', 'pass#'))
                 continue
+            
+            if line.find('tracker.duration') != -1:
+                f.write(line.replace('tracker.duration', 'trackerdurationvar)#'))
+                continue
+
 
             f.write(line)
 

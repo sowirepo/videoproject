@@ -293,7 +293,7 @@ class TNT(VMobject):
         tex_string = re.sub(r'\\left', '', tex_string)
         tex_string = re.sub(r'\\right', '', tex_string)
 
-        one_length_symbols = ['dfrac', 'frac', 'theta', 'overline', 'underline', 'bar', 'hat', 'tilde', 'vec', 'dot', 'cdot', 'vdash', 'dashv', 'overset', 'underset', 'to', 'rightarrow', 'leftarrow', 'leftrightarrow', 'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leq', 'geq', 'varphi', 'pi', 'wedge']
+        one_length_symbols = ['dfrac', 'frac', 'theta', 'overline', 'underline', 'bar', 'hat', 'tilde', 'vec', 'dot', 'cdot', 'vdash', 'dashv', 'overset', 'underset', 'to', 'rightarrow', 'leftarrow', 'leftrightarrow', 'Rightarrow', 'Leftarrow', 'Leftrightarrow', 'leq', 'geq', 'varphi', 'pi', 'wedge', 'vee']
         two_length_symbols = ['sqrt']
 
         # replace each one length symbol with a single character
