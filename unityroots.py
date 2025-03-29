@@ -44,21 +44,37 @@ class Test(MovingCameraScene, VoiceoverScene):
         this_equation_has_n_roots = TNT().txt("This equation has ").tx('n', aligned_char='n', color=GOLDY).txt(' solutions').shift(UP * 0.6)
 
         z_is_1 = TNT().tx('z=1').txt(' is always a solution').shift(UP * 0.5)
+        z_is_1[0][0][0][0].set_color(BLUE)
         z_is_minus_1 = TNT().tx('z=-1').txt(' is a solution when ').tx('n').txt(' is even').shift(UP * 0.4)
+        z_is_minus_1[0][0][0][0].set_color(BLUE)
+        z_is_minus_1[0][2][0][0].set_color(GOLDY)
 
         by_rewriting = TNT().txt("By rewriting the equation using").shift(UP * 0.3)
         the_polar_exp = TNT().txt("the ").txt("polar-exponential form,", weight="SEMIBOLD").txt('we get').shift(UP * 0.2)
 
         polar_exp1 = problem[0][1].copy()
-        polar_exp2 = TNT().tx('(\\|z\\|e^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|e^{2 \\cdot k \\cdot pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
+        polar_exp2 = TNT().tx('(\\|z\\|\\cdot e^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
+        polar_exp2[0][0][0][2].set_color(BLUE)
+        polar_exp2[0][0][0][6].set_color(GREEN)
+        polar_exp2[0][0][0][10].set_color(GOLDY)
+        
         polar_exp2_5 = TNT().tx('\\|z\\|^n\\cdot e^{\\varphi \\cdot n \\cdot \\mathrm{i}} = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
-
+        polar_exp2_5[0][0][0][1].set_color(BLUE)
+        polar_exp2_5[0][0][0][3].set_color(GOLDY)
+        polar_exp2_5[0][0][0][8].set_color(GOLDY)
+        
         polar_exp3 = TNT().txt('The norm').tx('\\|z\\|^n=\\|1\\|').shift(DOWN * 0.3)
+        polar_exp3[0][1][0][1].set_color(BLUE)
+        polar_exp3[0][1][0][3].set_color(GOLDY)
         polar_exp3_1 = TNT().txt('The norm').tx('\\|z\\|=1').shift(DOWN * 0.3)
+        polar_exp3_1[0][1][0][1].set_color(BLUE)
 
         polar_exp4 = TNT().txt('The argument ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{n}').shift(DOWN * 0.6)
+        polar_exp4[0][1][0][0].set_color(GREEN)
+        polar_exp4[0][1][0][-1].set_color(GOLDY)
 
         polar_exp5 = TNT().txt('There are ').tx('n', aligned_char='n', color=GOLDY).txt(' solutions for ').tx('-\\pi < \\varphi \\leq \\pi', aligned_char='<').shift(DOWN * 0.8)
+        polar_exp5[0][3][0][3].set_color(GREEN)
 
         everything_above = VGroup(problem, this_equation_has_n_roots).shift(UP * 0.1)
         everything_below = VGroup(by_rewriting, the_polar_exp, polar_exp2, polar_exp2_5, polar_exp3, polar_exp3_1, polar_exp4, polar_exp5).shift(DOWN * 0.1)
@@ -104,26 +120,39 @@ class Test(MovingCameraScene, VoiceoverScene):
         example_n3_rect = swRoundedRectangle(height=2.1, width=2).shift(LEFT * 1.15)
 
         solve_n3_is_1 = TNT().txt('Solve ').tx('z^3=1').move_to(example_n3_rect.get_center() + UP * 0.9)
-        # title_underline = Line(solve_n3_is_1.get_corner(DL) + LEFT * 0.65 + DOWN * 0.1, solve_n3_is_1.get_corner(DR) + RIGHT * 0.65 + DOWN * 0.1, color=GREY, stroke_width=0.2)
+        solve_n3_is_1[0][1][0][0].set_color(BLUE)
+        solve_n3_is_1[0][1][0][1].set_color(GOLDY)
+
         title_underline = Line(solve_n3_is_1.get_corner(DL) + LEFT*0.65 , solve_n3_is_1.get_corner(DR) + RIGHT * 0.65, color=GREY, stroke_width=0.2).shift(DOWN*0.07)
 
-        since_n_is_odd = TNT()#.txt('Since ').tx('n', aligned_char='n').txt(' is odd, ').tx('z=1').txt(' is a solution').move_to(example_n3_rect.get_center()).shift(UP * 0.7)
+        the_other_solutions = TNT().txt('We have ').tx('\\|z\\|=1').move_to(example_n3_rect).shift(UP * 0.6)
+        the_other_solutions[0][1][0][1].set_color(BLUE)
 
-        the_other_solutions = TNT().txt('We have ').tx('\\|z\\|=1').move_to(example_n3_rect).shift(UP * 0.5)
-        where_phi = TNT().txt('and ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(UP * 0.3)
+        where_phi = TNT().txt('and ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
+        where_phi[0][1][0][0].set_color(GREEN)
+        where_phi[0][1][0][-1].set_color(GOLDY)
 
-        phi_inequalities_must_hold = TNT().tx('-\\pi < \\varphi \\leq \\pi').txt(' must hold').move_to(example_n3_rect.get_center()).shift(UP * 0.1)
+        phi_inequalities_must_hold = TNT().tx('-\\pi < \\varphi \\leq \\pi').txt(' must hold').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        phi_inequalities_must_hold[0][0][0][3].set_color(GREEN)
 
-        # picking_k_is_1 = TNT().txt('Picking ').tx('k=1').txt(' gives ').tx('\\varphi=\\dfrac{2\\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
-        picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
+        picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
+        picking_k_is_1[0][3][0][0].set_color(BLUE)
+        picking_k_is_1[0][3][0][7].set_color(GOLDY)
 
-        and_solution_2 = TNT()#.txt('and ').tx('z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.22)
+        picking_k_is_0 = TNT().txt('For ').tx('k=0,').txt(' we get ').tx('z = 1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_0[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_minus_1 = TNT().txt('Picking ').tx('k=-1').txt(' gives ').tx('\\varphi=-\\dfrac{2\\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
-        and_solution_3 = TNT().txt('and ').tx('z=e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.52)
+        picking_k_is_minus_1 = TNT().txt('For ').tx('k=-1,').txt(' we get ').tx('z = e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
+        picking_k_is_minus_1[0][3][0][0].set_color(BLUE)
+        picking_k_is_minus_1[0][3][0][8].set_color(GOLDY)
 
-        solutions = TNT().txt('Solutions:').tx('z=1\\vee z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=e^{\\frac{4\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.75)
+        solutions = TNT().txt('Solutions:').tx('z=1\\vee z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.65)
+        solutions[0][1][0][0].set_color(BLUE)
+        solutions[0][1][0][4].set_color(BLUE)
+        solutions[0][1][0][15].set_color(BLUE)
 
+        solutions[0][1][0][11].set_color(GOLDY)
+        solutions[0][1][0][23].set_color(GOLDY)
 
         # dot1 = Dot(p1:=polarplane_pi.polar_to_point(0,0), color=BLUE, radius=0.01)
         # dot2 = Dot(p2:=polarplane_pi.polar_to_point(1,0), color=RED,radius=0.01)
@@ -134,32 +163,38 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         vec_1 = Line(org, p1, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP *0.01)
-        vec_2 = Line(org, p2, color=RED, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP *0.01)
-        vec_3 = Line(org, p3, color=GREEN, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP *0.01)
+        vec_2 = Line(org, p2, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP *0.01)
+        vec_3 = Line(org, p3, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP *0.01)
 
 
         polarplane_group = VGroup(ex1_rect, polarplane_pi, label_X_re, label_Y_im)
 
-        ex_n3_group = VGroup(since_n_is_odd, the_other_solutions, where_phi, phi_inequalities_must_hold, picking_k_is_1, and_solution_2, picking_k_is_minus_1, and_solution_3, solutions, vec_1, vec_2, vec_3)
+        ex_n3_group = VGroup(the_other_solutions, where_phi, phi_inequalities_must_hold, picking_k_is_1, picking_k_is_minus_1, picking_k_is_0, solutions, vec_1, vec_2, vec_3)
 
         ##################
         ## example n=4
         ##################
 
         solve_n4_is_1 = TNT().txt('Solve ').tx('z^4=1').move_to(solve_n3_is_1.get_center())
+        solve_n4_is_1[0][1][0][0].set_color(BLUE)
+        solve_n4_is_1[0][1][0][1].set_color(GOLDY)
 
-        since_n_is_even = TNT().txt('Since ').tx('n', aligned_char='n').txt(' is even, ').move_to(example_n3_rect.get_center()).shift(UP * 0.7)
-        z_1_minus_1 = TNT().tx('z=1').txt(' and ').tx('z=-1').txt(' are solutions').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
+        the_other_solutions_n4 = TNT().txt('We have ').tx('\\|z\\|=1').txt(' and ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{4}').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
+        the_other_solutions_n4[0][1][0][1].set_color(BLUE)
+        the_other_solutions_n4[0][3][0][0].set_color(GREEN)
+        the_other_solutions_n4[0][3][0][-1].set_color(GOLDY)
 
-        the_other_solutions_n4 = the_other_solutions.copy().shift(DOWN * 0.1)
-        where_phi_n4 = TNT().txt('where ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{4}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        picking_k_is_1_n4 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
+        picking_k_is_1_n4[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_1_n4 = TNT().txt('Picking ').tx('k=1').txt(' gives ').tx('\\varphi=\\dfrac{\\pi}{2}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1)
-        and_solution_3_n4 = TNT().txt('and ').tx('z=e^{\\frac{\\pi}{2}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.25)
+        picking_k_is_0_n4 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        picking_k_is_0_n4[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_minus_1_n4 = TNT().txt('Picking ').tx('k=-1').txt(' gives ').tx('\\varphi=-\\dfrac{\\pi}{2}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.5)
-        and_solution_4_n4 = TNT().txt('and ').tx('z=e^{-\\frac{\\pi}{2}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.65)
+        picking_k_is_minus_1_n4 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=e^{-\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.0)
+        picking_k_is_minus_1_n4[0][3][0][0].set_color(BLUE)
 
+        picking_k_is_2_n4 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=e^{\\pi \\cdot \\mathrm{i}}=-1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_2_n4[0][3][0][0].set_color(BLUE)
 
         p1_n4 = polarplane_pi.polar_to_point(1,0)
         p2_n4 = polarplane_pi.polar_to_point(1,1/2 * PI)
@@ -167,11 +202,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         p4_n4 = polarplane_pi.polar_to_point(1,3/2 * PI)
 
         vec_n4_1 = Line(org, p1_n4, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01)
-        vec_n4_2 = Line(org, p2_n4, color=RED, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01)
-        vec_n4_3 = Line(org, p3_n4, color=GREEN, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01)
-        vec_n4_4 = Line(org, p4_n4, color=YELLOW, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01) 
+        vec_n4_2 = Line(org, p2_n4, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01)
+        vec_n4_3 = Line(org, p3_n4, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01)
+        vec_n4_4 = Line(org, p4_n4, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06).shift(RIGHT * 1.1 + UP * 0.01) 
 
-        fadeout_group_n4 = VGroup(since_n_is_even, z_1_minus_1, the_other_solutions_n4, where_phi_n4, picking_k_is_1_n4, and_solution_3_n4, picking_k_is_minus_1_n4, and_solution_4_n4, vec_n4_1, vec_n4_2, vec_n4_3, vec_n4_4)
+        fadeout_group_n4 = VGroup(the_other_solutions_n4, picking_k_is_1_n4, picking_k_is_0_n4, picking_k_is_minus_1_n4, picking_k_is_2_n4, vec_n4_1, vec_n4_2, vec_n4_3, vec_n4_4)
 
         ##################
         ## example n=5
@@ -199,20 +234,30 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         solve_n5_is_1 = TNT().txt('Solve ').tx('z^5=1').move_to(solve_n3_is_1.get_center())
 
-        since_n_is_odd_n5 = since_n_is_odd.copy()
+        the_other_solutions_n5 = TNT().txt('We have ').tx('\\|z\\|=1').txt(' and ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
+        the_other_solutions_n5[0][1][0][1].set_color(BLUE)
+        the_other_solutions_n5[0][3][0][0].set_color(GREEN)
+        the_other_solutions_n5[0][3][0][-1].set_color(GOLDY)
 
-        picking_k_is_1_n5 = TNT().txt('Picking ').tx('k=1').txt(' gives ').tx('\\varphi=\\dfrac{2\\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.1).shift(UP * 0.55)
-        and_solution_3_n5 = TNT().txt('and ').tx('z=e^{\\frac{2\\cdot\\pi}{5}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.25).shift(UP * 0.55)
+        picking_k_is_0_n5 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
+        picking_k_is_0_n5[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_minus_1_n5 = TNT().txt('Picking ').tx('k=-1').txt(' gives ').tx('\\varphi=-\\dfrac{2\\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.45).shift(UP * 0.55)
-        and_solution_4_n5 = TNT().txt('and ').tx('z=e^{-\\frac{2\\cdot\\pi}{5}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.6).shift(UP * 0.55)
+        picking_k_is_1_n5 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        picking_k_is_1_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_1_n5[0][3][0][7].set_color(GOLDY)
 
-        picking_k_is_2_n5 = TNT().txt('Picking ').tx('k=2').txt(' gives ').tx('\\varphi=\\dfrac{4\\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.8).shift(UP * 0.55)
-        and_solution_5_n5 = TNT().txt('and ').tx('z=e^{\\frac{4\\cdot\\pi}{5}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.95).shift(UP * 0.55)
+        picking_k_is_2_n5 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=e^{\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
+        picking_k_is_2_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_2_n5[0][3][0][7].set_color(GOLDY)
 
-        picking_k_is_minus_2_n5 = TNT().txt('Picking ').tx('k=-2').txt(' gives ').tx('\\varphi=-\\dfrac{4\\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(DOWN * 1.15).shift(UP * 0.55)
-        and_solution_6_n5 = TNT().txt('and ').tx('z=e^{-\\frac{4\\cdot\\pi}{5}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 1.3).shift(UP * 0.55)
+        picking_k_is_minus_1_n5 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=e^{-\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_minus_1_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_minus_1_n5[0][3][0][8].set_color(GOLDY)
 
+
+        picking_k_is_minus_2_n5 = TNT().txt('For ').tx('k=-2').txt(' we get ').tx('z=e^{-\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
+        picking_k_is_minus_2_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_minus_2_n5[0][3][0][8].set_color(GOLDY)
 
 
 
@@ -225,7 +270,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(1)
         
         self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.1*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
-        self.play(swWrite(title))
+        
+        with self.voiceover(text="This video shows how to calculate the roots of unity.") as tracker:
+            self.play(swWrite(title))
 
         self.play(FadeOut(title))
         self.wait(1)
@@ -233,114 +280,227 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(swWrite(roots_of_unity_title))
 
         self.play(Create(ex1_rect))
-        self.play(swWrite(problem))
-        self.play(swWrite(this_equation_has_n_roots))
 
-        self.play(swWrite(z_is_1))
+        with self.voiceover(text="We will solve the equation 'z' to the power of 'n' is equal to 1.") as tracker:
+            self.play(swWrite(problem))
+            
+        with self.voiceover(text="This equation has n solutions.") as tracker:
+            self.play(swWrite(this_equation_has_n_roots))
 
-        self.play(swWrite(z_is_minus_1))
+        with self.voiceover(text="'z' equals 1 is always a solution") as tracker:
+            self.play(swWrite(z_is_1))
 
-        self.play(swWrite(by_rewriting))    
-        self.play(swWrite(the_polar_exp))
+        with self.voiceover(text="'z' equals -1 is a solution when n is even") as tracker:
+            self.play(swWrite(z_is_minus_1))
+
+        with self.voiceover(text="By rewriting the equation using the polar exponential form, we get the following equations.") as tracker:
+            self.play(swWrite(by_rewriting))    
+            self.play(swWrite(the_polar_exp))
+
 
         self.play(polar_exp1.animate.move_to(ex1_rect.get_center() + DOWN * 0.05 + LEFT * 0.03))
 
         # remember k is an int
-        self.play(swWrite(polar_exp2))
+        with self.voiceover(text="We can write 'z' and 1 in polar exponential form like this. Remember that 'k' can be any integer.") as tracker:
+            self.play(swWrite(polar_exp2))
 
         # apply demoivre's theorem
-        self.play(TransformMatchingShapes(polar_exp2, polar_exp2_5))
+        with self.voiceover(text="We can apply De Moivre's theorem to the left side of the equation to distribute the power of n.") as tracker:
+            self.play(TransformMatchingShapes(polar_exp2, polar_exp2_5))
 
-        self.play(swWrite(polar_exp3))
+        with self.voiceover(text="We can now see that the norm of 'z' to the power of 'n' is equal to the norm of 1 to the power of 'n'") as tracker:
+            self.play(swWrite(polar_exp3))
 
-        self.play(TransformMatchingShapes(polar_exp3, polar_exp3_1))
+        with self.voiceover(text="This means that the norm of 'z' is equal to 1.") as tracker:
+            self.play(TransformMatchingShapes(polar_exp3, polar_exp3_1))
 
-        self.play(swWrite(polar_exp4))
+        with self.voiceover(text="The argument phi of 'z' is equal to 2 times k times pi divided by n.") as tracker:
+            self.play(swWrite(polar_exp4))
 
         # notice phi =0 for z=1 solution and phi = pi for z=-1 solution
-        self.play(swWrite(polar_exp5))
-
-
+        with self.voiceover(text="There are n solutions for minus pi is less than phi which is less than or equal to pi. Notice that phi is zero for the solution 'z' is equal to 1 and phi is equal to pi when 'z' equals negative 1 is a solution.") as tracker:
+            self.play(swWrite(polar_exp5))
 
         ######################
         ## end of theory part
         ## start n = 3 example
+        ####################
 
         self.play(FadeOut(fadeout_group))
 
         self.play(Transform(ex1_rect, polarplane_rect))
 
-        self.play(Create(polarplane_pi))
-        self.play(swWrite(label_Y_im), swWrite(label_X_re), run_time = 0.4)
+        with self.voiceover(text="We will now take a look at some examples and draw the solutions in a polar plane.") as tracker:
+            self.play(Create(polarplane_pi))
+            self.play(swWrite(label_Y_im), swWrite(label_X_re), run_time = 0.4)
 
         self.play(polarplane_group.animate.shift(RIGHT * 1.1 + UP *0.01))
 
         self.play(Create(example_n3_rect))
 
-        self.play(swWrite(solve_n3_is_1))
-        self.play(Create(title_underline))
+        with self.voiceover(text="We will start with the example of 'z' to the power of 3 equals 1.") as tracker:  
+            self.play(swWrite(solve_n3_is_1))
+            self.play(Create(title_underline))
 
         # we draw the position vector in the polar plane
-        self.play(swWrite(since_n_is_odd))
-        self.play(Create(vec_1))
+        # self.play(swWrite(since_n_is_odd))
+        # self.play(Create(vec_1))
 
         # Once again, Since the norm of z is 1, we only need to find the angle of the remaining possible solutions
-        self.play(swWrite(the_other_solutions))
-        self.play(swWrite(where_phi))
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 3.") as tracker:
+            self.play(swWrite(the_other_solutions))
+            self.play(swWrite(where_phi))
 
-        self.play(swWrite(phi_inequalities_must_hold))
+        with self.voiceover(text="The inequality minus pi is less than phi, which is less than or equal to pi, must hold.") as tracker:
+            self.play(swWrite(phi_inequalities_must_hold))
 
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times pi over 3 times i.") as tracker:
+            self.play(swWrite(picking_k_is_1))
+        self.play(Create(vec_2))
+
+        with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
+            self.play(swWrite(picking_k_is_0))
+        self.play(Create(vec_1))
+        
+        self.play(swWrite(picking_k_is_minus_1))
+        # We know that -2/3 pi is equal to 4/3 pi in rad so we draw this vector here
+        self.play(Create(vec_3))
+
+        with self.voiceover(text="The solutions are z equals 1 or z equals e to the power of 2 times pi over 3 times i or z equals e to the power of -2 times pi over 3 times i.") as tracker:
+            self.play(swWrite(solutions))
+
+        # Notice how the complex roots are complex conjugates of each other
+        self.play(FadeOut(ex_n3_group))
+
+        # Move on to the next example
+        with self.voiceover(text="Next, solve 'z' to the power of 4 equals 1.") as tracker:
+            self.play(TransformMatchingShapes(solve_n3_is_1, solve_n4_is_1))
+
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 4.") as tracker:
+            self.play(swWrite(the_other_solutions_n4))
+
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of pi over 2 times i.") as tracker:
+            self.play(swWrite(picking_k_is_1_n4))
+        self.play(Create(vec_n4_2))
+
+        with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
+            self.play(swWrite(picking_k_is_0_n4))
+        self.play(Create(vec_n4_1))
+
+        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of pi times i, which is -1.") as tracker:
+            self.play(swWrite(picking_k_is_2_n4))
+        self.play(Create(vec_n4_3))
+
+        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -pi over 2 times i.") as tracker:
+            self.play(swWrite(picking_k_is_minus_1_n4))
+        self.play(Create(vec_n4_4))
+
+        # Start n=5 example
+        self.play(FadeOut(fadeout_group_n4))
+
+        with self.voiceover(text="Finally, solve 'z' to the power of 5 equals 1.") as tracker:
+            self.play(TransformMatchingShapes(solve_n4_is_1, solve_n5_is_1))
+
+        self.play(Transform(polarplane_pi, new_polarplane_pi))
+
+        new_org = new_polarplane_pi.polar_to_point(0,0)
+        p1_n5 = new_polarplane_pi.polar_to_point(1,0)
+        p2_n5 = new_polarplane_pi.polar_to_point(1,2/5 * PI)
+        p3_n5 = new_polarplane_pi.polar_to_point(1,4/5 * PI)
+        p4_n5 = new_polarplane_pi.polar_to_point(1,6/5 * PI)
+        p5_n5 = new_polarplane_pi.polar_to_point(1,8/5 * PI)
+
+        vec_n5_1 = Line(new_org, p1_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_2 = Line(new_org, p2_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_3 = Line(new_org, p3_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_4 = Line(new_org, p4_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_5 = Line(new_org, p5_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 5.") as tracker:
+            self.play(swWrite(the_other_solutions_n5))
+
+        with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
+            self.play(swWrite(picking_k_is_0_n5))
+        self.play(Create(vec_n5_1))
+
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times pi over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_1_n5))
+        self.play(Create(vec_n5_2))
+
+        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -2 times pi over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_minus_1_n5))
+        self.play(Create(vec_n5_3))
+
+        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of 4 times pi over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_2_n5))
+        self.play(Create(vec_n5_4))
+
+        with self.voiceover(text="For k equals -2, we get 'z' equals e to the power of -4 times pi over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_minus_2_n5))
+        self.play(Create(vec_n5_5))
+
+        # fade out everything still on the screen
+        self.wait(2)
+
+        fadeout_all = Group(*self.mobjects)
+
+        self.play(FadeOut(fadeout_all))
+        self.wait(1)
+
+
+
+
+
+
+        return
         # notice that if k=0, we get the first solution z=1
         self.play(swWrite(picking_k_is_1))
-        self.play(swWrite(and_solution_2))
+        # self.play(swWrite(and_solution_2))
         # we draw this vector here
         self.play(Create(vec_2))
 
+        self.play(swWrite(picking_k_is_0))
+        self.play(Create(vec_1))
+        
+
         self.play(swWrite(picking_k_is_minus_1))
-        self.play(swWrite(and_solution_3))
         # we know that -2/3 pi is equal to 4/3 pi in rad so we draw this vector here
         self.play(Create(vec_3))
 
         self.play(swWrite(solutions))
 
         # notice how the complex roots are complex conjugates of each other
-
-
-        return
     
-
+        ####################
         ## START n=4 example
+        ####################
+
         self.play(FadeOut(ex_n3_group))
 
         self.play(TransformMatchingShapes(solve_n3_is_1, solve_n4_is_1))
 
-        self.play(swWrite(since_n_is_even))
-        self.play(swWrite(z_1_minus_1))
-
-        #we draw those solutions
-        self.play(Create(vec_n4_1))
-        self.play(Create(vec_n4_3))
-
 
         self.play(swWrite(the_other_solutions_n4))
         # keep in mind -pi < phi <= pi
-        self.play(swWrite(where_phi_n4))
 
         self.play(swWrite(picking_k_is_1_n4))
-        self.play(swWrite(and_solution_3_n4))
         # we draw the point
         self.play(Create(vec_n4_2))
 
+        self.play(swWrite(picking_k_is_0_n4))
+        self.play(Create(vec_n4_1))
+
+        self.play(swWrite(picking_k_is_2_n4))
+        self.play(Create(vec_n4_3))
 
         self.play(swWrite(picking_k_is_minus_1_n4))
-        self.play(swWrite(and_solution_4_n4))
-        # we draw the point
         self.play(Create(vec_n4_4))
 
+        ####################
+        ## START n=5 example
+        ####################
 
         self.play(FadeOut(fadeout_group_n4))
-
-        ## START n=5 example
         self.play(TransformMatchingShapes(solve_n4_is_1, solve_n5_is_1))
 
         new_polarplane_pi.move_to(polarplane_pi.get_center()).shift(UP*0.01)
@@ -354,34 +514,26 @@ class Test(MovingCameraScene, VoiceoverScene):
         p5_n5 = new_polarplane_pi.polar_to_point(1,8/5 * PI)
 
         vec_n5_1 = Line(new_org, p1_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_2 = Line(new_org, p2_n5, color=RED, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_3 = Line(new_org, p3_n5, color=GREEN, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_4 = Line(new_org, p4_n5, color=GOLDY, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_5 = Line(new_org, p5_n5, color=PORPLE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_2 = Line(new_org, p2_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_3 = Line(new_org, p3_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_4 = Line(new_org, p4_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        vec_n5_5 = Line(new_org, p5_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
 
+        self.play(swWrite(the_other_solutions_n5))
 
-
-        self.play(swWrite(since_n_is_odd_n5))
+        self.play(swWrite(picking_k_is_0_n5))
         self.play(Create(vec_n5_1))
 
         self.play(swWrite(picking_k_is_1_n5))
-        self.play(swWrite(and_solution_3_n5))
-
         self.play(Create(vec_n5_2))
 
         self.play(swWrite(picking_k_is_minus_1_n5))
-        self.play(swWrite(and_solution_4_n5))
-
         self.play(Create(vec_n5_3))
 
         self.play(swWrite(picking_k_is_2_n5))
-        self.play(swWrite(and_solution_5_n5))
-
         self.play(Create(vec_n5_4))
 
         self.play(swWrite(picking_k_is_minus_2_n5))
-        self.play(swWrite(and_solution_6_n5))
-
         self.play(Create(vec_n5_5))
 
         # with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
