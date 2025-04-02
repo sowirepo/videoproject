@@ -104,7 +104,7 @@ class swRoundedRectangle(RoundedRectangle):
         self.add(title)
         if not remove_line:
             self.add(title_underline)
-            self.title_underline = title_underline
+        self.title_underline = title_underline
 
         return self
     

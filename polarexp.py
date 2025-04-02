@@ -80,8 +80,8 @@ class Test(MovingCameraScene, VoiceoverScene):
         VGroup(polar_form_txt, z_comp_num, r_formula, theta_formula, cis_polar_form).shift(UP * 0.05)
 
         ## calculating r 
-        calculating_r = TNT_Deprecated().txt('Calculating r', 'NORMAL').create()
-        calculating_r.shift(LEFT*1.7 + UP*0.58)
+        calculating_r = TNT_Deprecated().txt('Calculating the norm', 'NORMAL').create()
+        calculating_r.shift(LEFT*1.5 + UP*0.58)
         r_def = r_formula.copy()
 
         line_r_1 = TNT_Deprecated().tx('r').tx('= \\sqrt{\\left(-\\dfrac{3 \\cdot \\sqrt{3}}{2}\\right)^2 + \\left(-\\dfrac{3}{2}\\right)^2}').create()
@@ -161,25 +161,25 @@ class Test(MovingCameraScene, VoiceoverScene):
         this_defines_the_polar_exp_form.move_to(this_defines_the_polar_form.get_center() + DOWN*0.45 + RIGHT * 0.3)
 
         LHS_euler_formula = actually_eulers_formula.copy().move_to(actually_eulers_formula.get_center())
-        LHS_euler_formula_2 = TNT_Deprecated().tx('z=\\cos(\\theta) + \\mathrm{i} \\cdot \\sin(\\theta) = e^{\\theta\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_2 = TNT_Deprecated().tx('\\cos(\\theta) + \\sin(\\theta) \\cdot \\mathrm{i} = e^{\\theta\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_2.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
-        LHS_euler_formula_2[0][0][4+2].set_color(GOLDY)
-        LHS_euler_formula_2[0][0][13+2].set_color(GOLDY)
+        LHS_euler_formula_2[0][0][4].set_color(GOLDY)
+        LHS_euler_formula_2[0][0][11].set_color(GOLDY)
         LHS_euler_formula_2[0][0][-3].set_color(GOLDY)
         
 
-        LHS_euler_formula_3 = TNT_Deprecated().tx('z=\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6}) = e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_3 = TNT_Deprecated().tx('\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\sin(-\\dfrac{5\\cdot\\pi}{6}) \\cdot \\mathrm{i} = e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_3.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
-        LHS_euler_formula_3[0][0][4+2:10+2].set_color(GOLDY)
-        LHS_euler_formula_3[0][0][18+2:24+2].set_color(GOLDY)
+        LHS_euler_formula_3[0][0][4:10].set_color(GOLDY)
+        LHS_euler_formula_3[0][0][16:22].set_color(GOLDY)
         LHS_euler_formula_3[0][0][-8:-2].set_color(GOLDY)
 
-        LHS_euler_formula_4 = TNT_Deprecated().tx('z=3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\mathrm{i} \\cdot \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
+        LHS_euler_formula_4 = TNT_Deprecated().tx('z=3 \\cdot \\left(\\cos(-\\dfrac{5\\cdot\\pi}{6}) + \\sin(-\\dfrac{5\\cdot\\pi}{6})\\right) \\cdot \\mathrm{i} =').tx('3 \\cdot e^{-\\frac{5\\cdot\\pi}{6}\\cdot \\mathrm{i}}').create()
         LHS_euler_formula_4.move_to(actually_eulers_formula.get_center() + LEFT * 2.15 + DOWN * 0.2)
         LHS_euler_formula_4[0][0][0].set_color(BLUE)
         LHS_euler_formula_4[0][0][2].set_color(GREEN)
         LHS_euler_formula_4[0][0][7+2:13+2].set_color(GOLDY)
-        LHS_euler_formula_4[0][0][21+2:27+2].set_color(GOLDY)
+        LHS_euler_formula_4[0][0][21:27].set_color(GOLDY)
         LHS_euler_formula_4[1][0][0].set_color(GREEN)
         LHS_euler_formula_4[1][0][-8:-2].set_color(GOLDY)      
 
@@ -316,14 +316,15 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text='And now we can multiply both sides of the equation by "r" which is 3.') as tracker:
             self.play(TransformMatchingShapes(LHS_euler_formula_3, LHS_euler_formula_4))
 
-        with self.voiceover(text='Now, we have written the polar form as 3 times "e" to the power of minus 5 times pi over 6 times "i".') as tracker:
+        with self.voiceover(text='Now, we have written the polar form of z as 3 times "e" to the power of minus 5 times pi over 6 times "i".') as tracker:
             self.play(FadeOut(LHS_euler_formula_4[0]))
             self.play(LHS_euler_formula_4[1].animate.shift(LEFT*0.8+UPS * 5), FadeIn(final_z))
             self.wait(tracker.duration * 0.3)
 
+        nothing = VGroup()
         with self.voiceover(text="This is the polar-exponential form of the complex number. Thanks for watching.") as tracker:
-            self.wait(tracker.duration)
-    
+            self.play(Create(nothing))
+
         # fade out everything still on the screen
         self.wait(2)
 
