@@ -158,7 +158,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="And finally, the complex conjugate of e to the power of z is equal to e to the power of the complex conjugate of z.") as tracker:
             self.play(swWrite(computational_properties_3))
 
-        return
+        
+        with self.voiceover(text="This concludes the complex exponential function. Thanks for watching.") as tracker:
+            self.wait(0.1)
         # fade out everything still on the screen
         self.wait(2)
 
