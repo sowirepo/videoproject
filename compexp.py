@@ -168,35 +168,4 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(fadeout_all))
         self.wait(1)
 
-        return
-        self.play(swWrite(solution0))
-
-        self.play(swWrite(solution1))
-
-        self.play(swWrite(solution2))
-
-        self.play(swWrite(solution3))
-
-        self.play(swWrite(solution4))
-
-        self.play(Create(theory_rect))
-
-        self.play(swWrite(computational_properties_0))
-
-        self.play(swWrite(computational_properties_1))
-
-        self.play(swWrite(computational_properties_2))
-
-        self.play(swWrite(computational_properties_3))
-
-
-        return
-        # with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
-        #     self.wait(2)
-    
-        # fade out everything still on the screen
-        self.wait(2)
-
-        fadeout_all = Group(*self.mobjects)
-        self.play(FadeOut(fadeout_all))
-        self.wait(1)
+       
