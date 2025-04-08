@@ -59,13 +59,11 @@ class Test(VoiceoverScene):
             )
         )
 
+        tex = TNT().txt('hello').tx('\\sqrt{a+bzzzzzzzzzzzzzzzzzzzzz}').txt('This is a test and ').tx('z=\\dfrac{\\sqrt{a+}}{\\sin(b)},e,\\mathrm{e},\\textbf{\\mathrm{e}}')
 
-        tex = MathTex("=5", color=BLACK)
-        tex[0][1].set_color(GOLD)
+        # tex.set_color_TNT(string='a+b', color=RED)
+        # tex.set_color_TNT(string='z', color=BLUE)
+    
 
         self.add(tex)
 
-        self.wait(3)
-        # with self.voiceover(text="") as tracker:
-        #     self.play(Create(VGroup()))
-        self.wait(3)

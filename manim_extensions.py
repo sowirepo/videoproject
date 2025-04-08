@@ -132,6 +132,7 @@ def PlaneTriangleLines(p2, plane, color=RED, stroke_width=1):
         Line(plane.n2p(0), plane.n2p(p2.real), color=color, stroke_width=stroke_width),
     )
 
+# do not use this class, it is deprecated but used in polarexp and quotient
 class TNT_Deprecated(Mobject):
 
     def __init__(self, auto_color=False):
@@ -311,6 +312,30 @@ class TNT(VMobject):
         tex_string = re.sub(r'mathrm', '', tex_string)
 
         return tex_string
+    
+    def set_color_TNT(self, color, string):
+        for mob in self.objs:
+            if type(mob) == MathTex:
+                char_tex_string = self.parse_latex_characters(mob.get_tex_string())
+                parsed_string = self.parse_latex_characters(string)
+
+                print('TNT tex string: ', char_tex_string, '\n Input tex string: ',parsed_string)
+
+                start = 0
+                indices_of_strings = []
+
+                while start < len(char_tex_string):
+                    index = char_tex_string.find(parsed_string, start)
+                    if index == -1:
+                        break
+                    indices_of_strings.append(index)
+                    start = index + 1
+
+                print('Index of equals: ', indices_of_strings)
+
+                if indices_of_strings != -1:
+                    for index in indices_of_strings:
+                        mob[0][index:index+len(parsed_string)].set_color(color)
 
 
 # normal complex plane has 'i' in the vertical axis, this one removes that by
