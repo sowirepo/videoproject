@@ -3,7 +3,7 @@ from manim_extensions import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
-class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
+class Test(MovingCameraScene, VoiceoverScene):
 
     def construct(self):
         self.create_subcaption = False
@@ -16,8 +16,6 @@ class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
             )
         )
         
-
-        
         ## MOBJECTS ##
         # Title
         title = Text("Calculating the Complex Logarithm", font='Quicksand', color=PURPLE, weight="SEMIBOLD", line_spacing=0.2).scale(0.25).move_to(ORIGIN)
@@ -28,8 +26,10 @@ class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
         # Example 1
         example1_rect = swRoundedRectangle(height=2, width=2.5)
         ex1_title = TNT().txt('Let ').tx('z=2\\cdot e^{\\frac{\\pi}{3}\\cdot i}, ').txt('calculate ').tx('\\ln(z)')
+        ex1_title.set_color_by_string('z', BLUE)
 
         sol_ex1_0 = TNT().tx('\\ln(z)=\\ln\\left(2\\cdot e^{\\frac{\\pi}{3}\\cdot i}\\right)')
+        sol_ex1_0.set_color_by_string('z', BLUE)
         sol_ex1_1 = TNT().tx('=\\ln(2)+ \\ln\\left(e^{\\frac{\\pi}{3}\\cdot i}\\right)')
         sol_ex1_2 = TNT().tx('=\\ln(2)+ \\dfrac{\\pi}{3}\\cdot i')
 
@@ -40,8 +40,10 @@ class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
         # Example 2
         example2_rect = swRoundedRectangle(height=2, width=2.5)
         ex2_title = TNT().txt('Let ').tx('z=6\\cdot e^{\\frac{7}{5}\\cdot\\pi\\cdot i}, ').txt('calculate ').tx('\\ln(z)')
+        ex2_title.set_color_by_string('z', BLUE)
 
         sol_ex2_0 = TNT().tx('\\ln(z)=\\ln\\left(6\\cdot e^{\\frac{7}{5}\\cdot\\pi\\cdot i}\\right)')
+        sol_ex2_0.set_color_by_string('z', BLUE)
         sol_ex2_1 = TNT().tx('=\\ln(6)+ \\ln\\left(e^{\\frac{7}{5}\\cdot\\pi\\cdot\\mathrm{i}}\\right)')
         sol_ex2_2 = TNT().tx('=\\ln(6)+ \\left(\\dfrac{7}{5}\\cdot\\pi - 2\\cdot\\pi\\right)\\cdot\\mathrm{i}')
         sol_ex2_3 = TNT().tx('=\\ln(6) - \\dfrac{3}{5}\\cdot\\pi\\cdot\\mathrm{i}')
@@ -54,8 +56,14 @@ class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
         theory_rect = swRoundedRectangle(height=1.2, width=2)
         theory_title = TNT().txt("Computational properties", color=PINK, weight="SEMIBOLD")
         prop1 = TNT().tx('\\ln(z_1\\cdot z_2)=\\ln(z_1)+\\ln(z_2)')
+        prop1.set_color_by_string('z_1', BLUE)
+        prop1.set_color_by_string('z_2', BLUE)
+
         prop2 = TNT().tx('\\ln(z^n)=n\\cdot\\ln(z)')
+        prop2.set_color_by_string('z', BLUE)
+
         prop3 = TNT().tx('e^{\\ln(z)}=\\ln(e^z)=z')
+        prop3.set_color_by_string('z', BLUE)
 
         theory_rect.set_title(theory_title, remove_line=True)
         theory_content = VGroup(prop1, prop2, prop3)
@@ -92,7 +100,7 @@ class ComplexLogarithm(MovingCameraScene, VoiceoverScene):
         # Example 2
         with self.voiceover(text="Now, we will calculate the natural logarithm for a complex number z equals 6 times e raised to 7/5 times pi times i.") as tracker:
             self.play(Create(example2_rect))
-        
+        return
         with self.voiceover(text="First, write ln of z as ln of 6 times e raised to 7/5 times pi times i.") as tracker:
             self.play(swWrite(sol_ex2_0))
         

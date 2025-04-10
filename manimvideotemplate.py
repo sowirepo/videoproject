@@ -22,10 +22,14 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         ## Title
         title = Text(""" TITLE HERE """, font='Quicksand', color=PURPLE, weight="SEMIBOLD",
-                        t2c={'quotient':PINK},
+                        t2c={'HIGHLIGHTED TEXT':PINK},
                         line_spacing=0.2).scale(0.25)
 
         title.move_to(ORIGIN)
+
+
+        ## SCENE 1 mobjects ##
+
 
 
         ### ANIMATIONS ###
@@ -39,14 +43,17 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(title))
         self.wait(1)
 
+        ## SCENE 1 animations ##
 
-        return
-        # with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
-        #     self.wait(tracker.duration)
+
+
+        ## Outro ##
+        with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
+            self.wait(1)
     
-        # fade out everything still on the screen
         self.wait(2)
 
+        # fade out everything still on the screen
         fadeout_all = Group(*self.mobjects)
         self.play(FadeOut(fadeout_all))
         self.wait(1)

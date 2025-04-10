@@ -59,11 +59,11 @@ class Test(VoiceoverScene):
             )
         )
 
-        tex = TNT().txt('hello').tx('\\sqrt{a+bzzzzzzzzzzzzzzzzzzzzz}').txt('This is a test and ').tx('z=\\dfrac{\\sqrt{a+}}{\\sin(b)},e,\\mathrm{e},\\textbf{\\mathrm{e}}')
+        tex = TNT().txt('hello').tx('\\sqrt{a+bzasagda+aba+basdzzazzza}').txt('This is a test and ').tx('z=\\vec{a+b},e,\\mathrm{e}')
 
-        # tex.set_color_TNT(string='a+b', color=RED)
-        # tex.set_color_TNT(string='z', color=BLUE)
-    
+        tex.set_color_by_string(string='a+b', color=RED)
+        tex.set_color_by_string(string='z', color=BLUE)
+
 
         self.add(tex)
 

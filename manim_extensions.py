@@ -229,6 +229,14 @@ class TNT(VMobject):
     def tx(self, tex, color=BLACK, aligned_char='='):
         tex_object = MathTex(tex, color=color)
         self.objs.add(tex_object.scale(0.2))
+
+        if '=' not in tex:
+            possible_chars = ['+', '-', '>', '<', '\\geq', '\\leq', '(', ')']
+            for char in possible_chars:
+                if char in tex:
+                    aligned_char = char
+                    break
+
         self.aligned_chars.append(aligned_char)
 
         return self.create()
@@ -243,7 +251,6 @@ class TNT(VMobject):
             proposed_height = center[1]
 
         if type(FirstObject) == MathTex:
-            # this probably doesnt work
             proposed_height = FirstObject[0].get_center()[1]
 
         for i, mob in enumerate(objs[1:]):
@@ -277,6 +284,12 @@ class TNT(VMobject):
         # remove ^ and _
         tex_string = re.sub(r'\^', '', tex_string)
         tex_string = re.sub(r'\_', '', tex_string)
+
+        # turn dfrac into frac
+        tex_string = re.sub(r'dfrac', 'frac', tex_string)
+
+        # parse fracs
+        tex_string = self.replace_dfrac(tex_string)
 
         # remove curly braces
         tex_string = re.sub(r'{', '', tex_string)
@@ -313,13 +326,12 @@ class TNT(VMobject):
 
         return tex_string
     
-    def set_color_TNT(self, color, string):
+    def set_color_by_string(self, string: str, color):
         for mob in self.objs:
             if type(mob) == MathTex:
                 char_tex_string = self.parse_latex_characters(mob.get_tex_string())
                 parsed_string = self.parse_latex_characters(string)
 
-                print('TNT tex string: ', char_tex_string, '\n Input tex string: ',parsed_string)
 
                 start = 0
                 indices_of_strings = []
@@ -331,11 +343,57 @@ class TNT(VMobject):
                     indices_of_strings.append(index)
                     start = index + 1
 
-                print('Index of equals: ', indices_of_strings)
+                # print('Index of equals: ', indices_of_strings)
 
                 if indices_of_strings != -1:
                     for index in indices_of_strings:
                         mob[0][index:index+len(parsed_string)].set_color(color)
+
+    def find_matching_brace(self, s, start_index):
+        """Find the index of the matching closing brace for the brace at start_index."""
+        depth = 0
+        for index, char in enumerate(s[start_index:], start=start_index):
+            if char == '{':
+                depth += 1
+            elif char == '}':
+                depth -= 1
+                if depth == 0:
+                    return index
+        return -1
+
+
+    def replace_dfrac(self, expression: str):
+
+        start = 0
+        indices_of_fracs = []
+
+        while start < len(expression):
+            index = expression.find('frac', start)
+            if index == -1:
+                break
+            indices_of_fracs.append(index)
+            start = index + 1
+
+        indices_of_braces = [i + 4 for i in indices_of_fracs]
+
+        back_braces = []
+        for index in indices_of_braces:
+            brace_index = self.find_matching_brace(expression, index)
+            back_braces.append(brace_index)
+            assert expression[brace_index:brace_index+2] == '}{'
+
+        expression_list = [char for char in expression]
+
+        for idx, brace_index in enumerate(back_braces):
+            # at index 'brace_index' + idx + 1, insert a '`'
+
+            # this character is used to indicate that there is a fraction and should never be used in a mathematical expression
+            expression_list.insert(brace_index + idx + 1, '`')
+
+        parsed_ = ''.join(expression_list)
+
+        return re.sub(r'frac', '', parsed_)
+
 
 
 # normal complex plane has 'i' in the vertical axis, this one removes that by
