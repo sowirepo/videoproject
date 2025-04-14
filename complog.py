@@ -100,7 +100,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         # Example 2
         with self.voiceover(text="Now, we will calculate the natural logarithm for a complex number z equals 6 times e raised to 7/5 times pi times i.") as tracker:
             self.play(Create(example2_rect))
-        return
+
         with self.voiceover(text="First, write ln of z as ln of 6 times e raised to 7/5 times pi times i.") as tracker:
             self.play(swWrite(sol_ex2_0))
         

@@ -38,7 +38,9 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(1)
         
         self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
-        self.play(swWrite(title))
+
+        with self.voiceover(text="Video title voiceover placeholder") as tracker:
+            self.play(swWrite(title))
 
         self.play(FadeOut(title))
         self.wait(1)

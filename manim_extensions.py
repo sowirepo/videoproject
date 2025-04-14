@@ -108,7 +108,7 @@ class swRoundedRectangle(RoundedRectangle):
 
         return self
     
-    def create_content(self, group: VGroup, offset=0):
+    def create_content(self, group: VGroup, offset:float=0.):
 
         if self.title_underline is None:
             raise Exception("Title underline not set. Please set the title first using .set_title()")
@@ -231,7 +231,7 @@ class TNT(VMobject):
         self.objs.add(tex_object.scale(0.2))
 
         if '=' not in tex:
-            possible_chars = ['+', '-', '>', '<', '\\geq', '\\leq', '(', ')']
+            possible_chars = ['>', '<', '\\geq', '\\leq', '(', ')']
             for char in possible_chars:
                 if char in tex:
                     aligned_char = char
