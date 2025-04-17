@@ -136,3 +136,4 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="This is how you use polar form to compute the logarithm of a complex number.") as tracker:
             self.wait(1)
+

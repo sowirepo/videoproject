@@ -21,7 +21,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
 
         ## Title
-        title = Text("""[TITLE]""", font='Quicksand', color=PURPLE, weight="SEMIBOLD", 
+        title = Text("[TITLE]", font='Quicksand', color=PURPLE, weight="SEMIBOLD", 
                       line_spacing=0.2).scale(0.25)
 
         title.move_to(ORIGIN)
@@ -44,61 +44,111 @@ class Test(MovingCameraScene, VoiceoverScene):
         rect_content = VGroup(line1, line2, line3, line4)
         rect.create_content(rect_content, offset=0.075)
 
-        ## graph code, choose one of the following ##
+        # graph rectangle
         graph_rect = swRoundedRectangle(
             height=2,
             width=2,
         ).shift(RIGHT * 1.15)
 
-        graph_type = 1
+        graph = NumberPlane().move_to(graph_rect.get_center()).width
 
-        ## code for the graph, this example is a normal graph
-        if graph_type == 0:
-            pass
-        ## normal graph end
+        ## code for the graph, this example is a number plane, which can also be used as a complex plane if specified
+        """
+        userdefined_range = [-2, 5, 1] # a range where |min - max| should be approximately 7, this range should be specified by the user
 
-        ## code for the graph, this example is a complex plane
-        if graph_type == 1:
-            userdefined_range = [-2, 5, 1] # a range where |min - max| should be approximately 7
+        scale_factor_calc = -7/300 * (userdefined_range[1] - userdefined_range[0]) + 0.41 # bad interpolation to find the scale factor, keep range between like 6 and 9 
 
-            scale_factor_calc = -7/300 * (userdefined_range[1] - userdefined_range[0]) + 0.41 # bad interpolation to find the scale factor, keep range between like 6 and 9 
+        graph = NumberPlane(x_range=userdefined_range, y_range=userdefined_range,
+                            axis_config=AXIS_CONFIG,
+                            background_line_style=BACKGROUND_LINE_STYLE).add_coordinates(color=MAIN_AXIS_COLOR).scale(scale_factor_calc)
+        graph.move_to(graph_rect.get_center())
+        """
 
-            graph = ComplexPlane(x_range=userdefined_range, y_range=userdefined_range,
-                                axis_config=AXIS_CONFIG,
-                                background_line_style=BACKGROUND_LINE_STYLE).add_coordinates(color=MAIN_AXIS_COLOR).scale(scale_factor_calc)
-            graph.move_to(graph_rect.get_center())
-
-        ## complex plane end
 
         ## code for the graph, this example is the polar plane
-        if graph_type == 2:
-            userdefined_angle = np.pi / 12
+        """
+        userdefined_angle = np.pi / 12 # this should be specified by the user
 
-            azimuth = np.pi / userdefined_angle * 2 
-            graph = PolarPlane(
-                azimuth_units="PI radians",
-                azimuth_step=azimuth, # the slices will be in steps of 2 * pi / azimuth_step, i.e. azimuth_step = 12 makes slices of pi/6 radians
-                size=8,
-                azimuth_label_font_size=33.6,
-                # radius_config={"font_size": 33.6,
-                #                "color": BLACK},
-                radius_max=1.5,
-                radius_step=0.5,
-                background_line_style=BACKGROUND_LINE_STYLE,
-                radius_config=AXIS_CONFIG
-            ).add_coordinates().scale(0.21).move_to(graph_rect.get_center())
-            graph[2:].set_color(DARK_GREY)
+        azimuth = np.pi / userdefined_angle * 2 
+        graph = PolarPlane(
+            azimuth_units="PI radians",
+            azimuth_step=azimuth, # the slices will be in steps of 2 * pi / azimuth_step, i.e. azimuth_step = 12 makes slices of pi/6 radians
+            size=8,
+            azimuth_label_font_size=33.6,
+            # radius_config={"font_size": 33.6,
+            #                "color": BLACK},
+            radius_max=1.5,
+            radius_step=0.5,
+            background_line_style=BACKGROUND_LINE_STYLE,
+            radius_config=AXIS_CONFIG
+        ).add_coordinates().scale(0.21).move_to(graph_rect.get_center())
+        graph[2:].set_color(DARK_GREY)
 
-            # TODO this is sketchy
-            # random labels that linger at the left and bottom of the axis
-            graph[3][2][0].shift(UP * 9)
-            graph[4][0][2][0].shift(UP * 9)
+        # TODO this is sketchy
+        # random labels that linger at the left and bottom of the axis
+        graph[3][2][0].shift(UP * 9)
+        graph[4][0][2][0].shift(UP * 9)
 
-        ## polar plane end
+        # this adds the complex labels Im/Re to the graph axis
+        label_Y = TNT().tx('\\mathrm{Im}').move_to(graph.y_axis.get_tip().get_top() + DL * 0.1 + UP * 0.02)
+        label_X = TNT().tx('\\mathrm{Re}').move_to(graph.x_axis.get_tip().get_right() + DL * 0.09)
+        graph.add(label_X, label_Y)
+        """
 
-        ## graph operations, like adding points or vectors
 
-        vec = None
+
+        ## graph operations on the number plane, all variables with _Mobject should be created using Create
+
+        # adding a point to a normal graph (see documentation)
+        """
+        point = (1,1) # this can be changed
+        point_Moject = Dot(graph.c2p(point[0],point[1]), color=BLUE, radius=0.02)
+        """
+        
+        # adding a complex number as a point
+        """
+        z = 1+1j # this can be changed
+        a = z.real
+        b = z.imag 
+        point_Mobject = Dot(graph.c2p(a,b), color=BLUE, radius=0.02)
+        """
+
+        # adding a vector from the origin to a point
+        """
+        org = graph.c2p(0, 0) # the numbers are the x and y coordinates of the origin
+        point = graph.c2p(1, 1) # the numbers are the x and y coordinates of the point, this can be changed
+        vector_Mobject = Line(org, point, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        """
+
+        # adding a function to the number plane
+        """
+        def func(x):
+            return np.cos(x) # this can be changed, make sure no invalid operations are done, like sqrt of negative numbers, otherwise the x_range in the next line must be changed.
+        
+        plot_function_Mobject = graph.plot(func, color=BLACK, stroke_width=1, x_range=[userdefined_range[0], userdefined_range[1], 0.001], use_smoothing=True)
+        """
+
+        # adding axis Im/Re labels, in case the graph functions as a complex plane
+        """
+        # dont change this, either include the snippet or not
+        label_Y = TNT().tx('\\mathrm{Im}').move_to(graph.y_axis.get_tip().get_top() + DL * 0.1)
+        label_X = TNT().tx('\\mathrm{Re}').move_to(graph.x_axis.get_tip().get_right() + DL * 0.1)
+        graph.add(label_X, label_Y)
+        """
+
+        ## graph operations on the polar plane
+
+        # adding a point to a polar plane (see documentation)
+        """
+        point_Mobject = Dot(graph.polar_to_point(1, np.pi/4), color=BLUE, radius=0.02)
+        """
+
+        # adding a vector from the origin to a point
+        """
+        org = graph.polar_to_point(0, 0)
+        point = graph.polar_to_point(1, np.pi/4)
+        vector_Mobject = Line(org, point, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
+        """
 
         ### INTRO ANIMATIONS ###
         self.add(logo)
@@ -131,9 +181,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="This voicover explains the fourth line of the derivation") as tracker:
             self.play(swWrite(line4))
-
-
-        return
+        
         ## Outro ##
         with self.voiceover(text="This concludes the examples. Thanks for watching.") as tracker:
             self.wait(1)
