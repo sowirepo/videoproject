@@ -233,6 +233,8 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         solve_n5_is_1 = TNT().txt('Solve ').tx('z^5=1').move_to(solve_n3_is_1.get_center())
+        solve_n5_is_1[0][1][0][0].set_color(BLUE)
+        solve_n5_is_1[0][1][0][1].set_color(GOLDY)
 
         the_other_solutions_n5 = TNT().txt('We have ').tx('\\|z\\|=1').txt(' and ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
         the_other_solutions_n5[0][1][0][1].set_color(BLUE)
@@ -310,7 +312,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.wait(0.5)
 
         # apply demoivre's theorem
-        with self.voiceover(text="We can apply deh mwah freh's theorem to the left side of the equation to distribute the power of n.") as tracker:
+        with self.voiceover(text="We can apply De Moivre's theorem to the left side of the equation to distribute the power of n.") as tracker:
             self.play(TransformMatchingShapes(polar_exp2, polar_exp2_5))
 
         with self.voiceover(text="We can now see that the norm of 'z' to the power of 'n' is equal to the norm of 1 which is 1") as tracker:
@@ -321,11 +323,11 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         self.wait(0.5)
 
-        with self.voiceover(text="The argument fy of 'z' is equal to 2 times k times pi divided by n.") as tracker:
+        with self.voiceover(text="The argument Phy of 'z' is equal to 2 times k times pi divided by n.") as tracker:
             self.play(swWrite(polar_exp4))
 
         # notice phi =0 for z=1 solution and phi = pi for z=-1 solution
-        with self.voiceover(text="Therefore, there are n solutions for minus pi is less than fy which is less than or equal to pi. Notice that fy is zero for the solution 'z' is equal to 1 and fy is equal to pi when 'z' equals negative 1 is a solution.") as tracker:
+        with self.voiceover(text="Therefore, there are n solutions for minus pi is less than Phy which is less than or equal to pi. Notice that Phy is zero for the solution 'z' is equal to 1 and Phy is equal to pi when 'z' equals negative 1 is a solution.") as tracker:
             self.play(swWrite(polar_exp5))
 
         ######################
@@ -459,7 +461,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
 
         with self.voiceover(text="These are the 5 solutions to the problem. We once again have that the complex roots are complex conjugates of eachother, which can be seen in the graph.") as tracker:
-            self.wait(0.1)
+            self.play(Create(VGroup()))
 
         # fade out everything still on the screen
 

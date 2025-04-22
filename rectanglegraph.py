@@ -17,15 +17,6 @@ class Test(MovingCameraScene, VoiceoverScene):
             )
         )
 
-        ## Logo
-        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
-
-        ## Title
-        title = Text("[TITLE]", font='Quicksand', color=PURPLE, weight="SEMIBOLD", 
-                      line_spacing=0.2).scale(0.25)
-
-        title.move_to(ORIGIN)
-
         ## swRoundedRectangle plus graph Example ##
 
         # Code for the swROundedRectangle comes here
@@ -50,7 +41,6 @@ class Test(MovingCameraScene, VoiceoverScene):
             width=2,
         ).shift(RIGHT * 1.15)
 
-        graph = NumberPlane().move_to(graph_rect.get_center()).width
 
         ## code for the graph, this example is a number plane, which can also be used as a complex plane if specified
         """
@@ -64,6 +54,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         graph.move_to(graph_rect.get_center())
         """
 
+        userdefined_range = [-2, 5, 1] # a range where |min - max| should be approximately 7, this range should be specified by the user
+
+        scale_factor_calc = -7/300 * (userdefined_range[1] - userdefined_range[0]) + 0.41 # bad interpolation to find the scale factor, keep range between like 6 and 9 
+
+        graph = NumberPlane(x_range=userdefined_range, y_range=userdefined_range,
+                            axis_config=AXIS_CONFIG,
+                            background_line_style=BACKGROUND_LINE_STYLE).add_coordinates(color=MAIN_AXIS_COLOR).scale(scale_factor_calc)
+        graph.move_to(graph_rect.get_center())
 
         ## code for the graph, this example is the polar plane
         """
@@ -150,18 +148,6 @@ class Test(MovingCameraScene, VoiceoverScene):
         vector_Mobject = Line(org, point, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
         """
 
-        ### INTRO ANIMATIONS ###
-        self.add(logo)
-
-        self.wait(1)
-
-        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL) + 0.15*UP + 0.35*RIGHT).scale(0.009 / 0.03))
-
-        with self.voiceover(text="Video title voiceover placeholder") as tracker:
-            self.play(swWrite(title))
-
-        self.play(FadeOut(title))
-        self.wait(1)
 
         ## Scene Animations
         with self.voiceover(text="This voicover presents the problem statement from the rectangle") as tracker:
@@ -176,19 +162,15 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="This voicover presents the graph") as tracker:
             self.play(Create(graph_rect), Create(graph))
 
+        # with self.voiceover(text="This voiceover explains how we draw the vector") as tracker:
+            # self.play(Create(vector_Mobject))
+
+        # with self.voiceover(text="This voicover explains the function") as tracker:
+        #     self.play(Create(plot_function_Mobject))
+
         with self.voiceover(text="This voicover explains the third line of the derivation") as tracker:
             self.play(swWrite(line3))
 
         with self.voiceover(text="This voicover explains the fourth line of the derivation") as tracker:
             self.play(swWrite(line4))
         
-        ## Outro ##
-        with self.voiceover(text="This concludes the examples. Thanks for watching.") as tracker:
-            self.wait(1)
-    
-        self.wait(2)
-
-        # Fade out everything still on the screen
-        fadeout_all = Group(*self.mobjects)
-        self.play(FadeOut(fadeout_all))
-        self.wait(1)

@@ -18,7 +18,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         
         ## MOBJECTS ##
         # Title
-        title = Text("Calculating the Complex Logarithm", font='Quicksand', color=PURPLE, weight="SEMIBOLD", line_spacing=0.2).scale(0.25).move_to(ORIGIN)
+        title = Text("Calculating the complex logarithm", font='Quicksand', color=PURPLE, weight="SEMIBOLD", line_spacing=0.2).scale(0.25).move_to(ORIGIN)
 
         # Logo
         logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
@@ -117,16 +117,16 @@ class Test(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(VGroup(example2_rect, ex2_content)))
 
         # Show properties
-        with self.voiceover(text="Finally, let's conclude with some important computational properties of the complex logarithm.") as tracker:
+        with self.voiceover(text="Finally, let's conclude with some important computational properties of the complex logarithm. These properties are the same when applying the logarithm on a real number.") as tracker:
             self.play(Create(theory_rect))
         
         with self.voiceover(text="When z1 and z2 are complex numbers, the logarithm of a product is equal to the sum of the logarithms.") as tracker:
             self.play(swWrite(prop1))
         
-        with self.voiceover(text="If z is a complex number, then the logarithm of a number raised to a power is equal to the exponent times the log of the base.") as tracker:
+        with self.voiceover(text="If 'z' is a complex number, then the logarithm of a number raised to a power is equal to the exponent times the log of the base.") as tracker:
             self.play(swWrite(prop2))
         
-        with self.voiceover(text="Furthermore, e raised to the log of z or the log of e raised to z, where z is a complex number, is equal to z.") as tracker:
+        with self.voiceover(text="Furthermore, e raised to the log of 'z' or the log of e raised to 'z', where 'z' is a complex number, is equal to 'z'.") as tracker:
             self.play(swWrite(prop3))
         
         with self.voiceover(text="This concludes our exploration of the complex logarithm. Thank you for watching.") as tracker:

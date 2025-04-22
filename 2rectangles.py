@@ -16,15 +16,6 @@ class Test(MovingCameraScene, VoiceoverScene):
                 model="tts-1-hd",
             )
         )
-        
-        ## Logo
-        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
-
-        ## Title
-        title = Text("[TITLE]", font='Quicksand', color=PURPLE, weight="SEMIBOLD",
-                     line_spacing=0.2).scale(0.25)
-
-        title.move_to(ORIGIN)
 
         ## DOUBLE swRoundedRectangle Example ##
         # Code for the double swROundedRectangle comes here
@@ -38,7 +29,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         line1 = TNT().txt('Derivation line 1').tx('some tex')
         line2 = TNT().tx('Derivation line 2, using theory box 1').tx('some tex')
-        line3 = TNT().txt('Derivation line 3, using theory box 2').txt('some tex')
+        line3 = TNT().txt('Derivation line 3, using theory box 2').txt('some text')
 
         rect_content = VGroup(line1, line2, line3)
         rect.create_content(rect_content, offset=0.075)
@@ -72,20 +63,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         second_formula_rect.create_content(second_formula_rect_content, offset=0.075)
 
 
-
-
         ### ANIMATIONS ###
-        self.add(logo)
-
-        self.wait(1)
-
-        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
-
-        with self.voiceover(text="video title voicover placeholder") as tracker:
-            self.play(swWrite(title))
-
-        self.play(FadeOut(title))
-        self.wait(1)
 
         ## The corresponding animations for the double roundedrectangles ##
 
@@ -130,14 +108,3 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="Explaining the third line of the derivation") as tracker:
             self.play(swWrite(line3))
 
-
-        ## Outro ##
-        with self.voiceover(text="This concludes our introduction to the quadratic formula. Thanks for watching") as tracker:
-            self.wait(1)
-    
-        self.wait(2)
-
-        # fade out everything still on the screen
-        fadeout_all = Group(*self.mobjects)
-        self.play(FadeOut(fadeout_all))
-        self.wait(1)
