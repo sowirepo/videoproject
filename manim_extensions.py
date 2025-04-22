@@ -11,10 +11,13 @@ BLUEISHGREY = '#E2E6F3'
 PURPLE = '#594662'
 PINK = '#BD567C'
 
+# This is the right purple to use
 PORPLE = '#835ED8'
 
 # GOLDY = '#f2a221' 
 # GOLDY = '#e2a221' 
+
+# This is the right gold color to use
 GOLDY = '#cb8d29'
 
 #######################
