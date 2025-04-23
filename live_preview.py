@@ -5,7 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from parse_manim_script import parse_manim
 
-filename = 'compexp'  
+filename = 'complog'  
 
 img_path = f'/home/chris/manim/videoproject/media/images/parsed_{filename}/Test_ManimCE_v0.19.0.png'
 file_to_check = f'/home/chris/manim/videoproject/{filename}.py'

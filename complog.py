@@ -24,31 +24,56 @@ class Test(MovingCameraScene, VoiceoverScene):
         logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
 
         # Example 1
-        example1_rect = swRoundedRectangle(height=2, width=2.5)
-        ex1_title = TNT().txt('Let ').tx('z=2\\cdot e^{\\frac{\\pi}{3}\\cdot i}, ').txt('calculate ').tx('\\ln(z)')
+        example1_rect = swRoundedRectangle(height=2, width=2.2).shift(LEFT * 1.05)  # Adjusted position and width
+        ex1_title = TNT().txt('Let ').tx('z=2\\cdot \\mathrm{e}^{\\frac{\\pi}{3}\\cdot \\mathrm{i}}, ').txt('calculate ').tx('\\ln(z)')
         ex1_title.set_color_by_string('z', BLUE)
 
-        sol_ex1_0 = TNT().tx('\\ln(z)=\\ln\\left(2\\cdot e^{\\frac{\\pi}{3}\\cdot i}\\right)')
+        # Steps for calculating using the complex logarithm function
+        sol_ex1_0 = TNT().tx('\\ln(z)=\\ln(2\\cdot \\mathrm{e}^{\\frac{\\pi}{3}\\cdot \\mathrm{i}})')
         sol_ex1_0.set_color_by_string('z', BLUE)
-        sol_ex1_1 = TNT().tx('=\\ln(2)+ \\ln\\left(e^{\\frac{\\pi}{3}\\cdot i}\\right)')
-        sol_ex1_2 = TNT().tx('=\\ln(2)+ \\dfrac{\\pi}{3}\\cdot i')
+        sol_ex1_0.set_color_by_string('2', GREEN)
+        sol_ex1_0.set_color_by_string('\\frac{\\pi}{3}', GOLDY)
+        
+        sol_ex1_1 = TNT().tx('=\\ln(2)+ \\dfrac{\\pi}{3}\\cdot \\mathrm{i}')
+        sol_ex1_1.set_color_by_string('2', GREEN)
+        sol_ex1_1.set_color_by_string('\\frac{\\pi}{3}', GOLDY)
 
-        ex1_content = VGroup(sol_ex1_0, sol_ex1_1, sol_ex1_2)
+        ex1_content = VGroup(sol_ex1_0, sol_ex1_1)
         example1_rect.set_title(ex1_title)
         example1_rect.create_content(ex1_content, offset=0.15)
 
+        # Smaller rectangle for the complex logarithm function, positioned on the right
+        complex_log_rect = swRoundedRectangle(height=0.8, width=2).shift(RIGHT * 1.15 + UP * 0.5)  # Adjusted position
+        complex_log_title = TNT().txt("Complex logarithm function", color=PINK, weight="SEMIBOLD")
+        complex_log_rect.set_title(complex_log_title, remove_line=True)
+
+        complex_log_line = TNT().tx('\\ln(z) = \\ln(r) + \\varphi \\cdot \\mathrm{i}')
+        complex_log_line.set_color_by_string('r', GREEN)
+        complex_log_line.set_color_by_string('\\varphi', GOLDY)
+        complex_log_line.set_color_by_string('z', BLUE)
+
+        complex_log_content = VGroup(complex_log_line)
+        complex_log_rect.create_content(complex_log_content, offset=0.075)
+
         # Example 2
         example2_rect = swRoundedRectangle(height=2, width=2.5)
-        ex2_title = TNT().txt('Let ').tx('z=6\\cdot e^{\\frac{7}{5}\\cdot\\pi\\cdot i}, ').txt('calculate ').tx('\\ln(z)')
+        ex2_title = TNT().txt('Let ').tx('z=6\\cdot \\mathrm{e}^{\\frac{7}{5}\\cdot\\pi\\cdot \\mathrm{i}}, ').txt('calculate ').tx('\\ln(z)')
         ex2_title.set_color_by_string('z', BLUE)
 
-        sol_ex2_0 = TNT().tx('\\ln(z)=\\ln\\left(6\\cdot e^{\\frac{7}{5}\\cdot\\pi\\cdot i}\\right)')
+        sol_ex2_0 = TNT().tx('\\ln(z)=\\ln\\left(6\\cdot \\mathrm{e}^{\\frac{7}{5}\\cdot\\pi\\cdot \\mathrm{i}}\\right)')
         sol_ex2_0.set_color_by_string('z', BLUE)
-        sol_ex2_1 = TNT().tx('=\\ln(6)+ \\ln\\left(e^{\\frac{7}{5}\\cdot\\pi\\cdot\\mathrm{i}}\\right)')
-        sol_ex2_2 = TNT().tx('=\\ln(6)+ \\left(\\dfrac{7}{5}\\cdot\\pi - 2\\cdot\\pi\\right)\\cdot\\mathrm{i}')
-        sol_ex2_3 = TNT().tx('=\\ln(6) - \\dfrac{3}{5}\\cdot\\pi\\cdot\\mathrm{i}')
+        sol_ex2_0.set_color_by_string('6', GREEN)
+        sol_ex2_0.set_color_by_string('\\frac{7}{5}', GOLDY)
+        
+        sol_ex2_1 = TNT().tx('=\\ln(6)+ \\left(\\dfrac{7}{5}\\cdot\\pi - 2\\cdot\\pi\\right)\\cdot \\mathrm{i}')
+        sol_ex2_1.set_color_by_string('6', GREEN)
+        sol_ex2_1.set_color_by_string('\\frac{7}{5}', GOLDY)
+        
+        sol_ex2_2 = TNT().tx('=\\ln(6) - \\dfrac{3}{5}\\cdot\\pi\\cdot \\mathrm{i}')
+        sol_ex2_2.set_color_by_string('6', GREEN)
+        sol_ex2_2.set_color_by_string('\\frac{3}{5}', GOLDY)
 
-        ex2_content = VGroup(sol_ex2_0, sol_ex2_1, sol_ex2_2, sol_ex2_3)
+        ex2_content = VGroup(sol_ex2_0, sol_ex2_1, sol_ex2_2)
         example2_rect.set_title(ex2_title)
         example2_rect.create_content(ex2_content, offset=0.15)
 
@@ -62,7 +87,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         prop2 = TNT().tx('\\ln(z^n)=n\\cdot\\ln(z)')
         prop2.set_color_by_string('z', BLUE)
 
-        prop3 = TNT().tx('e^{\\ln(z)}=\\ln(e^z)=z')
+        prop3 = TNT().tx('\\mathrm{e}^{\\ln(z)}=\\ln(\\mathrm{e}^z)=z')
         prop3.set_color_by_string('z', BLUE)
 
         theory_rect.set_title(theory_title, remove_line=True)
@@ -72,7 +97,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         ## ANIMATIONS ##
         self.add(logo)
         self.wait(1)
-        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
+        self.play(logo.animate.move_to(self.camera.frame.get_corner(DL) + 0.15 * UP + 0.35 * RIGHT).scale(0.009 / 0.03))
 
         # Display Title
         with self.voiceover(text="In this video, we will explore how to calculate the complex logarithm.") as tracker:
@@ -87,15 +112,21 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="First, write ln of z as ln of 2 times e raised to the pi over 3 times i.") as tracker:
             self.play(swWrite(sol_ex1_0))
+
+        # Show support box with complex logarithm function
+        with self.voiceover(text="The complex logarithm function is represented as:") as tracker:
+            self.play(Create(complex_log_rect))
+            self.play(swWrite(complex_log_line))
+
+        with self.voiceover(text="It's represented as ln of z equals ln of r plus phi times i. This function is only defined for complex numbers whose argument is the principal value.") as tracker:
+            self.wait(tracker.duration)
         
-        with self.voiceover(text="We can split this using the property of logarithm of a product.") as tracker:
+        # Continue with the main example now that the supporting idea has been shown
+        with self.voiceover(text="As the argument is already a principal value, we can directly apply the formula, giving us ln of 2 plus pi over 3 times i.") as tracker:
             self.play(swWrite(sol_ex1_1))
-        
-        with self.voiceover(text="This becomes ln of 2 plus pi over 3 times i.") as tracker:
-            self.play(swWrite(sol_ex1_2))
 
         self.wait(1)
-        self.play(FadeOut(VGroup(example1_rect, ex1_content)))
+        self.play(FadeOut(VGroup(example1_rect, ex1_content, complex_log_rect, complex_log_line)))
 
         # Example 2
         with self.voiceover(text="Now, we will calculate the natural logarithm for a complex number z equals 6 times e raised to 7/5 times pi times i.") as tracker:
@@ -104,14 +135,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="First, write ln of z as ln of 6 times e raised to 7/5 times pi times i.") as tracker:
             self.play(swWrite(sol_ex2_0))
         
-        with self.voiceover(text="Split this using the product property of logarithms.") as tracker:
+        with self.voiceover(text="Here, the argument is not in the principal value range, which is from minus pi to pi. Subtract 2 pi times i to bring it within this range.") as tracker:
             self.play(swWrite(sol_ex2_1))
         
-        with self.voiceover(text="The principal value range for the argument is from minus pi to pi. Subtract 2 pi times i to bring it within this range.") as tracker:
-            self.play(swWrite(sol_ex2_2))
-        
         with self.voiceover(text="This simplifies to ln of 6 minus 3/5 times pi times i.") as tracker:
-            self.play(swWrite(sol_ex2_3))
+            self.play(swWrite(sol_ex2_2))
 
         self.wait(1)
         self.play(FadeOut(VGroup(example2_rect, ex2_content)))
