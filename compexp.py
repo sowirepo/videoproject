@@ -42,17 +42,17 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         main_box_title.set_color_by_string('z', BLUE)
         main_box_title.set_color_by_string('3', GREEN)
-        main_box_title.set_color_by_string('2', GOLDY)
+        main_box_title.set_color_by_string('2', swGOLD)
 
         # Lines for the main box
         main_step1 = TNT().tx('\\mathrm{e}^z = \\mathrm{e}^{3 + 2 \\cdot \\mathrm{i}}')
         main_step1.set_color_by_string('z', BLUE)
         main_step1.set_color_by_string('3', GREEN)
-        main_step1.set_color_by_string('2', GOLDY)
+        main_step1.set_color_by_string('2', swGOLD)
 
         main_step3 = TNT().tx('= \\mathrm{e}^3 \\cdot (\\cos(2) + \\sin(2) \\cdot \\mathrm{i})')
         main_step3.set_color_by_string('3', GREEN)
-        main_step3.set_color_by_string('2', GOLDY)
+        main_step3.set_color_by_string('2', swGOLD)
 
         main_step4 = TNT().tx('\\|\\mathrm{e}^z\\| = \\mathrm{e}^3')
         main_step4.set_color_by_string('z', BLUE)
@@ -60,7 +60,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         main_step5 = TNT().tx('\\text{Arg}(\\mathrm{e}^z) = 2')
         main_step5.set_color_by_string('z', BLUE)
-        main_step5.set_color_by_string('2', GOLDY)
+        main_step5.set_color_by_string('2', swGOLD)
 
         main_content = VGroup(main_step1, main_step3, main_step4, main_step5)
         main_box.create_content(main_content, offset=0.075)
@@ -72,7 +72,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         theory_line = TNT().tx('\\mathrm{e}^{a + b \\cdot \\mathrm{i}} = \\mathrm{e}^a \\cdot (\\cos(b) + \\sin(b) \\cdot \\mathrm{i})')
         theory_line.set_color_by_string('a', GREEN)
-        theory_line.set_color_by_string('b', GOLDY)
+        theory_line.set_color_by_string('b', swGOLD)
 
         theory_box_content = VGroup(theory_line)
         theory_box.create_content(theory_box_content, offset=0.075)
@@ -88,11 +88,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         
         prop2 = TNT().tx('\\mathrm{e}^z \\cdot \\mathrm{e}^w = \\mathrm{e}^{z + w}')
         prop2.set_color_by_string('z', BLUE)
-        prop2.set_color_by_string('w', PORPLE)
+        prop2.set_color_by_string('w', swPURPLE)
         
         prop3 = TNT().tx('\\frac{\\mathrm{e}^z}{\\mathrm{e}^w} = \\mathrm{e}^{z - w}')
         prop3.set_color_by_string('z', BLUE)
-        prop3.set_color_by_string('w', PORPLE)
+        prop3.set_color_by_string('w', swPURPLE)
         
         prop4 = TNT().tx('(\\mathrm{e}^z)^n = \\mathrm{e}^{z \\cdot n}')
         prop4.set_color_by_string('z', BLUE)

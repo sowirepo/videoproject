@@ -39,15 +39,15 @@ class Test(MovingCameraScene, VoiceoverScene):
         ## propose problem
         problem = TNT().txt("We will solve the equation ").tx('z^n=1').shift(UP * 0.8)
         problem[0][1][0][0].set_color(BLUE)
-        problem[0][1][0][1].set_color(GOLDY)
+        problem[0][1][0][1].set_color(swGOLD)
 
-        this_equation_has_n_roots = TNT().txt("This equation has ").tx('n', aligned_char='n', color=GOLDY).txt(' solutions').shift(UP * 0.6)
+        this_equation_has_n_roots = TNT().txt("This equation has ").tx('n', aligned_char='n', color=swGOLD).txt(' solutions').shift(UP * 0.6)
 
         z_is_1 = TNT().tx('z=1').txt(' is always a solution').shift(UP * 0.5)
         z_is_1[0][0][0][0].set_color(BLUE)
         z_is_minus_1 = TNT().tx('z=-1').txt(' is a solution when ').tx('n').txt(' is even').shift(UP * 0.4)
         z_is_minus_1[0][0][0][0].set_color(BLUE)
-        z_is_minus_1[0][2][0][0].set_color(GOLDY)
+        z_is_minus_1[0][2][0][0].set_color(swGOLD)
 
         by_rewriting = TNT().txt("By rewriting the equation using").shift(UP * 0.3)
         the_polar_exp = TNT().txt("the ").txt("polar-exponential form,", weight="SEMIBOLD").txt('we get').shift(UP * 0.2)
@@ -56,24 +56,24 @@ class Test(MovingCameraScene, VoiceoverScene):
         polar_exp2 = TNT().tx('(\\|z\\|\\cdot e^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
         polar_exp2[0][0][0][2].set_color(BLUE)
         polar_exp2[0][0][0][6].set_color(GREEN)
-        polar_exp2[0][0][0][10].set_color(GOLDY)
+        polar_exp2[0][0][0][10].set_color(swGOLD)
         
         polar_exp2_5 = TNT().tx('\\|z\\|^n\\cdot e^{\\varphi \\cdot n \\cdot \\mathrm{i}} = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
         polar_exp2_5[0][0][0][1].set_color(BLUE)
-        polar_exp2_5[0][0][0][3].set_color(GOLDY)
-        polar_exp2_5[0][0][0][8].set_color(GOLDY)
+        polar_exp2_5[0][0][0][3].set_color(swGOLD)
+        polar_exp2_5[0][0][0][8].set_color(swGOLD)
         
         polar_exp3 = TNT().txt('The norm').tx('\\|z\\|^n=\\|1\\|').shift(DOWN * 0.3)
         polar_exp3[0][1][0][1].set_color(BLUE)
-        polar_exp3[0][1][0][3].set_color(GOLDY)
+        polar_exp3[0][1][0][3].set_color(swGOLD)
         polar_exp3_1 = TNT().txt('The norm').tx('\\|z\\|=1').shift(DOWN * 0.3)
         polar_exp3_1[0][1][0][1].set_color(BLUE)
 
         polar_exp4 = TNT().txt('The argument ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{n}').shift(DOWN * 0.6)
         polar_exp4[0][1][0][0].set_color(GREEN)
-        polar_exp4[0][1][0][-1].set_color(GOLDY)
+        polar_exp4[0][1][0][-1].set_color(swGOLD)
 
-        polar_exp5 = TNT().txt('There are ').tx('n', aligned_char='n', color=GOLDY).txt(' solutions for ').tx('-\\pi < \\varphi \\leq \\pi', aligned_char='<').shift(DOWN * 0.8)
+        polar_exp5 = TNT().txt('There are ').tx('n', aligned_char='n', color=swGOLD).txt(' solutions for ').tx('-\\pi < \\varphi \\leq \\pi', aligned_char='<').shift(DOWN * 0.8)
         polar_exp5[0][3][0][3].set_color(GREEN)
 
         everything_above = VGroup(problem, this_equation_has_n_roots).shift(UP * 0.1)
@@ -121,7 +121,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         solve_n3_is_1 = TNT().txt('Solve ').tx('z^3=1').move_to(example_n3_rect.get_center() + UP * 0.9)
         solve_n3_is_1[0][1][0][0].set_color(BLUE)
-        solve_n3_is_1[0][1][0][1].set_color(GOLDY)
+        solve_n3_is_1[0][1][0][1].set_color(swGOLD)
 
         title_underline = Line(solve_n3_is_1.get_corner(DL) + LEFT*0.65 , solve_n3_is_1.get_corner(DR) + RIGHT * 0.65, color=GREY, stroke_width=0.2).shift(DOWN*0.07)
 
@@ -130,29 +130,29 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         where_phi = TNT().txt('and ').tx('\\varphi=\\dfrac{2\\cdot k \\cdot \\pi}{3}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
         where_phi[0][1][0][0].set_color(GREEN)
-        where_phi[0][1][0][-1].set_color(GOLDY)
+        where_phi[0][1][0][-1].set_color(swGOLD)
 
         phi_inequalities_must_hold = TNT().tx('-\\pi < \\varphi \\leq \\pi').txt(' must hold').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
         phi_inequalities_must_hold[0][0][0][3].set_color(GREEN)
 
         picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
         picking_k_is_1[0][3][0][0].set_color(BLUE)
-        picking_k_is_1[0][3][0][7].set_color(GOLDY)
+        picking_k_is_1[0][3][0][7].set_color(swGOLD)
 
         picking_k_is_0 = TNT().txt('For ').tx('k=0,').txt(' we get ').tx('z = 1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
         picking_k_is_0[0][3][0][0].set_color(BLUE)
 
         picking_k_is_minus_1 = TNT().txt('For ').tx('k=-1,').txt(' we get ').tx('z = e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
         picking_k_is_minus_1[0][3][0][0].set_color(BLUE)
-        picking_k_is_minus_1[0][3][0][8].set_color(GOLDY)
+        picking_k_is_minus_1[0][3][0][8].set_color(swGOLD)
 
         solutions = TNT().txt('Solutions:').tx('z=1\\vee z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.65)
         solutions[0][1][0][0].set_color(BLUE)
         solutions[0][1][0][4].set_color(BLUE)
         solutions[0][1][0][15].set_color(BLUE)
 
-        solutions[0][1][0][11].set_color(GOLDY)
-        solutions[0][1][0][23].set_color(GOLDY)
+        solutions[0][1][0][11].set_color(swGOLD)
+        solutions[0][1][0][23].set_color(swGOLD)
 
         # dot1 = Dot(p1:=polarplane_pi.polar_to_point(0,0), color=BLUE, radius=0.01)
         # dot2 = Dot(p2:=polarplane_pi.polar_to_point(1,0), color=RED,radius=0.01)
@@ -177,12 +177,12 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         solve_n4_is_1 = TNT().txt('Solve ').tx('z^4=1').move_to(solve_n3_is_1.get_center())
         solve_n4_is_1[0][1][0][0].set_color(BLUE)
-        solve_n4_is_1[0][1][0][1].set_color(GOLDY)
+        solve_n4_is_1[0][1][0][1].set_color(swGOLD)
 
         the_other_solutions_n4 = TNT().txt('We have ').tx('\\|z\\|=1').txt(' and ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{4}').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
         the_other_solutions_n4[0][1][0][1].set_color(BLUE)
         the_other_solutions_n4[0][3][0][0].set_color(GREEN)
-        the_other_solutions_n4[0][3][0][-1].set_color(GOLDY)
+        the_other_solutions_n4[0][3][0][-1].set_color(swGOLD)
 
         picking_k_is_1_n4 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
         picking_k_is_1_n4[0][3][0][0].set_color(BLUE)
@@ -234,32 +234,32 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         solve_n5_is_1 = TNT().txt('Solve ').tx('z^5=1').move_to(solve_n3_is_1.get_center())
         solve_n5_is_1[0][1][0][0].set_color(BLUE)
-        solve_n5_is_1[0][1][0][1].set_color(GOLDY)
+        solve_n5_is_1[0][1][0][1].set_color(swGOLD)
 
         the_other_solutions_n5 = TNT().txt('We have ').tx('\\|z\\|=1').txt(' and ').tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{5}').move_to(example_n3_rect.get_center()).shift(UP * 0.6)
         the_other_solutions_n5[0][1][0][1].set_color(BLUE)
         the_other_solutions_n5[0][3][0][0].set_color(GREEN)
-        the_other_solutions_n5[0][3][0][-1].set_color(GOLDY)
+        the_other_solutions_n5[0][3][0][-1].set_color(swGOLD)
 
         picking_k_is_0_n5 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
         picking_k_is_0_n5[0][3][0][0].set_color(BLUE)
 
         picking_k_is_1_n5 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
         picking_k_is_1_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_1_n5[0][3][0][7].set_color(GOLDY)
+        picking_k_is_1_n5[0][3][0][7].set_color(swGOLD)
 
         picking_k_is_2_n5 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=e^{\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
         picking_k_is_2_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_2_n5[0][3][0][7].set_color(GOLDY)
+        picking_k_is_2_n5[0][3][0][7].set_color(swGOLD)
 
         picking_k_is_minus_1_n5 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=e^{-\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
         picking_k_is_minus_1_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_minus_1_n5[0][3][0][8].set_color(GOLDY)
+        picking_k_is_minus_1_n5[0][3][0][8].set_color(swGOLD)
 
 
         picking_k_is_minus_2_n5 = TNT().txt('For ').tx('k=-2').txt(' we get ').tx('z=e^{-\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
         picking_k_is_minus_2_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_minus_2_n5[0][3][0][8].set_color(GOLDY)
+        picking_k_is_minus_2_n5[0][3][0][8].set_color(swGOLD)
 
 
 

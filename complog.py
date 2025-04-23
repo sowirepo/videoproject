@@ -32,11 +32,11 @@ class Test(MovingCameraScene, VoiceoverScene):
         sol_ex1_0 = TNT().tx('\\ln(z)=\\ln(2\\cdot \\mathrm{e}^{\\frac{\\pi}{3}\\cdot \\mathrm{i}})')
         sol_ex1_0.set_color_by_string('z', BLUE)
         sol_ex1_0.set_color_by_string('2', GREEN)
-        sol_ex1_0.set_color_by_string('\\frac{\\pi}{3}', GOLDY)
+        sol_ex1_0.set_color_by_string('\\frac{\\pi}{3}', swGOLD)
         
         sol_ex1_1 = TNT().tx('=\\ln(2)+ \\dfrac{\\pi}{3}\\cdot \\mathrm{i}')
         sol_ex1_1.set_color_by_string('2', GREEN)
-        sol_ex1_1.set_color_by_string('\\frac{\\pi}{3}', GOLDY)
+        sol_ex1_1.set_color_by_string('\\frac{\\pi}{3}', swGOLD)
 
         ex1_content = VGroup(sol_ex1_0, sol_ex1_1)
         example1_rect.set_title(ex1_title)
@@ -49,7 +49,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         complex_log_line = TNT().tx('\\ln(z) = \\ln(r) + \\varphi \\cdot \\mathrm{i}')
         complex_log_line.set_color_by_string('r', GREEN)
-        complex_log_line.set_color_by_string('\\varphi', GOLDY)
+        complex_log_line.set_color_by_string('\\varphi', swGOLD)
         complex_log_line.set_color_by_string('z', BLUE)
 
         complex_log_content = VGroup(complex_log_line)
@@ -63,15 +63,15 @@ class Test(MovingCameraScene, VoiceoverScene):
         sol_ex2_0 = TNT().tx('\\ln(z)=\\ln\\left(6\\cdot \\mathrm{e}^{\\frac{7}{5}\\cdot\\pi\\cdot \\mathrm{i}}\\right)')
         sol_ex2_0.set_color_by_string('z', BLUE)
         sol_ex2_0.set_color_by_string('6', GREEN)
-        sol_ex2_0.set_color_by_string('\\frac{7}{5}', GOLDY)
+        sol_ex2_0.set_color_by_string('\\frac{7}{5}', swGOLD)
         
         sol_ex2_1 = TNT().tx('=\\ln(6)+ \\left(\\dfrac{7}{5}\\cdot\\pi - 2\\cdot\\pi\\right)\\cdot \\mathrm{i}')
         sol_ex2_1.set_color_by_string('6', GREEN)
-        sol_ex2_1.set_color_by_string('\\frac{7}{5}', GOLDY)
+        sol_ex2_1.set_color_by_string('\\frac{7}{5}', swGOLD)
         
         sol_ex2_2 = TNT().tx('=\\ln(6) - \\dfrac{3}{5}\\cdot\\pi\\cdot \\mathrm{i}')
         sol_ex2_2.set_color_by_string('6', GREEN)
-        sol_ex2_2.set_color_by_string('\\frac{3}{5}', GOLDY)
+        sol_ex2_2.set_color_by_string('\\frac{3}{5}', swGOLD)
 
         ex2_content = VGroup(sol_ex2_0, sol_ex2_1, sol_ex2_2)
         example2_rect.set_title(ex2_title)

@@ -54,7 +54,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         z_denom = TNT_Deprecated().tx('z=1-2\\cdot\\mathrm{i}').create().move_to(z_normal.get_center())
         z_denom_conj = TNT_Deprecated().tx('\\overline{z}=1+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
         z_denom[0][0][2:].set_color(GREEN)
-        z_denom_conj[0][0][3:].set_color(GOLDY)
+        z_denom_conj[0][0][3:].set_color(swGOLD)
 
         ## start solving problem
         equation = TNT_Deprecated().tx('\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}}=\\dfrac{3 + 4\\cdot\\mathrm{i}}{1 - 2\\cdot\\mathrm{i}} \\cdot \\dfrac{1 + 2\\cdot\\mathrm{i}}{1 + 2\\cdot\\mathrm{i}}').create().shift(LEFT *1.4 + UP * 0.5)
@@ -65,14 +65,14 @@ class Test(MovingCameraScene, VoiceoverScene):
         equation[0][0][12:17].set_color(BLUE)
         equation[0][0][18:23].set_color(GREEN)
 
-        equation[0][0][24:29].set_color(GOLDY)
-        equation[0][0][30:35].set_color(GOLDY)
+        equation[0][0][24:29].set_color(swGOLD)
+        equation[0][0][30:35].set_color(swGOLD)
 
 
         line1 = TNT_Deprecated().tx('=\\dfrac{(3+4\\cdot\\mathrm{i})\\cdot(1 + 2 \\cdot\\mathrm{i})}{||1-2\\cdot\\mathrm{i}||^2}').create()
 
         line1[0][0][2:7].set_color(BLUE)
-        line1[0][0][10:15].set_color(GOLDY)
+        line1[0][0][10:15].set_color(swGOLD)
         line1[0][0][19:24].set_color(GREEN)
 
         line2 = TNT_Deprecated().tx('=\\dfrac{3+6\\cdot\\mathrm{i}+4\\cdot\\mathrm{i}+8\\cdot\\mathrm{i}^2}{1^2+(-2)^2}').create()
@@ -113,13 +113,13 @@ class Test(MovingCameraScene, VoiceoverScene):
         
         equation_2[0][0][2:8].set_color(GREEN)
         equation_2[0][0][11:17].set_color(GREEN)
-        equation_2[0][0][18:24].set_color(GOLDY)
-        equation_2[0][0][25:].set_color(GOLDY)
+        equation_2[0][0][18:24].set_color(swGOLD)
+        equation_2[0][0][25:].set_color(swGOLD)
 
 
         line1_2 = TNT_Deprecated().tx('=\\dfrac{1\\cdot(-3+2\\cdot\\mathrm{i})}{||-3-2\\cdot\\mathrm{i}||^2}').create().move_to(line1.get_center())
 
-        line1_2[0][0][4:9].set_color(GOLDY)
+        line1_2[0][0][4:9].set_color(swGOLD)
         line1_2[0][0][14:20].set_color(GREEN)
 
         line2_2 = TNT_Deprecated().tx('=\\dfrac{-3+2\\cdot\\mathrm{i}}{(-3)^2+(-2)^2}').create().move_to(line2.get_center())
@@ -237,7 +237,7 @@ class Test(MovingCameraScene, VoiceoverScene):
         reciprocal_z_conj = TNT_Deprecated().tx('\\overline{z}=-3+2\\cdot\\mathrm{i}').create().move_to(z_conj.get_center())
 
         reciprocal_z[0][0][2:].set_color(GREEN)
-        reciprocal_z_conj[0][0][3:].set_color(GOLDY)
+        reciprocal_z_conj[0][0][3:].set_color(swGOLD)
 
         with self.voiceover(text="First off, we know that the complex conjugate of the denominator is minus 3 plus 2 times 'i'.") as tracker:
             self.play(TransformMatchingTex(z_normal, reciprocal_z), run_time=tracker.duration * 0.3)

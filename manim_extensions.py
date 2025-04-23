@@ -12,13 +12,10 @@ PURPLE = '#594662'
 PINK = '#BD567C'
 
 # This is the right purple to use
-PORPLE = '#835ED8'
-
-# GOLDY = '#f2a221' 
-# GOLDY = '#e2a221' 
+swPURPLE = '#835ED8'
 
 # This is the right gold color to use
-GOLDY = '#cb8d29'
+swGOLD = '#cb8d29'
 
 #######################
 
@@ -167,7 +164,7 @@ class TNT_Deprecated(Mobject):
                 if type(mob) == MathTex:
 
                     if 'dfrac' not in mob.get_tex_string() and 'sqrt' not in mob.get_tex_string():
-                        mob.set_color_by_tex_to_color_map({'a ': BLUE, 'b ': GREEN, 'r ': GOLDY, '\\theta ': PORPLE})
+                        mob.set_color_by_tex_to_color_map({'a ': BLUE, 'b ': GREEN, 'r ': swGOLD, '\\theta ': swPURPLE})
 
         prevObj_y = None
         for mob in objs:
