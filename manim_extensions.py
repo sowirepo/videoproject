@@ -295,13 +295,19 @@ class TNT(VMobject):
         tex_string = re.sub(r'{', '', tex_string)
         tex_string = re.sub(r'}', '', tex_string)
 
-        # remove \\ and \, and \; and \! and \quad and \qquad
+        # remove \, and \; and \! and \quad and \qquad
         tex_string = re.sub(r'\\,', '', tex_string)
         tex_string = re.sub(r'\\;', '', tex_string)
         tex_string = re.sub(r'\\!', '', tex_string)
         tex_string = re.sub(r'\\quad', '', tex_string)
         tex_string = re.sub(r'\\qquad', '', tex_string)
         tex_string = re.sub(r' ', '', tex_string)
+
+        #remove \text \textbf \textit \texttt
+        tex_string = re.sub(r'\\textbf', '', tex_string)
+        tex_string = re.sub(r'\\textit', '', tex_string)
+        tex_string = re.sub(r'\\texttt', '', tex_string)
+        tex_string = re.sub(r'\\text', '', tex_string)
 
         # remove \left and \right
         tex_string = re.sub(r'\\left', '', tex_string)
@@ -326,12 +332,15 @@ class TNT(VMobject):
 
         return tex_string
     
-    def set_color_by_string(self, string: str, color):
+    def set_color_by_string(self, string: str, color, log=False):
         for mob in self.objs:
             if type(mob) == MathTex:
                 char_tex_string = self.parse_latex_characters(mob.get_tex_string())
                 parsed_string = self.parse_latex_characters(string)
 
+                if log:
+                    print('Parsed string: ', parsed_string)
+                    print('Char tex string: ', char_tex_string)
 
                 start = 0
                 indices_of_strings = []
@@ -436,10 +445,12 @@ class swWrite(Write):
         super().__init__(mobject, **kwargs)
 
         self.lag_ratio = 9999999
-        self.stroke_color = color
+        self.stroke_color = WHITE
         self.stroke_width = 1
 
 
 class NOTHING:
     def __init__(self, voice, model):
         pass
+
+    np.inf

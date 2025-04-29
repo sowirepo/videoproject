@@ -70,6 +70,8 @@ class Test(MovingCameraScene, VoiceoverScene):
                 model="tts-1-hd",
             )
         )
-
-        with self.voiceover(text="this is the letter phy. Phy equals the angle. This is Phy."):
+        self.wait(2)
+        with self.voiceover(text="First, we write ln of z equals ln of 2 times e to the power of pi over 3 times i. calculate ellen of 2 times ellen of three"):
             self.play(Create(VGroup()))
+
+        self.wait(2)
