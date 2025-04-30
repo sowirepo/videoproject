@@ -169,7 +169,7 @@ class Test(MovingCameraScene, VoiceoverScene):
             # Swapping to 'z' with corrected angle
             self.play(TransformMatchingShapes(sol_ex2_0, sol_ex2_1))
 
-        with self.voiceover(text="Now we write ellen of the adjusted 'z', which is equal to ellen of 6 minus 3 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="Now we write ellen of the adjusted 'z', which is equal to ellen of 6 times 'e' to the power of minus 3 times pi over 5 times i.") as tracker:
             self.play(swWrite(sol_ex2_2))
 
         with self.voiceover(text="Finally, we can apply the complex logarithm function to get the result.") as tracker:
@@ -186,10 +186,10 @@ class Test(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="When z1 and z2 are complex numbers, the logarithm of z1 times z2 is equal to the logarithm of z1 plus the logarithm of z2.") as tracker:
             self.play(swWrite(prop1))
         
-        with self.voiceover(text="The logarithm of a complex number 'z' to the power of a number 'n', is equal to 'n' times the logarithm of 'z'.") as tracker:
+        with self.voiceover(text="The logarithm of a complex number 'z' to the power of a number 'n', is equal to 'n' times the logarithm of 'z'") as tracker:
             self.play(swWrite(prop2))
         
-        with self.voiceover(text="And finally, e raised to the power of the logarithm of 'z' is equal to the logarithm of e to the power of 'z', and this is equal to 'z'.") as tracker:
+        with self.voiceover(text="And finally, e raised to the power of the logarithm of 'z' is equal to the logarithm of e to the power of 'z', and this is equal to 'z'") as tracker:
             self.play(swWrite(prop3))
         
         with self.voiceover(text="This concludes the explaination of the complex logarithm. Thanks for watching.") as tracker:
