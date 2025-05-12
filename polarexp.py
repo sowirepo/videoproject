@@ -3,7 +3,7 @@ from manim_extensions import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
-class Test(MovingCameraScene, VoiceoverScene):
+class MainScene(MovingCameraScene, VoiceoverScene):
 
     def construct(self):
         self.create_subcaption = False

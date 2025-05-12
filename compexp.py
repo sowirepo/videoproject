@@ -3,7 +3,7 @@ from manim_extensions import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
-class Test(MovingCameraScene, VoiceoverScene):
+class MainScene(MovingCameraScene, VoiceoverScene):
 
     def construct(self):
         # Setting up the voiceover scene
@@ -138,7 +138,7 @@ class Test(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="It is important to point out that the real part of 'z' only affects the norm of 'e' to the power of 'z', while the imaginary part only affects the angle of 'e' to the power of 'z'.") as tracker:
             self.wait(0.5)
-
+        
         # Present computational properties box
         with self.voiceover(text="Finally, let's consider some computational properties of the complex exponential.") as tracker:
             self.play(Create(properties_box))

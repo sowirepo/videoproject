@@ -59,7 +59,7 @@ class Test2(VoiceoverScene):
 
         self.add(tex)
 
-class Test(MovingCameraScene, VoiceoverScene):
+class MainScene(MovingCameraScene, VoiceoverScene):
     def construct(self):
         self.camera.background_color = BLUEISHGREY
 

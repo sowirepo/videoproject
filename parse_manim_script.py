@@ -18,8 +18,8 @@ def parse_manim(script_filename):
             if line.startswith('from manim_voiceover'):
                 continue
 
-            if line.startswith('class Test'):
-                f.write('class Test(MovingCameraScene):\n')
+            if line.startswith('class MainScene'):
+                f.write('class MainScene(MovingCameraScene):\n')
                 continue
 
             if line.find('self.set_speech_service') != -1:

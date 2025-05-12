@@ -21,17 +21,6 @@ swGOLD = '#cb8d29'
 
 
 
-### Directions ####
-
-UPS = UP * 0.01
-DOWNS = DOWN * 0.01
-LEFTS = LEFT * 0.01
-RIGHTS = RIGHT * 0.01
-
-###################
-
-
-
 ### Config for plane ####
 
 MAIN_AXIS_COLOR = DARK_GREY
@@ -119,98 +108,6 @@ class swRoundedRectangle(RoundedRectangle):
             mob.move_to(middle_line).shift(DOWN * (idx + 1) * (SMALL_BUFF + offset))
 
         return group
-    
-# adds a line in a complex plane from 0 to p2, p2 is a complex number
-def PlaneLine(p2, plane, color=RED):
-   return Line(plane.n2p(0), plane.n2p(p2), color=color, stroke_width=1)
-
-# draws a right triangle in a complex plane with hypotenuse 0->p2, p2 is a complex number
-def PlaneTriangleLines(p2, plane, color=RED, stroke_width=1):
-    return VGroup(
-        Line(plane.n2p(p2), plane.n2p(0), color=color, stroke_width=stroke_width),
-        Line(plane.n2p(p2.real), plane.n2p(p2), color=color, stroke_width=stroke_width),
-        Line(plane.n2p(0), plane.n2p(p2.real), color=color, stroke_width=stroke_width),
-    )
-
-# do not use this class, it is deprecated but used in polarexp and quotient
-class TNT_Deprecated(Mobject):
-
-    def __init__(self, auto_color=False):
-        self.text = VGroup()
-        self.auto_color = auto_color
-
-    def add_text(self, text, weight="NORMAL", color=BLACK):
-        text_object = Text(text, font="Quicksand", weight=weight, color=color)
-        self.text.add(text_object.scale(0.15))
-
-        return self
-
-    def add_tex(self, tex, color=BLACK):
-        if 'dfrac' in tex or 'sqrt' in tex or 'arctan' in tex:
-            tex_object = MathTex(tex, color=color)
-        elif self.auto_color:
-            tex_object = MathTex(tex, color=color, substrings_to_isolate=['a ', 'b ', 'r ', '\\theta '])
-        else:
-            tex_object = MathTex(tex, color=color)
-        self.text.add(tex_object.scale(0.2))
-
-        return self
-
-    def create(self):
-        objs = self.text.arrange(RIGHT, aligned_edge=UP, buff=0.06)
-    
-        if self.auto_color:
-            for mob in objs:
-                if type(mob) == MathTex:
-
-                    if 'dfrac' not in mob.get_tex_string() and 'sqrt' not in mob.get_tex_string():
-                        mob.set_color_by_tex_to_color_map({'a ': BLUE, 'b ': GREEN, 'r ': swGOLD, '\\theta ': swPURPLE})
-
-        prevObj_y = None
-        for mob in objs:
-
-            if prevObj_y is None:
-                prevObj_y = mob.get_center_of_mass()
-
-            else:
-                factor = (prevObj_y[1] - mob.get_center_of_mass()[1])
-                
-                if factor > 0.05 and factor < 0.065:
-                    factor += 0.02
-
-                mob.shift(UP * factor)
-
-            # dot1 = Dot(mob.get_center_of_mass(), radius=0.01, color=BLUE)
-            # dot2 = Dot(mob.get_center(), radius=0.01, color=RED)
-
-            # self.text.add(dot1, dot2)
-
-            if type(mob) == MathTex:
-                # char_tex_string = parse_latex_characters(mob.get_tex_string())
-
-                # print(len(char_tex_string), len(mob[0]))
-                # mob[0][0].set_color(RED)
-                # mob[0][-1].set_color(RED)
-                # assert len(char_tex_string) <= len(mob[0])
-                pass
-                # index_of_equals = char_tex_string.find('=')
-                # if index_of_equals != -1:
-                #     mob[0][index_of_equals].set_color(GREEN)
-
-        return objs
-    
-    def txt(self, text, weight="NORMAL", color=BLACK):
-        self.add_text(text, weight, color)
-        return self
-    
-    def t(self, text, weight="NORMAL", color=BLACK):
-        self.add_text(text, weight, color)
-        return self
-    
-    def tx(self, tex, color=BLACK):
-        self.add_tex(tex, color)
-        return self
-
 
 class TNT(VMobject):
     def __init__(self, **kwargs) -> None:
@@ -295,7 +192,7 @@ class TNT(VMobject):
         tex_string = re.sub(r'{', '', tex_string)
         tex_string = re.sub(r'}', '', tex_string)
 
-        # remove \, and \; and \! and \quad and \qquad
+        # remove \\ and \, and \; and \! and \quad and \qquad
         tex_string = re.sub(r'\\,', '', tex_string)
         tex_string = re.sub(r'\\;', '', tex_string)
         tex_string = re.sub(r'\\!', '', tex_string)
@@ -332,15 +229,12 @@ class TNT(VMobject):
 
         return tex_string
     
-    def set_color_by_string(self, string: str, color, log=False):
+    def set_color_by_string(self, string: str, color):
         for mob in self.objs:
             if type(mob) == MathTex:
                 char_tex_string = self.parse_latex_characters(mob.get_tex_string())
                 parsed_string = self.parse_latex_characters(string)
 
-                if log:
-                    print('Parsed string: ', parsed_string)
-                    print('Char tex string: ', char_tex_string)
 
                 start = 0
                 indices_of_strings = []
@@ -403,52 +297,11 @@ class TNT(VMobject):
 
         return re.sub(r'frac', '', parsed_)
 
-
-
-# normal complex plane has 'i' in the vertical axis, this one removes that by
-# implementing ComplexPlane only functions on the NumberPlane Object
-class swComplexPlane(NumberPlane):
-
-
-    def __init__(self, x_range, y_range=-1, **kwargs):
-
-        if y_range == -1:
-            y_range = x_range
-
-        super().__init__(x_range=x_range, y_range=y_range, axis_config=AXIS_CONFIG, background_line_style=BACKGROUND_LINE_STYLE, **kwargs)
-
-        self.add_coordinates(color=MAIN_AXIS_COLOR)
-
-        label_Y = MathTex(r'\mathrm{Im}', color=BLACK).scale(0.5).move_to(self.y_axis.get_top() + LEFT * 0.5 + DOWN * 0.1)
-        label_X = MathTex(r'\mathrm{Re}', color=BLACK).scale(0.5).move_to(self.x_axis.get_right() + DOWN * 0.07 + LEFT * 0.12)
-        self.add(label_X, label_Y)
-
-        self.compplane = ComplexPlane(x_range=x_range, y_range=y_range, axis_config=AXIS_CONFIG, background_line_style=BACKGROUND_LINE_STYLE, **kwargs)
-        self.add(self.compplane)
-
-    def update_(self):
-        self.compplane.move_to(self.get_center())
-        return self
-
-    def n2p(self, number):
-
-
-        self.compplane.move_to(self.get_center())
-        self.remove(self.compplane)
-
-        return self.compplane.n2p(number)
-
-
 class swWrite(Write):
 
-    def __init__(self, mobject: Mobject, color=BLACK, **kwargs):
+    def __init__(self, mobject: Mobject, color=BLUEISHGREY, **kwargs):
         super().__init__(mobject, **kwargs)
 
-        self.lag_ratio = 9999999
-        self.stroke_color = WHITE
+        self.lag_ratio = 99999999
+        self.stroke_color = color
         self.stroke_width = 1
-
-
-class NOTHING:
-    def __init__(self, voice, model):
-        pass

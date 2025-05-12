@@ -7,17 +7,17 @@ from parse_manim_script import parse_manim
 
 filename = 'compexp'  
 
-img_path = f'/home/chris/manim/videoproject/media/images/parsed_{filename}/Test_ManimCE_v0.19.0.png'
+img_path = f'/home/chris/manim/videoproject/media/images/parsed_{filename}/MainScene_ManimCE_v0.19.0.png'
 file_to_check = f'/home/chris/manim/videoproject/{filename}.py'
 parsed_file_to_check = f'/home/chris/manim/videoproject/parsed_scripts/parsed_{filename}.py'
 
 assert os.path.exists(file_to_check)
 
-# check if class Test exists in the file
+# check if class MainScene exists in the file
 with open(file_to_check, 'r') as f:
     lines = f.readlines()
-    test_class_exists = any('class Test' in line for line in lines)
-assert test_class_exists, f"Class Test not found in {file_to_check}"
+    test_class_exists = any('class MainScene' in line for line in lines)
+assert test_class_exists, f"Class MainScene not found in {file_to_check}"
 
 try:
     assert os.path.exists(parsed_file_to_check)
@@ -29,7 +29,7 @@ try:
     assert os.path.exists(img_path)
 except AssertionError:
     print('Image file does not exist. Rendering image...')
-    cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py Test"
+    cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py MainScene"
     os.system(cmd)
     time.sleep(0.2)
 
@@ -59,7 +59,7 @@ class FileChangeHandler(FileSystemEventHandler):
         self.label.image = img  # Keep a reference to avoid garbage collection
 
     def render_image(self):
-        cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py Test"
+        cmd = f"python3 -m manim -sql parsed_scripts/parsed_{filename}.py MainScene"
         os.system(cmd)
         time.sleep(0.2)
         self.reload_image()

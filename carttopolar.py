@@ -90,7 +90,7 @@ class TextNTex(Mobject):
 TNT = TextNTex
 
 # class CartesianToPolar(MovingCameraScene):
-class Test(MovingCameraScene, VoiceoverScene):
+class MainScene(MovingCameraScene, VoiceoverScene):
     def construct(self):
 
         self.create_subcaption = False
