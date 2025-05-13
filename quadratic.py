@@ -61,45 +61,50 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         # discriminant theory box on the right
         disc_box = swRoundedRectangle(height=0.8, width=1.8).shift(RIGHT * 1.15 + UP * 0.5)
-        disc_title = TNT().txt("discriminant", weight="SEMIBOLD", color=PINK)
+        disc_title = TNT().txt("Discriminant", weight="SEMIBOLD", color=PINK)
         disc_box.set_title(disc_title)
         disc_line1 = TNT().tx("D=b^2-4\\cdot a\\cdot c")
         disc_box.create_content(VGroup(disc_line1), offset=0.075)
 
         ## SCENE 2 mobjects ##
         # second problem box centered
-        box2 = swRoundedRectangle(height=2, width=3)
+        box2 = swRoundedRectangle(height=2, width=3.4)
 
         # title: problem statement
         title2 = TNT()\
-            .txt("given ")\
+            .txt("Given ")\
             .tx("z = 1")\
-            .txt("is a root of")\
+            .txt(" is a root of")\
             .tx("f(z),")\
-            .txt("factorize ")\
+            .txt(" factorize ")\
             .tx("f(z) = z^3 - 3\\cdot z^2 + 7\\cdot z - 5")
         box2.set_title(title2)
 
         # content lines: use fundamental theorem, factor, discriminant, sqrt, quadratic formula
-        line1_2 = TNT()\
-            .txt("by the fundamental theorem of algebra, we write")\
-            .tx("f(z) = \\prod_{k=1}^{3} (z - w_k)")
-        line2_2 = TNT()\
-            .txt("factor out the known root to get")\
-            .tx("f(z) = (z - 1)\\cdot (z^2 - 2\\cdot z + 5)")
-        line3_2 = TNT()\
-            .txt("compute the discriminant of the quadratic")\
-            .tx("D = (-2)^2 - 4\\cdot 1\\cdot 5 = -16")
-        line4_2 = TNT()\
-            .txt("take the square root")\
-            .tx("\\sqrt{D} = \\sqrt{-16} = 4\\cdot \\mathrm{i}")
-        line5_2 = TNT()\
-            .txt("apply the quadratic formula to find the remaining roots")\
-            .tx("z = \\dfrac{2 \\pm 4\\cdot \\mathrm{i}}{2} = 1 \\pm 2\\cdot \\mathrm{i}")
+        line1_2 = TNT().txt("We know that ").tx("f(z) = (z-1)(z-w_2)(z-w_3)")
+        line2_2 = TNT().txt("We factor out the known root to get")
+        line3_2 = TNT().tx("f(z) = (z - 1)\\cdot (z^2 - 2\\cdot z + 5)")
+        line4_2 = TNT().tx("D = (-2)^2 - 4\\cdot 1\\cdot 5 = -16")
+        line5_2 = TNT().tx("\\sqrt{D} = \\sqrt{-16} = 4\\cdot \\mathrm{i}")
+        line6_2 = TNT().tx("w_2 = \\dfrac{2 + 4\\cdot \\mathrm{i}}{2} = 1 + 2\\cdot \\mathrm{i}")
+        line7_2 = TNT().tx("w_3 = \\dfrac{2 - 4\\cdot \\mathrm{i}}{2} = 1 - 2\\cdot \\mathrm{i}")
+        line8_2 = TNT().tx("f(z)=(z-1)(z-(1 + 2\\cdot \\mathrm{i}))(z-(1 - 2\\cdot \\mathrm{i}))")
 
-        content2 = VGroup(line1_2, line2_2, line3_2, line4_2, line5_2)
+        # include all lines in the content group
+        content2 = VGroup(
+            line1_2,
+            line2_2,
+            line3_2,
+            line4_2,
+            line5_2,
+            line6_2,
+            line7_2,
+            line8_2
+        )
         box2.create_content(content2, offset=0.075)
 
+        line6_2.shift(DOWN * 0.1)
+        VGroup(line7_2, line8_2).shift(DOWN * 0.2)
 
         ### ANIMATIONS ###
 
@@ -120,7 +125,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         ## SCENE 1 ##
-        with self.voiceover(text='First we will solve the following problem: find the roots of "z" squared plus four "z" plus 13.'):
+        with self.voiceover(text='First we will solve the following problem: find the roots of "z" squared plus four times "z" plus 13.'):
             self.play(Create(main_box))
 
         with self.voiceover(text='first we recall the definition of the discriminant.'):
@@ -132,22 +137,22 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text='now substitute "a" equals one, "b" equals four, "c" equals thirteen into this formula'):
             self.play(swWrite(main_line1))
 
-        with self.voiceover(text='we get that sixteen minus fifty two equals minus thirty six, so "D" is negative.'):
+        with self.voiceover(text='we get that "D" is sixteen minus fifty two equals minus thirty six, so "D" is negative.'):
             self.play(swWrite(main_line2))
 
-        with self.voiceover(text="Because we are dealing with complex numbers now, the square root of the discriminant is always well-defined. A discriminant of less than 0 means there are two complex roots. This means that a quadratic complex polynomial with complex coefficients always has two roots."):
+        with self.voiceover(text="because we are dealing with complex numbers now, the square root of the discriminant is always well-defined. a discriminant of less than zero means there are two complex roots. this means that a quadratic complex polynomial with complex coefficients always has two roots."):
             pass
 
-        with self.voiceover(text='to proceed we take the square root of "D". here "D" is negative, so the result involves the imaginary unit. We get that the square root of minus thirty six is six times "i".'):
+        with self.voiceover(text='to proceed we take the square root of "D". here "D" is negative, so the result involves the imaginary unit. we get that the square root of minus thirty six is six times "i".'):
             self.play(swWrite(main_line3))
 
-        with self.voiceover(text='next we apply the quadratic formula: "z" one and "z" two equal minus "b" plus or minus square root of "D" over two times "a".'):
+        with self.voiceover(text='next we apply the quadratic formula: "z" one and "z" two equal minus "b" plus or minus the square root of "D" over two times "a".'):
             self.play(swWrite(main_line4))
 
-        with self.voiceover(text='for the first root we compute minus four plus six "i" over two, which simplifies to negative two plus three "i".'):
+        with self.voiceover(text='for the first root we compute minus four plus six times "i" over two, which simplifies to negative two plus three times "i".'):
             self.play(swWrite(main_line5))
 
-        with self.voiceover(text='for the second root we compute minus four minus six "i" over two, giving negative two minus three "i". These are the two roots of the equation'):
+        with self.voiceover(text='for the second root we compute minus four minus six times "i" over two, giving negative two minus three times "i". these are the two roots of the equation'):
             self.play(swWrite(main_line6))
 
         ## SCENE 2 ##
@@ -156,27 +161,35 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(Group(*to_fade)))
         self.wait(1)
 
-        with self.voiceover(text='now given that "z" equals one is a root of the cubic polynomial, we factorise it accordingly.'):
+        with self.voiceover(text='now given that "z" equals one is a root of the cubic polynomial, we have to factorise it accordingly.'):
             self.play(Create(box2))
 
-        with self.voiceover(text='by the fundamental theorem of algebra, a cubic factors as the product of three linear terms.'):
+        with self.voiceover(text='by the fundamental theorem of algebra, a cubic equation has three roots and we can rewrite the formula as z minus 1 times z minus w2 times z minus w3, where w2 and w3 are the remaining roots.'):
             self.play(swWrite(line1_2))
 
-        with self.voiceover(text='next we factor out the known root to reduce the cubic to a quadratic factor.'):
+        with self.voiceover(text='We can factor out the known root to end up with a quadratic equation.'):
             self.play(swWrite(line2_2))
 
-        with self.voiceover(text='we compute the discriminant of the quadratic: negative two squared minus four times one times five equals minus sixteen.'):
+        with self.voiceover(text='factoring out z minus 1 gives f of "z" is equal to z minus 1 times z squared minus 2 times z plus 5.'):
             self.play(swWrite(line3_2))
 
-        with self.voiceover(text='taking the square root of minus sixteen yields four times the imaginary unit.'):
+        with self.voiceover(text='To solve for the quadratic part, we once again compute the discriminant: negative two squared minus four times one times five equals minus sixteen.'):
             self.play(swWrite(line4_2))
 
-        with self.voiceover(text='finally, applying the quadratic formula gives the two remaining roots as one plus or minus two i.'):
+        with self.voiceover(text='taking the square root of minus sixteen yields four times "i".'):
             self.play(swWrite(line5_2))
-        
+
+        with self.voiceover(text='the first remaining root w two is two plus four "i" over two, which simplifies to one plus two "i".'):
+            self.play(swWrite(line6_2))
+
+        with self.voiceover(text='the second remaining root w three is two minus four "i" over two, simplifying to one minus two "i".'):
+            self.play(swWrite(line7_2))
+
+        with self.voiceover(text='finally, we write the fully factored form f of z equals z minus one times z minus one plus two "i" times z minus one minus two "i".'):
+            self.play(swWrite(line8_2))
 
         ## Outro ##
-        with self.voiceover(text='This concludes the examples. Thanks for watching.'):
+        with self.voiceover(text='this concludes the examples. thanks for watching.'):
             self.wait(1)
 
         self.wait(2)
