@@ -1,5 +1,5 @@
 from manim import *
-from manim_extensions import *
+from lib import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
@@ -19,7 +19,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         )
 
         ## Title Part with Logo ##
-        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
+        logo = ImageMobject('../Sowiso-logo-primary.png').scale(0.03)
         title = Text("The complex exponential function", font='Quicksand', color=PURPLE, weight="SEMIBOLD").scale(0.25)
         title.move_to(ORIGIN)
 
@@ -120,14 +120,14 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(main_step1))
 
         # Show theory box first
-        with self.voiceover(text="Now we can look at definition of the complex exponential function.") as tracker:
+        with self.voiceover(text="Now we can look at the definition of the complex exponential function.") as tracker:
             self.play(Create(theory_box))
         
-        with self.voiceover(text="This function is defined as 'e' to the power of a plus b times i is equal to 'e' to the power of a times the cosine of b plus sine of b times i.") as tracker:
+        with self.voiceover(text="This function is defined as 'e' to the power of a plus b times i is equal to 'e' to the power of a multiplied by the sum of cosine of b plus sine of b times i.") as tracker:
             self.play(swWrite(theory_line))
 
         # Return back to apply the formula directly
-        with self.voiceover(text="Applying the formula directly, we see that the expression is equal to 'e' to the power of 3 times the cosine of pi over 4 plus the sine of pi over 4 times 'i'. We can recognize this expression as the polar form of 'e' to the power of 'z'.") as tracker:
+        with self.voiceover(text="Applying the formula directly, we see that the expression is equal to 'e' to the power of 3 multiplied by the sum of cosine of pi over 4 plus the sine of pi over 4 times 'i'. We can recognize this expression as the polar form of 'e' to the power of 'z'.") as tracker:
             self.play(swWrite(main_step3))
 
         with self.voiceover(text="To clarify, we see that the norm of 'e' to the power of 'z' equals 'e' to the power of 3.") as tracker:
@@ -155,7 +155,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="Raising 'e' to the power of 'z' to the power of n results in 'e' to the power of 'z' times n.") as tracker:
             self.play(swWrite(prop4))
 
-        with self.voiceover(text="The conjugate of 'e' to the power of 'z' equals 'e' to the power of the conjugate of 'z'.") as tracker:
+        with self.voiceover(text="And finally, the conjugate of 'e' to the power of 'z' equals 'e' to the power of the conjugate of 'z'.") as tracker:
             self.play(swWrite(prop5))
 
         ## Outro Voiceover ##

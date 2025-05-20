@@ -1,5 +1,5 @@
 from manim import *
-from manim_extensions import *
+from lib import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
@@ -21,7 +21,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         title = Text("Calculating the complex logarithm", font='Quicksand', color=PURPLE, weight="SEMIBOLD", line_spacing=0.2).scale(0.25).move_to(ORIGIN)
 
         # Logo
-        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
+        logo = ImageMobject('../Sowiso-logo-primary.png').scale(0.03)
 
         # Example 1
         example1_rect = swRoundedRectangle(height=2, width=2.2).shift(LEFT * 1.05)  # Adjusted position and width
@@ -128,10 +128,10 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         # Example 1
-        with self.voiceover(text="Let's begin by calculating the natural logarithm of a complex number. We have z is equal to 2 times e to the power of pi over 3 times i.") as tracker:
+        with self.voiceover(text="Let's begin by calculating the natural logarithm of a complex number. We have z is equal to 2 times e to the power of pi over 3,     times i.") as tracker:
             self.play(Create(example1_rect))
 
-        with self.voiceover(text="First, we write ellen of z equals ellen of 2 times e to the power of pi over 3 times i.") as tracker:
+        with self.voiceover(text="First, we write ellen of z equals ellen of 2 times e to the power of pi over 3,    times i.") as tracker:
             self.play(swWrite(sol_ex1_0))
 
         # Show support box with complex logarithm function
@@ -148,19 +148,18 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(complex_log_line3))
         
         # Continue with the main example now that the supporting idea has been shown
-        with self.voiceover(text="As the angle of our example 'z' is already the principal value, we can directly apply the formula, giving us ellen of 2, plus pi over 3 times i. This is the solution.") as tracker:
+        with self.voiceover(text="As the angle of our example 'z' is already the principal value, we can directly apply the formula, giving us ellen of 2, plus pi over 3,    times i. This is the solution.") as tracker:
             self.play(swWrite(sol_ex1_1))
 
         self.wait(1)
         self.play(FadeOut(VGroup(example1_rect, ex1_content)))
 
         # Example 2
-        with self.voiceover(text="Now, we will calculate the natural logarithm for the complex number z equals 6 times e to the power of 7 times pi over 5 times i. Note that this complex number has an angle outside of the principal value range.") as tracker:
+        with self.voiceover(text="Now, we will calculate the natural logarithm for the complex number z equals 6 times e to the power of 7 times pi over 5,    times i. Note that this complex number has an angle outside of the principal value range.") as tracker:
             self.play(Create(example2_rect))
 
-        with self.voiceover(text="First, write z as 6 times e to the power of 7 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="First, write z as 6 times e to the power of 7 times pi over 5,    times i.") as tracker:
             self.play(swWrite(sol_ex2_0))
-
 
         with self.voiceover(text="Since the argument is not in the principal value range, we have to rewrite 'z' such that the angle is in the proper range. We can do this by adding or subtracting increments of 2 times pi.") as tracker:
             pass
@@ -169,7 +168,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             # Swapping to 'z' with corrected angle
             self.play(TransformMatchingShapes(sol_ex2_0, sol_ex2_1))
 
-        with self.voiceover(text="Now we write ellen of the adjusted 'z', which is equal to ellen of 6 times 'e' to the power of minus 3 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="Now we write ellen of the adjusted 'z', which is equal to ellen of 6 times 'e' to the power of minus 3 times pi over 5,     times i.") as tracker:
             self.play(swWrite(sol_ex2_2))
 
         with self.voiceover(text="Finally, we can apply the complex logarithm function to get the result.") as tracker:
