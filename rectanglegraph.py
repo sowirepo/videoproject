@@ -1,5 +1,5 @@
 from manim import *
-from manim_extensions import *
+from lib import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 

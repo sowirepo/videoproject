@@ -26,7 +26,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         title.move_to(ORIGIN)
 
 
-        logo = ImageMobject('./Sowiso-logo-primary.png').scale(0.03)
+        logo = ImageMobject('../Sowiso-logo-primary.png').scale(0.03)
 
 
         ## setup example rectangle

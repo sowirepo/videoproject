@@ -33,7 +33,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         ## SCENE 1 mobjects ##
         # main problem box (larger)
         main_box = swRoundedRectangle(height=2, width=2.2).shift(LEFT * 1)
-        main_box_title = TNT().txt("Calculate the roots of").tx("z^2+4\\cdot z+13")
+        main_box_title = TNT().txt("calculate the roots of").tx("f(z) = z^2 + 4\\cdot z + 13")
         main_box.set_title(main_box_title)
 
         # main content lines
@@ -60,11 +60,16 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         main_line6.shift(DOWN * 0.35)
 
         # discriminant theory box on the right
+        # discriminant theory box on the right
         disc_box = swRoundedRectangle(height=0.8, width=1.8).shift(RIGHT * 1.15 + UP * 0.5)
         disc_title = TNT().txt("Discriminant", weight="SEMIBOLD", color=PINK)
         disc_box.set_title(disc_title)
-        disc_line1 = TNT().tx("D=b^2-4\\cdot a\\cdot c")
-        disc_box.create_content(VGroup(disc_line1), offset=0.075)
+
+        # new line explaining which polynomial we're using
+        disc_line0 = TNT().tx("f(z)=a\\cdot z^2 + b\\cdot z + c")
+        disc_line1 = TNT().tx("D=b^2 - 4\\cdot a\\cdot c")
+        disc_box.create_content(VGroup(disc_line0, disc_line1), offset=0.075)
+
 
         ## SCENE 2 mobjects ##
         # second problem box centered
@@ -72,23 +77,23 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         # title: problem statement
         title2 = TNT()\
-            .txt("Given ")\
+            .txt("given ")\
             .tx("z = 1")\
             .txt(" is a root of")\
-            .tx("f(z),")\
+            .tx("g(z),")\
             .txt(" factorize ")\
-            .tx("f(z) = z^3 - 3\\cdot z^2 + 7\\cdot z - 5")
+            .tx("g(z) = z^3 - 3\\cdot z^2 + 7\\cdot z - 5")
         box2.set_title(title2)
 
         # content lines: use fundamental theorem, factor, discriminant, sqrt, quadratic formula
-        line1_2 = TNT().txt("We know that ").tx("f(z) = (z-1)(z-w_2)(z-w_3)")
+        line1_2 = TNT().txt("we know that ").tx("g(z) = (z-1)\\cdot (z-w_2)\\cdot (z-w_3)")
         line2_2 = TNT().txt("We factor out the known root to get")
-        line3_2 = TNT().tx("f(z) = (z - 1)\\cdot (z^2 - 2\\cdot z + 5)")
+        line3_2 = TNT().tx("g(z) = (z - 1)\\cdot (z^2 - 2\\cdot z + 5)")
         line4_2 = TNT().tx("D = (-2)^2 - 4\\cdot 1\\cdot 5 = -16")
         line5_2 = TNT().tx("\\sqrt{D} = \\sqrt{-16} = 4\\cdot \\mathrm{i}")
         line6_2 = TNT().tx("w_2 = \\dfrac{2 + 4\\cdot \\mathrm{i}}{2} = 1 + 2\\cdot \\mathrm{i}")
         line7_2 = TNT().tx("w_3 = \\dfrac{2 - 4\\cdot \\mathrm{i}}{2} = 1 - 2\\cdot \\mathrm{i}")
-        line8_2 = TNT().tx("f(z)=(z-1)(z-(1 + 2\\cdot \\mathrm{i}))(z-(1 - 2\\cdot \\mathrm{i}))")
+        line8_2 = TNT().tx("g(z) = (z-1)\\cdot (z-(1 + 2\\cdot \\mathrm{i}))\\cdot (z-(1 - 2\\cdot \\mathrm{i}))")
 
         # include all lines in the content group
         content2 = VGroup(
@@ -125,13 +130,17 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.wait(1)
 
         ## SCENE 1 ##
-        with self.voiceover(text='First we will solve the following problem: find the roots of "z" squared plus four times "z" plus 13.'):
+        with self.voiceover(text='first we will solve the following problem: find the roots of f of "z" equals z squared plus four times "z" plus thirteen.'):
             self.play(Create(main_box))
 
-        with self.voiceover(text='first we recall the definition of the discriminant.'):
+        with self.voiceover(text='first we recall the definition of the discriminant'):
             self.play(Create(disc_box))
 
-        with self.voiceover(text='the discriminant "D" is equal to "b" squared minus four times "a" times "c".'):
+        # new voiceover for the polynomial form
+        with self.voiceover(text='here the discriminant applies to f of "z" equals a times z squared plus b times z plus c'):
+            self.play(swWrite(disc_line0))
+
+        with self.voiceover(text='the discriminant "D" is equal to "b" squared minus four times "a" times "c"'):
             self.play(swWrite(disc_line1))
 
         with self.voiceover(text='now substitute "a" equals one, "b" equals four, "c" equals thirteen into this formula'):
@@ -164,16 +173,16 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text='now given that "z" equals one is a root of the cubic polynomial, we have to factorise it accordingly.'):
             self.play(Create(box2))
 
-        with self.voiceover(text='by the fundamental theorem of algebra, a cubic equation has three roots and we can rewrite the formula as z minus 1 times z minus w2 times z minus w3, where w2 and w3 are the remaining roots.'):
+        with self.voiceover(text='by the fundamental theorem of algebra, a complex polynomial of degree "n" has "n" complex roots. Therefore, a cubic equation has three roots and we can rewrite the formula as z minus 1 times z minus w2 times z minus w3, where w2 and w3 are the remaining roots.'):
             self.play(swWrite(line1_2))
 
         with self.voiceover(text='We can factor out the known root to end up with a quadratic equation.'):
             self.play(swWrite(line2_2))
 
-        with self.voiceover(text='factoring out z minus 1 gives f of "z" is equal to z minus 1 times z squared minus 2 times z plus 5.'):
+        with self.voiceover(text='factoring out z minus one gives g of "z" is equal to z minus one times z squared minus two times "z" plus five.'):
             self.play(swWrite(line3_2))
 
-        with self.voiceover(text='To solve for the quadratic part, we once again compute the discriminant: negative two squared minus four times one times five equals minus sixteen.'):
+        with self.voiceover(text='to find the other two roots, we equate the quadratic part to zero and solve using the discriminant: negative two squared minus four times one times five equals minus sixteen.'):
             self.play(swWrite(line4_2))
 
         with self.voiceover(text='taking the square root of minus sixteen yields four times "i".'):
@@ -185,7 +194,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text='the second remaining root w three is two minus four "i" over two, simplifying to one minus two "i".'):
             self.play(swWrite(line7_2))
 
-        with self.voiceover(text='finally, we write the fully factored form f of z equals z minus one times z minus one plus two "i" times z minus one minus two "i".'):
+        with self.voiceover(text='finally, we write the fully factored form g of "z" equals z minus one times z minus one plus two "i" times z minus one minus two "i"'):
             self.play(swWrite(line8_2))
 
         ## Outro ##

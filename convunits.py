@@ -31,33 +31,34 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         ## SCENE 1 mobjects ##
         # main box with question title
         main_box = swRoundedRectangle(height=2, width=3.4)
-        main_box_title = TNT().txt("You’re driving on the highway with 100 km/h, what is that in m/s?")
+        main_box_title = TNT().txt("You’re driving on the highway with").tx("100 \\dfrac{\\text{km}}{\\text{h}},").txt("what is that in").tx("\\dfrac{\\text{m}}{\\text{s}}?", aligned_char='?')
         main_box.set_title(main_box_title)
         
         # step-by-step unit conversion
-        line1 = TNT().tx("100 \\cdot 1000 \\dfrac{m}{h}")
-        line2 = TNT().tx("100 \\cdot 1000 \\cdot \\dfrac{1}{3600} \\dfrac{m}{s}")
-        line3 = TNT().tx("\\dfrac{100000}{3600} \\dfrac{m}{s} = \\dfrac{250}{9} \\dfrac{m}{s} \\approx 27.78 \\dfrac{m}{s}")
+        line1 = TNT().tx("100 \\cdot \\dfrac{1000\\;\\text{m}}{\\text{h}}")
+        line2 = TNT().tx("=100 \\cdot 1000 \\cdot \\dfrac{1\\;\\text{m}}{3600 \\;\\text{s}}")
+        # keeping units as separate fractions after each numeric fraction
+        line3 = TNT().tx("=\\dfrac{100000}{3600} \\dfrac{\\text{m}}{\\text{s}} = \\dfrac{250}{9} \\dfrac{\\text{m}}{\\text{s}} \\approx 27.78 \\dfrac{\\text{m}}{\\text{s}}")  
+
         
         rect_content = VGroup(line1, line2, line3)
         main_box.create_content(rect_content, offset=0.175)
 
         ## SCENE 2 mobjects ##
-        acc_box = swRoundedRectangle(height=2, width=3.4)
+        acc_box = swRoundedRectangle(height=2, width=3.6)
         acc_box_title = (
             TNT()
-            .txt("a cheetah can accelerate with approximately")
-            .tx("10.5 \\dfrac{m}{s^2},")
+            .txt("A cheetah can accelerate with approximately")
+            .tx("10.5 \\dfrac{\\text{m}}{\\text{s}^2},")
             .txt("what is that in")
-            .tx("\\dfrac{km}{h^2}")
-            .txt("?")
+            .tx("\\dfrac{\\text{km}}{\\text{h}^2}?", aligned_char='?')
         )
         acc_box.set_title(acc_box_title)
         
         # drop acc_line1
-        acc_line2 = TNT().tx("10.5 \\cdot \\dfrac{1}{1000} \\dfrac{km}{s^2}")
-        acc_line3 = TNT().tx("10.5\\cdot \\dfrac{1}{1000} \\cdot 3600^2 \\dfrac{km}{h^2}")
-        acc_line4 = TNT().tx("= 136080 \\dfrac{km}{h^2}?", aligned_char="?")
+        acc_line2 = TNT().tx("10.5 \\cdot \\dfrac{\\frac{1}{1000}\\;\\text{km}}{\\text{s}^2}")
+        acc_line3 = TNT().tx("10.5 \\cdot \\dfrac{1}{1000} \\cdot \\dfrac{\\text{km}}{\\frac{1}{3600^2}\\text{h}^2}")
+        acc_line4 = TNT().tx("\\dfrac{10.5\\cdot 12960000}{1000 }\\dfrac{\\text{km}}{\\text{h}^2} = 136080\\dfrac{\\text{km}}{\\text{h}^2}")
         
         acc_content = VGroup(acc_line2, acc_line3, acc_line4)
         acc_box.create_content(acc_content, offset=0.15)
@@ -72,51 +73,44 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         
         self.play(logo.animate.move_to(self.camera.frame.get_corner(DL)+0.15*UP + 0.35 * RIGHT).scale(0.009 / 0.03))
 
-        with self.voiceover(text="Video title voiceover placeholder") as tracker:
+        with self.voiceover(text="This video shows how to convert units") as tracker:
             self.play(swWrite(title))
 
         self.play(FadeOut(title))
         self.wait(1)
 
         ## SCENE 1 animations ##
-        with self.voiceover(text="now we show the question box asking to convert 100 kilometers per hour to meters per second") as tracker:
+        # scene 1 animations
+        with self.voiceover(text="here is our first question, converting one hundred kilometers per hour into meters per second") as tracker:
             self.play(Create(main_box))
-        
-        with self.voiceover(text="first we convert kilometers into meters: we multiply one hundred by one thousand, yielding 100 \\cdot 1000 \\dfrac{m}{h}") as tracker:
+        with self.voiceover(text="first we change kilometers to meters by multiplying one hundred by one thousand, giving one hundred thousand meters per hour") as tracker:
             self.play(swWrite(line1))
-        
-        with self.voiceover(text="next we change hours into seconds: one hour equals three thousand six hundred seconds, so we multiply by \\dfrac{1}{3600}, giving 100 \\cdot 1000 \\cdot \\dfrac{1}{3600} \\dfrac{m}{s}") as tracker:
+        with self.voiceover(text="next we convert hours to seconds, knowing one hour is three thousand six hundred seconds, so we divide by three thousand six hundred to get meters per second") as tracker:
             self.play(swWrite(line2))
-        
-        with self.voiceover(text="finally we simplify the fraction \\dfrac{100000}{3600} \\dfrac{m}{s} to \\dfrac{250}{9} \\dfrac{m}{s} and approximate to 27.78 \\dfrac{m}{s}") as tracker:
+        with self.voiceover(text="finally we simplify one hundred thousand over three thousand six hundred to two hundred fifty over nine, which is approximately twenty seven point seven eight meters per second") as tracker:
             self.play(swWrite(line3))
 
-        # fade out everything except logo before scene 2
+        # fade out scene 1 except logo
         scene1_objs = [m for m in self.mobjects if m is not logo]
         fadeout_scene1 = Group(*scene1_objs)
         self.play(FadeOut(fadeout_scene1))
 
-        ## SCENE 2 animations ##
-        with self.voiceover(text="now we show the question box asking to convert a cheetah’s acceleration from meters per second squared to kilometers per hour squared") as tracker: 
+        # scene 2 animations
+        with self.voiceover(text="now our second question: convert a cheetah’s acceleration of ten point five meters per second squared into kilometers per hour squared") as tracker:
             self.play(Create(acc_box))
-        
-        with self.voiceover(text="first we convert meters to kilometers by multiplying by \\dfrac{1}{1000}, giving 10.5 \\cdot \\dfrac{1}{1000} \\dfrac{km}{s^2}") as tracker:
+        with self.voiceover(text="first we change meters into kilometers by multiplying by one over one thousand, giving ten point five times one over one thousand kilometers per second squared") as tracker:
             self.play(swWrite(acc_line2))
-        
-        with self.voiceover(text="then we convert seconds squared to hours squared by multiplying by 3600 squared, giving \\dfrac{10.5}{1000} \\cdot 3600^2 \\dfrac{km}{h^2}") as tracker:
+        with self.voiceover(text="next we convert seconds squared to hours squared by multiplying by three thousand six hundred squared, so we multiply our previous result by three thousand six hundred squared to get kilometers per hour squared") as tracker:
             self.play(swWrite(acc_line3))
-        
-        with self.voiceover(text="finally simplifying yields 136080 \\dfrac{km}{h^2}") as tracker:
+        with self.voiceover(text="finally we multiply and simplify to obtain one hundred thirty six thousand eighty kilometers per hour squared") as tracker:
             self.play(swWrite(acc_line4))
 
-        ## Outro ##
-        with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
+        # outro
+        with self.voiceover(text="that concludes our unit conversion examples, thanks for watching") as tracker:
             self.wait(1)
-    
-        # time to let everthing sink in
-        self.wait(2)
 
-        # fade out everything still on the screen
+        # hold for a moment then fade out everything
+        self.wait(2)
         fadeout_all = Group(*self.mobjects)
         self.play(FadeOut(fadeout_all))
-        self.wait(1) # make sure everything is gone before the video ends
+        self.wait(1) #make sure everything is gone before the video ends

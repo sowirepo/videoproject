@@ -42,20 +42,25 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         # content lines: 4 intros + 4 rules
         intro1a = TNT().txt("Precision of the tool")
         intro1b = TNT().txt("limits how many digits you can record.")
-        intro2a = TNT().txt("The last digit has some uncertainty")
-        intro2b = TNT().txt("and is estimated.")
+        # explain that you can’t know the final digit exactly
+        intro2a = TNT().txt("the last digit cannot be measured exactly")
+        # so you have to treat it as an estimate
+        intro2b = TNT().txt("and must therefore be estimated")
 
-        rule1 = TNT().txt("non-zero digits are significant")
-        rule2 = TNT().txt("zeros between digits are significant")
-        rule3 = TNT().txt("leading zeros are not significant")
-        rule4 = TNT().txt("trailing zeros in decimals are significant")
+        rule1 = TNT().txt("count digits from left to right")
+        rule2 = TNT().txt("non-zero digits are significant")
+        rule3 = TNT().txt("zeros between digits are significant")
+        rule4 = TNT().txt("leading zeros are not significant")
+        rule5 = TNT().txt("trailing zeros in decimals are significant")
 
+        # clear & recreate the content group
         main_box.create_content(
-            VGroup(intro1a, intro1b, intro2a, intro2b, rule1, rule2, rule3, rule4),
+            VGroup(intro1a, intro1b, intro2a, intro2b,
+                rule1, rule2, rule3, rule4, rule5),
             offset=0.05
         )
-
-        for rule in (rule1, rule2, rule3, rule4):
+        # shift every rule down a bit
+        for rule in (rule1, rule2, rule3, rule4, rule5):
             rule.shift(DOWN * 0.1)
 
         # smaller box on the right for examples
@@ -106,23 +111,28 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="When doing measurements, the precision of your tool limits how many digits you can record") as tracker:
             self.play(swWrite(intro1a))
             self.play(swWrite(intro1b))
-        with self.voiceover(text="This means that the last digit you write down has some uncertainty and is estimated") as tracker:
+        with self.voiceover(text="this means the last digit cannot be measured exactly and must therefore be estimated") as tracker:
             self.play(swWrite(intro2a))
             self.play(swWrite(intro2b))
 
         # then continue with the four rule voice-overs as before...
-        with self.voiceover(text="now here are the four core rules of counting significant figures") as tracker:
+        with self.voiceover(text="now here are five core rules of counting significant figures") as tracker:
             pass
-        
 
-        with self.voiceover(text="rule one: every non-zero digit counts as significant.") as tracker:
+        with self.voiceover(text="rule one: in order to determine the number of significant digits in a value, start with the first measured value at the left and count the number of digits through the last digit written on the right.") as tracker:
             self.play(swWrite(rule1))
-        with self.voiceover(text="rule two: any zero between significant digits also counts.") as tracker:
+
+        with self.voiceover(text="rule two: every non-zero digit counts as significant.") as tracker:
             self.play(swWrite(rule2))
-        with self.voiceover(text="rule three: leading zeros do not count. they are mere placeholders to locate the decimal point.") as tracker:
+
+        with self.voiceover(text="rule three: any zero between significant digits also counts.") as tracker:
             self.play(swWrite(rule3))
-        with self.voiceover(text="rule four: trailing zeros in the decimal part are significant.") as tracker:
+
+        with self.voiceover(text="rule four: leading zeros do not count. they are mere placeholders to locate the decimal point.") as tracker:
             self.play(swWrite(rule4))
+
+        with self.voiceover(text="rule five: trailing zeros in the decimal part are significant.") as tracker:
+            self.play(swWrite(rule5))
 
         with self.voiceover(text="now let’s look at three measured values and count their significant figures.") as tracker:
             self.play(Create(ex_box))

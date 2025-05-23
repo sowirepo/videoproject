@@ -97,15 +97,28 @@ class swRoundedRectangle(RoundedRectangle):
 
         return self
     
-    def create_content(self, group: VGroup, offset:float=0.):
+    def create_content(self, group: VGroup, offset:float=0., align='center'):
 
         if self.title_underline is None:
             raise Exception("Title underline not set. Please set the title first using .set_title()")
         
-        middle_line = self.title_underline.get_center()
+        if align == 'center':
+            middle_line = self.title_underline.get_center()
 
-        for idx, mob in enumerate(group):
-            mob.move_to(middle_line).shift(DOWN * (idx + 1) * (SMALL_BUFF + offset))
+            for idx, mob in enumerate(group):
+                mob.move_to(middle_line).shift(DOWN * (idx + 1) * (SMALL_BUFF + offset))
+        
+        elif align == 'left':
+            middle_line = self.title_underline.get_center()
+
+            for idx, mob in enumerate(group):
+                mob.move_to(middle_line).shift(DOWN * (idx + 1) * (SMALL_BUFF + offset))
+
+                left_factor = mob.get_edge_center(LEFT)[0] - self.title_underline.get_edge_center(LEFT)[0]
+
+                mob.shift(LEFT * left_factor)
+        else:
+            raise Exception("Invalid alignment option. Use 'center' or 'left'.")
 
         return group
 

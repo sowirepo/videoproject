@@ -1,5 +1,5 @@
 from manim import *
-from manim_extensions import *
+from lib import *
 from manim_voiceover import VoiceoverScene
 from manim_voiceover.services.openai import OpenAIService
 
@@ -26,7 +26,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         title.move_to(ORIGIN)
 
         ## Logo
-        logo = ImageMobject('/home/chris/manim/videoproject/Sowiso-logo-primary.png').scale(0.03)
+        logo = ImageMobject('../Sowiso-logo-primary.png').scale(0.03)
 
 
         ## text top left
@@ -41,7 +41,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         problem[0][1][0][0].set_color(BLUE)
         problem[0][1][0][1].set_color(swGOLD)
 
-        this_equation_has_n_roots = TNT().txt("This equation has ").tx('n', aligned_char='n', color=swGOLD).txt(' solutions').shift(UP * 0.6)
+        this_equation_has_n_roots = TNT().txt("This equation has ").tx('n', aligned_char='n', color=swGOLD).txt(' distinct solutions').shift(UP * 0.6)
 
         z_is_1 = TNT().tx('z=1').txt(' is always a solution').shift(UP * 0.5)
         z_is_1[0][0][0][0].set_color(BLUE)
@@ -286,7 +286,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="We will solve the equation 'z' to the power of 'n' is equal to 1.") as tracker:
             self.play(swWrite(problem))
             
-        with self.voiceover(text="This equation has n solutions.") as tracker:
+        with self.voiceover(text="This equation has n distinct solutions.") as tracker:
             self.play(swWrite(this_equation_has_n_roots))
 
         self.wait(0.3)
@@ -312,10 +312,10 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.wait(0.5)
 
         # apply demoivre's theorem
-        with self.voiceover(text="We can apply De Moivre's theorem to the left side of the equation to distribute the power of n.") as tracker:
+        with self.voiceover(text="We can apply De Moivre (day-mwah-vrah)'s theorem to the left side of the equation to distribute the power of n.") as tracker:
             self.play(TransformMatchingShapes(polar_exp2, polar_exp2_5))
 
-        with self.voiceover(text="We can now see that the norm of 'z' to the power of 'n' is equal to the norm of 1 which is 1") as tracker:
+        with self.voiceover(text="To solve, we equate the norms of each side to each other and do the same thing for the arguments.") as tracker:
             self.play(swWrite(polar_exp3))
 
         with self.voiceover(text="This means that the norm of 'z' is equal to 1.") as tracker:
@@ -323,11 +323,15 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         self.wait(0.5)
 
-        with self.voiceover(text="The argument Phy of 'z' is equal to 2 times k times pi divided by n.") as tracker:
+        with self.voiceover(text="The argument φ of 'z' is equal to 2 times k times π divided by n.") as tracker:
             self.play(swWrite(polar_exp4))
 
+        with self.voiceover(text="notice that when 'k'=0 we also get φ=0 so 'z'=1. When 'k' over 'n' is one half, then φ is pi, which means z equals minus 1. This can only happen if 'n' is 'even'") as tracker:
+            # no new on-screen text: just pause briefly
+            self.wait(1)
+
         # notice phi =0 for z=1 solution and phi = pi for z=-1 solution
-        with self.voiceover(text="Therefore, there are n solutions for minus pi is less than Phy which is less than or equal to pi. Notice that Phy is zero for the solution 'z' is equal to 1 and Phy is equal to pi when 'z' equals negative 1 is a solution.") as tracker:
+        with self.voiceover(text="Therefore, there are n solutions for φ larger than minus π and smaller than or equal to pi. ") as tracker:
             self.play(swWrite(polar_exp5))
 
         ######################
@@ -339,7 +343,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         self.play(Transform(ex1_rect, polarplane_rect))
 
-        with self.voiceover(text="We will now take a look at some examples and draw the solutions in a polar plane.") as tracker:
+        with self.voiceover(text="We will now take a look at some examples and draw the solutions in an Argand diagram.") as tracker:
             self.play(Create(polarplane_pi))
             self.play(swWrite(label_Y_im), swWrite(label_X_re), run_time = 0.4)
 
@@ -356,14 +360,14 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         # self.play(Create(vec_1))
 
         # Once again, Since the norm of z is 1, we only need to find the angle of the remaining possible solutions
-        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 3.") as tracker:
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument φ of 'z' equals 2 times k times π divided by 3.") as tracker:
             self.play(swWrite(the_other_solutions))
             self.play(swWrite(where_phi))
 
-        with self.voiceover(text="The inequality minus pi is less than phi, which is less than or equal to pi, must hold.") as tracker:
+        with self.voiceover(text="The inequality minus π is less than φ, which is less than or equal to pi, must hold.") as tracker:
             self.play(swWrite(phi_inequalities_must_hold))
 
-        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times pi over 3 times i.") as tracker:
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times π over 3 times i.") as tracker:
             self.play(swWrite(picking_k_is_1))
         self.play(Create(vec_2))
 
@@ -371,12 +375,12 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(picking_k_is_0))
         self.play(Create(vec_1))
         
-        with self.voiceover(text="For k equals minus 1, we get 'z' equals e to the power of -2 times pi over 3 times i.") as tracker:
+        with self.voiceover(text="For k equals minus 1, we get 'z' equals e to the power of -2 times π over 3 times i.") as tracker:
             self.play(swWrite(picking_k_is_minus_1))
         # We know that -2/3 pi is equal to 4/3 pi in rad so we draw this vector here
         self.play(Create(vec_3))
 
-        with self.voiceover(text="The solutions are z equals 1 or z equals e to the power of 2 times pi over 3 times i or z equals e to the power of -2 times pi over 3 times i. Notice that the complex solutions form complex conjugates of eachother.") as tracker:
+        with self.voiceover(text="The solutions are z equals 1 or z equals e to the power of 2 times π over 3 times i or z equals e to the power of -2 times π over 3 times i. Notice that the complex solutions form complex conjugates of eachother.") as tracker:
             self.play(swWrite(solutions))
 
 
@@ -391,10 +395,10 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="Next, we will solve 'z' to the power of 4 equals 1.") as tracker:
             self.play(TransformMatchingShapes(solve_n3_is_1, solve_n4_is_1))
 
-        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 4.") as tracker:
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument φ of 'z' equals 2 times k times π divided by 4.") as tracker:
             self.play(swWrite(the_other_solutions_n4))
 
-        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of pi over 2 times i.") as tracker:
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of π over 2 times i.") as tracker:
             self.play(swWrite(picking_k_is_1_n4))
         self.play(Create(vec_n4_2))
 
@@ -406,7 +410,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(picking_k_is_minus_1_n4))
         self.play(Create(vec_n4_4))
 
-        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of pi times i, which is  minus 1.") as tracker:
+        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of π times i, which is  minus 1.") as tracker:
             self.play(swWrite(picking_k_is_2_n4))
         self.play(Create(vec_n4_3))
 
@@ -435,27 +439,27 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         vec_n5_4 = Line(new_org, p4_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
         vec_n5_5 = Line(new_org, p5_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
 
-        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument phi of 'z' equals 2 times k times pi divided by 5.") as tracker:
+        with self.voiceover(text="We have the norm of 'z' equals 1 and the argument φ of 'z' equals 2 times k times π divided by 5.") as tracker:
             self.play(swWrite(the_other_solutions_n5))
 
         with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
             self.play(swWrite(picking_k_is_0_n5))
         self.play(Create(vec_n5_1))
 
-        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times π over 5 times i.") as tracker:
             self.play(swWrite(picking_k_is_1_n5))
         self.play(Create(vec_n5_2))
 
-        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of 4 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of 4 times π over 5 times i.") as tracker:
             self.play(swWrite(picking_k_is_2_n5))
         self.play(Create(vec_n5_3))
         
-        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -2 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -2 times π over 5 times i.") as tracker:
             self.play(swWrite(picking_k_is_minus_1_n5))
         self.play(Create(vec_n5_5))
 
 
-        with self.voiceover(text="For k equals -2, we get 'z' equals e to the power of -4 times pi over 5 times i.") as tracker:
+        with self.voiceover(text="For k equals -2, we get 'z' equals e to the power of -4 times π over 5 times i.") as tracker:
             self.play(swWrite(picking_k_is_minus_2_n5))
         self.play(Create(vec_n5_4))
 
@@ -463,113 +467,14 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="These are the 5 solutions to the problem. We once again have that the complex roots are complex conjugates of eachother, which can be seen in the graph.") as tracker:
             self.play(Create(VGroup()))
 
-        # fade out everything still on the screen
-
+        ## Outro ##
         with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
             self.wait(1)
-
+    
+        # time to let everthing sink in
         self.wait(2)
 
-        fadeout_all = Group(*self.mobjects)
-
-        self.play(FadeOut(fadeout_all))
-        self.wait(1)
-
-
-
-
-
-
-        return
-        # notice that if k=0, we get the first solution z=1
-        self.play(swWrite(picking_k_is_1))
-        # self.play(swWrite(and_solution_2))
-        # we draw this vector here
-        self.play(Create(vec_2))
-
-        self.play(swWrite(picking_k_is_0))
-        self.play(Create(vec_1))
-        
-
-        self.play(swWrite(picking_k_is_minus_1))
-        # we know that -2/3 pi is equal to 4/3 pi in rad so we draw this vector here
-        self.play(Create(vec_3))
-
-        self.play(swWrite(solutions))
-
-        # notice how the complex roots are complex conjugates of each other
-    
-        ####################
-        ## START n=4 example
-        ####################
-
-        self.play(FadeOut(ex_n3_group))
-
-        self.play(TransformMatchingShapes(solve_n3_is_1, solve_n4_is_1))
-
-
-        self.play(swWrite(the_other_solutions_n4))
-        # keep in mind -pi < phi <= pi
-
-        self.play(swWrite(picking_k_is_1_n4))
-        # we draw the point
-        self.play(Create(vec_n4_2))
-
-        self.play(swWrite(picking_k_is_0_n4))
-        self.play(Create(vec_n4_1))
-
-        self.play(swWrite(picking_k_is_2_n4))
-        self.play(Create(vec_n4_3))
-
-        self.play(swWrite(picking_k_is_minus_1_n4))
-        self.play(Create(vec_n4_4))
-
-        ####################
-        ## START n=5 example
-        ####################
-
-        self.play(FadeOut(fadeout_group_n4))
-        self.play(TransformMatchingShapes(solve_n4_is_1, solve_n5_is_1))
-
-        new_polarplane_pi.move_to(polarplane_pi.get_center()).shift(UP*0.01)
-        self.play(Transform(polarplane_pi, new_polarplane_pi))
-
-        new_org = new_polarplane_pi.polar_to_point(0,0)
-        p1_n5 = new_polarplane_pi.polar_to_point(1,0)
-        p2_n5 = new_polarplane_pi.polar_to_point(1,2/5 * PI)
-        p3_n5 = new_polarplane_pi.polar_to_point(1,4/5 * PI)
-        p4_n5 = new_polarplane_pi.polar_to_point(1,6/5 * PI)
-        p5_n5 = new_polarplane_pi.polar_to_point(1,8/5 * PI)
-
-        vec_n5_1 = Line(new_org, p1_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_2 = Line(new_org, p2_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_3 = Line(new_org, p3_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_4 = Line(new_org, p4_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-        vec_n5_5 = Line(new_org, p5_n5, color=BLUE, stroke_width=2).add_tip(tip_length=0.1,tip_width=0.06)
-
-        self.play(swWrite(the_other_solutions_n5))
-
-        self.play(swWrite(picking_k_is_0_n5))
-        self.play(Create(vec_n5_1))
-
-        self.play(swWrite(picking_k_is_1_n5))
-        self.play(Create(vec_n5_2))
-
-        self.play(swWrite(picking_k_is_minus_1_n5))
-        self.play(Create(vec_n5_3))
-
-        self.play(swWrite(picking_k_is_2_n5))
-        self.play(Create(vec_n5_4))
-
-        self.play(swWrite(picking_k_is_minus_2_n5))
-        self.play(Create(vec_n5_5))
-
-        # with self.voiceover(text="This concludes the examples. Thanks for watching") as tracker:
-        #     self.wait(tracker.duration)
-    
         # fade out everything still on the screen
-        self.wait(2)
-
         fadeout_all = Group(*self.mobjects)
         self.play(FadeOut(fadeout_all))
-        self.wait(1)
+        self.wait(1) # make sure everything is gone before the video ends
