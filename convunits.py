@@ -81,13 +81,13 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         ## SCENE 1 animations ##
         # scene 1 animations
-        with self.voiceover(text="here is our first question, converting one hundred kilometers per hour into meters per second") as tracker:
+        with self.voiceover(text="here is our first question, imagine you are driving on the highway with 100 kilometers per hour, what is that in meters per second?") as tracker:
             self.play(Create(main_box))
-        with self.voiceover(text="first we change kilometers to meters by multiplying one hundred by one thousand, giving one hundred thousand meters per hour") as tracker:
+        with self.voiceover(text="first we change kilometers to meters by multiplying by one thousand, giving one hundred times a thousand meters per hour") as tracker:
             self.play(swWrite(line1))
         with self.voiceover(text="next we convert hours to seconds, knowing one hour is three thousand six hundred seconds, so we divide by three thousand six hundred to get meters per second") as tracker:
             self.play(swWrite(line2))
-        with self.voiceover(text="finally we simplify one hundred thousand over three thousand six hundred to two hundred fifty over nine, which is approximately twenty seven point seven eight meters per second") as tracker:
+        with self.voiceover(text="finally we simplify one hundred thousand over three thousand six hundred meters per second to two hundred fifty over nine meters per second, which is approximately equal to twenty seven point seven eight meters per second") as tracker:
             self.play(swWrite(line3))
 
         # fade out scene 1 except logo
@@ -96,11 +96,11 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.play(FadeOut(fadeout_scene1))
 
         # scene 2 animations
-        with self.voiceover(text="now our second question: convert a cheetah’s acceleration of ten point five meters per second squared into kilometers per hour squared") as tracker:
+        with self.voiceover(text="now our second question: a cheetah can accelerate with approximately 10.5 meters per second squared, what is that in kilometers per hour squared?") as tracker:
             self.play(Create(acc_box))
-        with self.voiceover(text="first we change meters into kilometers by multiplying by one over one thousand, giving ten point five times one over one thousand kilometers per second squared") as tracker:
+        with self.voiceover(text="first we change meters into kilometers by dividing by one thousand, giving ten point five times one over one thousand kilometers per second squared") as tracker:
             self.play(swWrite(acc_line2))
-        with self.voiceover(text="next we convert seconds squared to hours squared by multiplying by three thousand six hundred squared, so we multiply our previous result by three thousand six hundred squared to get kilometers per hour squared") as tracker:
+        with self.voiceover(text="next we have to convert seconds squared to hours squared by multiplying the seconds squared by the conversion factor one over three thousand six hundred squared. Note that because we are dividing by seconds squared, we must also divide by the conversion factor") as tracker:
             self.play(swWrite(acc_line3))
         with self.voiceover(text="finally we multiply and simplify to obtain one hundred thirty six thousand eighty kilometers per hour squared") as tracker:
             self.play(swWrite(acc_line4))
