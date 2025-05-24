@@ -312,7 +312,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.wait(0.5)
 
         # apply demoivre's theorem
-        with self.voiceover(text="We can apply De Moivre (day-mwah-vrah)'s theorem to the left side of the equation to distribute the power of n.") as tracker:
+        with self.voiceover(text="We can apply De Moivre's theorem to the left side of the equation to distribute the power of n.") as tracker:
             self.play(TransformMatchingShapes(polar_exp2, polar_exp2_5))
 
         with self.voiceover(text="To solve, we equate the norms of each side to each other and do the same thing for the arguments.") as tracker:
@@ -326,7 +326,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="The argument φ of 'z' is equal to 2 times k times π divided by n.") as tracker:
             self.play(swWrite(polar_exp4))
 
-        with self.voiceover(text="notice that when 'k'=0 we also get φ=0 so 'z'=1. When 'k' over 'n' is one half, then φ is pi, which means z equals minus 1. This can only happen if 'n' is 'even'") as tracker:
+        with self.voiceover(text="notice that when 'k'=0 we also get φ=0 so 'z'=1. When 'k' over 'n' is one half, then φ is π, which means z equals minus 1. This can only happen if 'n' is 'even'") as tracker:
             # no new on-screen text: just pause briefly
             self.wait(1)
 
@@ -364,7 +364,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(the_other_solutions))
             self.play(swWrite(where_phi))
 
-        with self.voiceover(text="The inequality minus π is less than φ, which is less than or equal to pi, must hold.") as tracker:
+        with self.voiceover(text="φ must be greater than minus π and less than or equal to π") as tracker:
             self.play(swWrite(phi_inequalities_must_hold))
 
         with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times π over 3 times i.") as tracker:
