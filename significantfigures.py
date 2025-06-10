@@ -43,9 +43,9 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         intro1a = TNT().txt("Precision of the tool")
         intro1b = TNT().txt("limits how many digits you can record.")
         # explain that you can’t know the final digit exactly
-        intro2a = TNT().txt("the last digit cannot be measured exactly")
+        intro2a = TNT().txt("The last digit cannot be measured exactly")
         # so you have to treat it as an estimate
-        intro2b = TNT().txt("and must therefore be estimated")
+        intro2b = TNT().txt("and must therefore be estimated.")
 
         rule1 = TNT().txt("count digits from left to right")
         rule2 = TNT().txt("non-zero digits are significant")
@@ -57,7 +57,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         main_box.create_content(
             VGroup(intro1a, intro1b, intro2a, intro2b,
                 rule1, rule2, rule3, rule4, rule5),
-            offset=0.05
+            offset=0.05, align='left'
         )
         # shift every rule down a bit
         for rule in (rule1, rule2, rule3, rule4, rule5):
@@ -78,7 +78,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         ex_box.create_content(
             VGroup(ex1, ex2, ex3),
-            offset=0.05
+            offset=0.05, align='center'
         )
 
         ex3sn.move_to(ex3.get_center())
