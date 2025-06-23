@@ -311,7 +311,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         self.play(polar_exp1.animate.move_to(ex1_rect.get_center() + DOWN * 0.05 + LEFT * 0.03))
 
-        with self.voiceover(text="We can write 'z' and 1 in polar exponential form like this. Remember that 'k' can be any integer.") as tracker:
+        with self.voiceover(text="We can write 'z' to the power of n and 1 in polar exponential form like this. Remember that 'k' can be any integer.") as tracker:
             self.play(swWrite(polar_exp2))
 
         self.wait(0.5)
