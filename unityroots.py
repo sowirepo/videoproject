@@ -13,7 +13,6 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         self.set_speech_service(
             OpenAIService(
                 voice="alloy",
-                # model="tts-1-hd",
                 model="gpt-4o-mini-tts",
             )
         )
@@ -53,12 +52,12 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         the_polar_exp = TNT().txt("the ").txt("polar-exponential form,", weight="SEMIBOLD").txt('we get').shift(UP * 0.2)
 
         polar_exp1 = problem[0][1].copy()
-        polar_exp2 = TNT().tx('(\\|z\\|\\cdot e^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
+        polar_exp2 = TNT().tx('(\\|z\\|\\cdot \\mathrm{e}^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|\\cdot \\mathrm{e}^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
         polar_exp2[0][0][0][2].set_color(BLUE)
         polar_exp2[0][0][0][6].set_color(GREEN)
         polar_exp2[0][0][0][10].set_color(swGOLD)
         
-        polar_exp2_5 = TNT().tx('\\|z\\|^n\\cdot e^{\\varphi \\cdot n \\cdot \\mathrm{i}} = \\|1\\|\\cdot e^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
+        polar_exp2_5 = TNT().tx('\\|z\\|^n\\cdot \\mathrm{e}^{n \\cdot \\varphi \\cdot \\mathrm{i}} = \\|1\\|\\cdot \\mathrm{e}^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}').shift(DOWN * 0.1)
         polar_exp2_5[0][0][0][1].set_color(BLUE)
         polar_exp2_5[0][0][0][3].set_color(swGOLD)
         polar_exp2_5[0][0][0][8].set_color(swGOLD)
@@ -135,18 +134,22 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         phi_inequalities_must_hold = TNT().tx('-\\pi < \\varphi \\leq \\pi').txt(' must hold').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
         phi_inequalities_must_hold[0][0][0][3].set_color(GREEN)
 
-        picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
+        picking_k_is_0 = TNT().txt('For ').tx('k=0,').txt(' we get ').tx('z = 1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
+        picking_k_is_0[0][3][0][0].set_color(BLUE)
+
+        picking_k_is_1 = TNT().txt('For ').tx('k=1,').txt(' we get ').tx('z = \\mathrm{e}^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
         picking_k_is_1[0][3][0][0].set_color(BLUE)
         picking_k_is_1[0][3][0][7].set_color(swGOLD)
 
-        picking_k_is_0 = TNT().txt('For ').tx('k=0,').txt(' we get ').tx('z = 1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
-        picking_k_is_0[0][3][0][0].set_color(BLUE)
+        picking_k_is_2 = TNT().txt('For ').tx('k=2,').txt(' we get ').tx('z = \\mathrm{e}^{\\frac{4\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
+        picking_k_is_2[0][3][0][0].set_color(BLUE)
+        picking_k_is_2[0][3][0][7].set_color(swGOLD)
 
-        picking_k_is_minus_1 = TNT().txt('For ').tx('k=-1,').txt(' we get ').tx('z = e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
+        picking_k_is_minus_1 = TNT().txt('For ').tx('k=2,').txt(' we get ').tx('z = \\mathrm{e}^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
         picking_k_is_minus_1[0][3][0][0].set_color(BLUE)
         picking_k_is_minus_1[0][3][0][8].set_color(swGOLD)
 
-        solutions = TNT().txt('Solutions:').tx('z=1\\vee z=e^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=e^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.65)
+        solutions = TNT().txt('Solutions:').tx('z=1\\vee z=\\mathrm{e}^{\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}\\vee z=\\mathrm{e}^{-\\frac{2\\cdot\\pi}{3}\\cdot \\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.65)
         solutions[0][1][0][0].set_color(BLUE)
         solutions[0][1][0][4].set_color(BLUE)
         solutions[0][1][0][15].set_color(BLUE)
@@ -184,17 +187,20 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         the_other_solutions_n4[0][3][0][0].set_color(GREEN)
         the_other_solutions_n4[0][3][0][-1].set_color(swGOLD)
 
-        picking_k_is_1_n4 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
-        picking_k_is_1_n4[0][3][0][0].set_color(BLUE)
-
-        picking_k_is_0_n4 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        picking_k_is_0_n4 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
         picking_k_is_0_n4[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_minus_1_n4 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=e^{-\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.0)
-        picking_k_is_minus_1_n4[0][3][0][0].set_color(BLUE)
+        picking_k_is_1_n4 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=\\mathrm{e}^{\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
+        picking_k_is_1_n4[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_2_n4 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=e^{\\pi \\cdot \\mathrm{i}}=-1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_2_n4 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=\\mathrm{e}^{\\pi \\cdot \\mathrm{i}}=-1').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
         picking_k_is_2_n4[0][3][0][0].set_color(BLUE)
+
+        picking_k_is_3_n4 = TNT().txt('For ').tx('k=3').txt(' we get ').tx('z=\\mathrm{e}^{\\frac{6 \\cdot \\pi}{4}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_3_n4[0][3][0][0].set_color(BLUE)
+
+        picking_k_is_minus_1_n4 = TNT().txt('For ').tx('k=3').txt(' we get ').tx('z=\\mathrm{e}^{-\\frac{\\pi}{2}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_minus_1_n4[0][3][0][0].set_color(BLUE)
 
         p1_n4 = polarplane_pi.polar_to_point(1,0)
         p2_n4 = polarplane_pi.polar_to_point(1,1/2 * PI)
@@ -241,25 +247,24 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         the_other_solutions_n5[0][3][0][0].set_color(GREEN)
         the_other_solutions_n5[0][3][0][-1].set_color(swGOLD)
 
-        picking_k_is_0_n5 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
-        picking_k_is_0_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_minus_2_n5 = TNT().txt('For ').tx('k=-2').txt(' we get ').tx('z=\\mathrm{e}^{-\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.4)
+        picking_k_is_minus_2_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_minus_2_n5[0][3][0][8].set_color(swGOLD)
 
-        picking_k_is_1_n5 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=e^{\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
-        picking_k_is_1_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_1_n5[0][3][0][7].set_color(swGOLD)
-
-        picking_k_is_2_n5 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=e^{\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.0)
-        picking_k_is_2_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_2_n5[0][3][0][7].set_color(swGOLD)
-
-        picking_k_is_minus_1_n5 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=e^{-\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_minus_1_n5 = TNT().txt('For ').tx('k=-1').txt(' we get ').tx('z=\\mathrm{e}^{-\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(UP * 0.2)
         picking_k_is_minus_1_n5[0][3][0][0].set_color(BLUE)
         picking_k_is_minus_1_n5[0][3][0][8].set_color(swGOLD)
 
+        picking_k_is_0_n5 = TNT().txt('For ').tx('k=0').txt(' we get ').tx('z=1').move_to(example_n3_rect.get_center()).shift(UP * 0.0)
+        picking_k_is_0_n5[0][3][0][0].set_color(BLUE)
 
-        picking_k_is_minus_2_n5 = TNT().txt('For ').tx('k=-2').txt(' we get ').tx('z=e^{-\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
-        picking_k_is_minus_2_n5[0][3][0][0].set_color(BLUE)
-        picking_k_is_minus_2_n5[0][3][0][8].set_color(swGOLD)
+        picking_k_is_1_n5 = TNT().txt('For ').tx('k=1').txt(' we get ').tx('z=\\mathrm{e}^{\\frac{2\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.2)
+        picking_k_is_1_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_1_n5[0][3][0][7].set_color(swGOLD)
+
+        picking_k_is_2_n5 = TNT().txt('For ').tx('k=2').txt(' we get ').tx('z=\\mathrm{e}^{\\frac{4\\cdot\\pi}{5}\\cdot\\mathrm{i}}').move_to(example_n3_rect.get_center()).shift(DOWN * 0.4)
+        picking_k_is_2_n5[0][3][0][0].set_color(BLUE)
+        picking_k_is_2_n5[0][3][0][7].set_color(swGOLD)
 
 
 
@@ -367,16 +372,19 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="φ must be greater than minus π and less than or equal to π") as tracker:
             self.play(swWrite(phi_inequalities_must_hold))
 
-        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times π over 3 times i.") as tracker:
-            self.play(swWrite(picking_k_is_1))
-        self.play(Create(vec_2))
-
         with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
             self.play(swWrite(picking_k_is_0))
         self.play(Create(vec_1))
+
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of 2 times π over 3 times i.") as tracker:
+            self.play(swWrite(picking_k_is_1))
+        self.play(Create(vec_2))
         
-        with self.voiceover(text="For k equals minus 1, we get 'z' equals e to the power of -2 times π over 3 times i.") as tracker:
-            self.play(swWrite(picking_k_is_minus_1))
+        with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of 4 times π over 3 times i.") as tracker:
+            self.play(swWrite(picking_k_is_2))
+
+        with self.voiceover(text="we must subtract 2 π, since this argument is greater than π. We end up with e to the power of minus 2 times π over 3 times i. This result also could have been found by using k is minus one") as tracker:
+            self.play(TransformMatchingShapes(picking_k_is_2, picking_k_is_minus_1))
         # We know that -2/3 pi is equal to 4/3 pi in rad so we draw this vector here
         self.play(Create(vec_3))
 
@@ -398,21 +406,25 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="We have the norm of 'z' equals 1 and the argument φ of 'z' equals 2 times k times π divided by 4.") as tracker:
             self.play(swWrite(the_other_solutions_n4))
 
-        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of π over 2 times i.") as tracker:
-            self.play(swWrite(picking_k_is_1_n4))
-        self.play(Create(vec_n4_2))
-
         with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
             self.play(swWrite(picking_k_is_0_n4))
         self.play(Create(vec_n4_1))
 
-        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -pi over 2 times i.") as tracker:
-            self.play(swWrite(picking_k_is_minus_1_n4))
-        self.play(Create(vec_n4_4))
+        with self.voiceover(text="For k equals 1, we get 'z' equals e to the power of π over 2 times i.") as tracker:
+            self.play(swWrite(picking_k_is_1_n4))
+        self.play(Create(vec_n4_2))
 
         with self.voiceover(text="For k equals 2, we get 'z' equals e to the power of π times i, which is  minus 1.") as tracker:
             self.play(swWrite(picking_k_is_2_n4))
         self.play(Create(vec_n4_3))
+
+        with self.voiceover(text="For k equals 3, we get 'z' equals e to the power of 6 times pi over 4 times i.") as tracker:
+            self.play(swWrite(picking_k_is_3_n4))
+
+        with self.voiceover(text="We have to subtract 2 times π to get the argument in the proper range. This is again the same result as the one obtained from using k equals minus 1.") as tracker:
+                    self.play(TransformMatchingShapes(picking_k_is_3_n4, picking_k_is_minus_1_n4))
+
+        self.play(Create(vec_n4_4))
 
         with self.voiceover(text="These are the 4 solutions to the problem. Once again, notice that the complex roots are complex conjugates of each other.") as tracker:
             self.wait(0.1)
@@ -442,6 +454,14 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         with self.voiceover(text="We have the norm of 'z' equals 1 and the argument φ of 'z' equals 2 times k times π divided by 5.") as tracker:
             self.play(swWrite(the_other_solutions_n5))
 
+        with self.voiceover(text="For k equals -2, we get 'z' equals e to the power of -4 times π over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_minus_2_n5))
+        self.play(Create(vec_n5_4))
+
+        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -2 times π over 5 times i.") as tracker:
+            self.play(swWrite(picking_k_is_minus_1_n5))
+        self.play(Create(vec_n5_5))
+
         with self.voiceover(text="For k equals 0, we get 'z' equals 1.") as tracker:
             self.play(swWrite(picking_k_is_0_n5))
         self.play(Create(vec_n5_1))
@@ -454,17 +474,9 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             self.play(swWrite(picking_k_is_2_n5))
         self.play(Create(vec_n5_3))
         
-        with self.voiceover(text="For k equals -1, we get 'z' equals e to the power of -2 times π over 5 times i.") as tracker:
-            self.play(swWrite(picking_k_is_minus_1_n5))
-        self.play(Create(vec_n5_5))
 
 
-        with self.voiceover(text="For k equals -2, we get 'z' equals e to the power of -4 times π over 5 times i.") as tracker:
-            self.play(swWrite(picking_k_is_minus_2_n5))
-        self.play(Create(vec_n5_4))
-
-
-        with self.voiceover(text="These are the 5 solutions to the problem. We once again have that the complex roots are complex conjugates of eachother, which can be seen in the graph.") as tracker:
+        with self.voiceover(text="These are the 5 solutions to the problem. We once again have that the complex roots are complex conjugates of eachother, which can be seen in the diagram.") as tracker:
             self.play(Create(VGroup()))
 
         ## Outro ##
