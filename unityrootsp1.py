@@ -64,13 +64,11 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         by_rewriting = TNT()\
             .txt("By rewriting the equation using")\
-            .shift(UP * 0.3)
 
         the_polar_exp = TNT()\
             .txt("the ")\
             .txt("polar-exponential form,", weight="SEMIBOLD")\
             .txt('we get')\
-            .shift(UP * 0.2)
 
         polar_exp1 = TNT().tx('z^n=1')\
             .set_color_by_string('z', BLUE)\
@@ -78,14 +76,12 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         polar_exp2 = TNT()\
             .tx('(\\|z\\|\\cdot \\mathrm{e}^{\\varphi \\cdot \\mathrm{i}})^n = \\|1\\|\\cdot \\mathrm{e}^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}')\
-            .shift(DOWN * 0.1)\
             .set_color_by_string('z', BLUE)\
             .set_color_by_string('n', swGOLD)\
             .set_color_by_string('\\varphi', GREEN)
 
         polar_exp2_5 = TNT()\
             .tx('\\|z\\|^n\\cdot \\mathrm{e}^{n \\cdot \\varphi \\cdot \\mathrm{i}} = \\|1\\|\\cdot \\mathrm{e}^{2 \\cdot k \\cdot \\pi \\cdot \\mathrm{i}}')\
-            .shift(DOWN * 0.1)\
             .set_color_by_string('z', BLUE)\
             .set_color_by_string('n', swGOLD)\
             .set_color_by_string('\\varphi', GREEN)
@@ -93,20 +89,17 @@ class MainScene(MovingCameraScene, VoiceoverScene):
         polar_exp3 = TNT()\
             .txt('The norm')\
             .tx('\\|z\\|^n=\\|1\\|')\
-            .shift(DOWN * 0.3)\
             .set_color_by_string('z', BLUE)\
             .set_color_by_string('n', swGOLD)
 
         polar_exp3_1 = TNT()\
             .txt('The norm')\
             .tx('\\|z\\|=1')\
-            .shift(DOWN * 0.3)\
             .set_color_by_string('z', BLUE)
 
         polar_exp4 = TNT()\
             .txt('The argument ')\
             .tx('\\varphi = \\dfrac{2\\cdot k \\cdot \\pi}{n}')\
-            .shift(DOWN * 0.6)\
             .set_color_by_string('\\varphi', GREEN)\
             .set_color_by_string('n', swGOLD)
 
@@ -115,7 +108,6 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             .tx('n', aligned_char='n', color=swGOLD)\
             .txt(' solutions for ')\
             .tx('-\\pi < \\varphi \\leq \\pi', aligned_char='<')\
-            .shift(DOWN * 0.8)\
             .set_color_by_string('n', swGOLD)\
             .set_color_by_string('\\varphi', GREEN)
 
@@ -147,36 +139,20 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             polar_exp5
         )
 
-        # setup the plane
-        polarplane_pi = PolarPlane(
-            azimuth_units="PI radians",
-            azimuth_step=24,
-            size=7,
-            azimuth_label_font_size=33.6,
-            radius_max=1.5,
-            radius_step=0.5,
-            background_line_style=BACKGROUND_LINE_STYLE,
-            radius_config=AXIS_CONFIG
-        ).add_coordinates().scale(0.25)
-
-        polarplane_rect = swRoundedRectangle(height=2.1, width=2.2)\
-            .move_to(polarplane_pi.get_center())
-
-        polarplane_pi[2:].set_color(DARK_GREY)
-        polarplane_pi[3][2][0].shift(UP * 9)
-        polarplane_pi[4][0][2][0].shift(UP * 9)
-
-        label_Y_im = TNT()\
-            .tx('\\mathrm{Im}')\
-            .shift(UP * 0.8 + LEFT * 0.14)
-
-        label_X_re = TNT()\
-            .tx('\\mathrm{Re}')\
-            .shift(RIGHT * 0.8 + DOWN * 0.11)
-
         # #####################
         # EXAMPLE n=3
         # #####################
+
+        # setup the plane
+        polarplane_pi = swPolarPlane(
+            angle_step=np.pi/12,
+            add_complex_labels=True
+        ).scale(0.25)
+    
+        # right rectangle
+        polarplane_rect = swRoundedRectangle(height=2.1, width=2.2)\
+            .move_to(polarplane_pi.get_center())
+
         example_n3_rect = swRoundedRectangle(height=2.1, width=2)\
             .shift(LEFT * 1.15)
 
@@ -186,12 +162,6 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             .move_to(example_n3_rect.get_center() + UP * 0.9)\
             .set_color_by_string('3', swGOLD)\
             .set_color_by_string('z', BLUE)
-
-        title_underline = Line(
-            solve_n3_is_1.get_corner(DL) + LEFT*0.65,
-            solve_n3_is_1.get_corner(DR) + RIGHT*0.65,
-            color=GREY, stroke_width=0.2
-        ).shift(DOWN*0.07)
 
         the_other_solutions = TNT()\
             .txt('We have ')\
@@ -290,7 +260,7 @@ class MainScene(MovingCameraScene, VoiceoverScene):
             .add_tip(tip_length=0.1, tip_width=0.06)\
             .shift(RIGHT * 1.1 + UP *0.01)
 
-        polarplane_group = VGroup(ex1_rect, polarplane_pi, label_X_re, label_Y_im)
+        polarplane_group = VGroup(ex1_rect, polarplane_pi)
 
 
         # ANIMATIONS
@@ -360,7 +330,6 @@ class MainScene(MovingCameraScene, VoiceoverScene):
 
         with self.voiceover(text="We will now take a look at an example and draw the solutions in an Argand diagram.") as tracker:
             self.play(Create(polarplane_pi))
-            self.play(swWrite(label_Y_im), swWrite(label_X_re), run_time=0.4)
 
         self.play(polarplane_group.animate.shift(RIGHT * 1.1 + UP * 0.01))
 
